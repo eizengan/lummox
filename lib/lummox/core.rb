@@ -2,7 +2,5 @@
 
 require_relative "core/zeitwerk"
 
-module Lummox
-  module Core
-  end
+module Lummox::Core
 end
