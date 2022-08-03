@@ -2,6 +2,7 @@
 
 require "bundler/setup"
 require "pry-byebug"
+require "super_diff/rspec"
 require "lummox/sdl"
 
 RSpec.configure do |config|
