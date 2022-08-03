@@ -28,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "ffi", "~> 1.0"
   spec.add_dependency "zeitwerk", "~> 2.0"
 
   spec.add_development_dependency "pry-byebug", "~> 3.0"
