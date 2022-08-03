@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative "lib/lummox/core/version"
+require_relative "lib/lummox/sdl/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "lummox-core"
-  spec.version = Lummox::Core::VERSION
+  spec.name = "lummox-sdl"
+  spec.version = Lummox::SDL::VERSION
   spec.authors = ["Nate Eizenga"]
   spec.email = ["eizengan@gmail.com"]
 
   spec.summary = "A SDL FFI wrapper tailored to lummox"
   spec.description = spec.summary
-  spec.homepage = "https://github.com/eizengan/lummox-core"
+  spec.homepage = "https://github.com/eizengan/lummox-sdl"
   spec.required_ruby_version = ">= 2.6.0"
 
   spec.metadata["homepage_uri"] = spec.homepage

@@ -2,8 +2,7 @@
 
 require "ffi"
 
-
-module Lummox::Core::SDL::Initialization
+module Lummox::SDL::Initialization
   extend FFI::Library
 
   ffi_lib FFI::CURRENT_PROCESS
@@ -52,7 +51,7 @@ module Lummox::Core::SDL::Initialization
     end
 
     def init!(*subsystems)
-      subsystems = Lummox::SDL::Core::Initialization::SUBSYSTEMS if subsystems.nil? || subsystems.empty?
+      subsystems = Lummox::SDL::Initialization::SUBSYSTEMS if subsystems.nil? || subsystems.empty?
       return if init?(*subsystems)
 
       flags = flags_from_subsystems(*subsystems)
@@ -63,7 +62,7 @@ module Lummox::Core::SDL::Initialization
     # TRICKY: Create helper methods to:
     # - determine whether particular subsytems were init (e.g. `audio_init?`)
     # - initialize particular subsytems if uninitialized (e.g. `audio_init!`)
-    ::Lummox::Core::SDL::Initialization::SUBSYSTEMS.each do |subsystem|
+    ::Lummox::SDL::Initialization::SUBSYSTEMS.each do |subsystem|
       define_method(:"#{subsystem}_init?") { init?(subsystem) }
       define_method(:"#{subsystem}_init!") { init!(subsystem) }
     end

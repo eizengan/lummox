@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-RSpec.describe Lummox::Core do
+RSpec.describe Lummox::SDL do
   it "has a version number" do
-    expect(Lummox::Core::VERSION).not_to be nil
+    expect(Lummox::SDL::VERSION).not_to be nil
   end
 
   it "does something useful" do

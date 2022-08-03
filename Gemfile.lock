@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lummox-core (0.1.0)
+    lummox-sdl (0.1.0)
       ffi (~> 1.0)
       zeitwerk (~> 2.0)
 
@@ -61,7 +61,7 @@ PLATFORMS
   x86_64-darwin-21
 
 DEPENDENCIES
-  lummox-core!
+  lummox-sdl!
   pry-byebug (~> 3.0)
   rake (~> 13.0)
   rspec (~> 3.0)
