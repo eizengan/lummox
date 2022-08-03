@@ -7,6 +7,7 @@ module Lummox::SDL::Initialization
 
   ffi_lib FFI::CURRENT_PROCESS
 
+  # rubocop:disable Layout/HashAlignment
   SUBSYSTEM_FLAGS = {
     timer:          0x00000001,
     audio:          0x00000010,
@@ -17,6 +18,7 @@ module Lummox::SDL::Initialization
     events:         0x00004000,
     sensor:         0x00008000
   }.freeze
+  # rubocop:enable Layout/HashAlignment
   SUBSYSTEMS = SUBSYSTEM_FLAGS.keys.freeze
 
   def self.flags_from_subsystems(*subsystems)
