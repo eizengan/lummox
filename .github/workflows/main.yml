@@ -1,27 +1,77 @@
-name: Ruby
+name: CI
 
 on:
+  pull_request:
   push:
     branches:
-      - main
+    - main
 
-  pull_request:
+defaults:
+  run:
+    shell: bash
+env:
+  BUNDLE_PATH: vendor/bundle
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: Ruby ${{ matrix.ruby }}
+  ci:
     strategy:
+      fail-fast: false
       matrix:
-        ruby:
-          - '3.1.0'
-
+        os: ['macos', 'ubuntu', 'windows']
+        ruby: ['2.6', '2.7', '3.0', '3.1']
+    runs-on: ${{ matrix.os }}-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
+      with:
+        fetch-depth: 2
+    - name: Install SDL (MacOS)
+      id: install-sdl2-macos
+      if: matrix.os == 'macos'
+      run: |
+        brew install sdl2
+        echo "::set-output name=lib_sdl2::/usr/local/Cellar/sdl2/2.0.22/lib/libSDL2.dylib"
+    - name: Install SDL (Ubuntu)
+      id: install-sdl2-ubuntu
+      if: matrix.os == 'ubuntu'
+      run: |
+        sudo apt-get install libsdl2-2.0-0
+        echo "::set-output name=lib_sdl2::/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0"
+    - name: Install SDL (Windows)
+      if: matrix.os == 'windows'
+      id: install-sdl2-windows
+      run: |
+        mkdir sdl2
+        curl -o sdl2/sdl2.zip https://www.libsdl.org/release/SDL2-2.0.22-win32-x64.zip
+        unzip -d sdl2 sdl2/sdl2.zip
+        echo "::set-output name=lib_sdl2::$PWD/sdl2/SDL2.dll"
+    - name: Determine SDL location
+      id: determine-sdl2-location
+      env:
+        LIB_SDL2: >
+          ${{
+            steps.install-sdl2-macos.outputs.lib_sdl2
+            || steps.install-sdl2-ubuntu.outputs.lib_sdl2
+            || steps.install-sdl2-windows.outputs.lib_sdl2
+          }}
+      run: echo "::set-output name=lib_sdl2::$LIB_SDL2"
+    - uses: ruby/setup-ruby@v1
       with:
         ruby-version: ${{ matrix.ruby }}
-        bundler-cache: true
-    - name: Run the default task
-      run: bundle exec rake
+    - name: Cache dependencies
+      id: cache-dependencies
+      uses: actions/cache@v2
+      with:
+        path: ${{ env.BUNDLE_PATH }}
+        key: ${{ matrix.os }}-${{ matrix.ruby }}-gems-${{ hashFiles('**/Gemfile', '**/*.gemspec') }}
+        restore-keys: ${{ matrix.os }}-${{ matrix.ruby }}-gems-
+    - name: Install dependencies
+      if: steps.cache-dependencies.outputs.cache-hit != 'true'
+      run: bundle install --jobs 20 --retry 5
+    - name: Lint files
+      env:
+        LIB_SDL2: ${{ steps.determine-sdl2-location.outputs.lib_sdl2 }}
+      run: bundle exec rake rubocop
+    - name: Run tests
+      env:
+        LIB_SDL2: ${{ steps.determine-sdl2-location.outputs.lib_sdl2 }}
+      run: bundle exec rake rspec

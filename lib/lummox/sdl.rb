@@ -4,7 +4,7 @@ require "ffi"
 require_relative "sdl/zeitwerk"
 
 module Lummox::SDL
-  LIB_SDL2 = "/usr/local/Cellar/sdl2/2.0.22/lib/libSDL2.dylib"
+  LIB_SDL2 = ENV.fetch("LIB_SDL2").freeze
 
   extend FFI::Library
 
