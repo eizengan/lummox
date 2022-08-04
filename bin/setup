@@ -3,6 +3,14 @@ set -euo pipefail
 IFS=$'\n\t'
 set -vx
 
-bundle install
+bundle install --jobs 20 --retry 5
 
-# Do any other automated setup that you need to do here
+if [ ! -f $LIB_SDL2 ]; then
+  echo -e "\nFile '$LIB_SDL2' not found. Export your SDL2 lib path as LIB_SDL2 and try again" \
+          "\nVisit https://www.libsdl.org/download-2.0.php to download" \
+          "\nVisit https://wiki.libsdl.org/Installation for alternative installation instructions"
+
+  exit 1
+fi
+
+echo -e "\nSetup completed successfully!"
