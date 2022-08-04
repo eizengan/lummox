@@ -3,15 +3,16 @@
 require_relative "lib/lummox/sdl/version"
 
 Gem::Specification.new do |spec|
+  raise "RubyGems 2.0 or newer is required to protect against public gem pushes." unless spec.respond_to?(:metadata)
+
   spec.name = "lummox-sdl"
   spec.version = Lummox::SDL::VERSION
   spec.authors = ["Nate Eizenga"]
   spec.email = ["eizengan@gmail.com"]
 
   spec.summary = "A SDL FFI wrapper tailored to lummox"
-  spec.description = spec.summary
   spec.homepage = "https://github.com/eizengan/lummox-sdl"
-  spec.required_ruby_version = ">= 2.6.0"
+  spec.license = "zlib"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
@@ -25,9 +26,11 @@ Gem::Specification.new do |spec|
       (f == __FILE__) || f.match(%r{\A(?:(?:test|spec|features)/|\.(?:git|travis|circleci)|appveyor)})
     end
   end
-  spec.bindir = "exe"
-  spec.executables = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
+  spec.bindir = "bin"
+  spec.executables += spec.files.grep(%r{\A#{spec.bindir}/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
+
+  spec.required_ruby_version = [">= 2.6", "< 4"]
 
   spec.add_dependency "ffi", "~> 1.0"
   spec.add_dependency "zeitwerk", "~> 2.0"
@@ -40,7 +43,4 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rubocop-rake", "~> 0.0"
   spec.add_development_dependency "rubocop-rspec", "~> 2.0"
   spec.add_development_dependency "super_diff", "~> 0.0"
-
-  # For more information and examples about making a new gem, check out our
-  # guide at: https://bundler.io/guides/creating_gem.html
 end
