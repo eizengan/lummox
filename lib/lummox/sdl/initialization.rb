@@ -33,23 +33,22 @@ module Lummox::SDL::Initialization
   # - video initializes events
   # TODO: Implement SDL_WinRTRunApp?
   # TODO: Implement SDL_SetMainReady?
-  attach_function :SDL_Init, [:uint32], :int
-  attach_function :SDL_WasInit, [:uint32], :uint32
-  private :SDL_Init, :SDL_WasInit
-  private_class_method :SDL_Init, :SDL_WasInit
+  attach_function :sdl_init, :SDL_Init, [:uint32], :int
+  attach_function :sdl_was_init, :SDL_WasInit, [:uint32], :uint32
+  private :sdl_init, :sdl_was_init
+  private_class_method :sdl_init, :sdl_was_init
 
   attach_function :quit, :SDL_Quit, [], :void
 
-  # Rubylike additions:
   class << self
     def init_subsystems
-      initialized_flags = SDL_WasInit(0)
+      initialized_flags = sdl_was_init(0)
       SUBSYSTEM_FLAGS.filter { |_, flag| initialized_flags & flag == flag }.keys
     end
 
     def init?(*subsystems)
       flags = flags_from_subsystems(*subsystems)
-      SDL_WasInit(flags) == flags
+      sdl_was_init(flags) == flags
     end
 
     def init!(*subsystems)
@@ -57,8 +56,8 @@ module Lummox::SDL::Initialization
       return if init?(*subsystems)
 
       flags = flags_from_subsystems(*subsystems)
-      initialized_flags = SDL_WasInit(0)
-      success_code = SDL_Init(flags ^ initialized_flags)
+      initialized_flags = sdl_was_init(0)
+      success_code = sdl_init(flags ^ initialized_flags)
       Lummox::SDL::Error.raise_if { success_code.negative? }
     end
 
