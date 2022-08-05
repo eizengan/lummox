@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ['macos', 'ubuntu', 'windows']
+        os: ['macos', 'windows'] # , 'ubuntu' unable init video; no x server, perhaps?
         ruby: ['2.6', '2.7', '3.0', '3.1']
     runs-on: ${{ matrix.os }}-latest
     steps:
