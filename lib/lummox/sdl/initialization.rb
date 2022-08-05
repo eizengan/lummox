@@ -46,17 +46,17 @@ module Lummox::SDL::Initialization
       Lummox::SDL::Error.raise_if { success_code.negative? }
     end
 
+    def init?(*subsystems)
+      flags = flags_from_subsystems(*subsystems)
+      was_init(flags) == flags
+    end
+
     # TRICKY: Create helper methods to:
     # - determine whether particular subsytems were init (e.g. `audio_init?`)
     # - initialize particular subsytems if uninitialized (e.g. `audio_init!`)
     ::Lummox::SDL::Initialization::SUBSYSTEMS.each do |subsystem|
       define_method(:"#{subsystem}_init?") { init?(subsystem) }
       define_method(:"#{subsystem}_init!") { init!(subsystem) }
-    end
-
-    def init?(*subsystems)
-      flags = flags_from_subsystems(*subsystems)
-      was_init(flags) == flags
     end
 
     def init_subsystems

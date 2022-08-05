@@ -55,4 +55,7 @@ RSpec.configure do |config|
       klass.remove_instance_variable(instance_variable) if klass.instance_variable_defined?(instance_variable)
     end
   end
+
+  # TRICKY: SDL subsystems stay initialized across test runs, and must be shut down to keep state sensible
+  config.prepend_before { Lummox::SDL::Initialization.quit! }
 end
