@@ -58,7 +58,8 @@ module Lummox::SDL::Initialization
 
       flags = flags_from_subsystems(*subsystems)
       initialized_flags = SDL_WasInit(0)
-      SDL_Init(flags ^ initialized_flags)
+      success_code = SDL_Init(flags ^ initialized_flags)
+      Lummox::SDL::Error.raise_if { success_code.negative? }
     end
 
     # TRICKY: Create helper methods to:
