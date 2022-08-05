@@ -7,10 +7,10 @@ class Lummox::SDL::Error < StandardError
 
   ffi_lib FFI::CURRENT_PROCESS
 
-  attach_function :SDL_GetError, [], :strptr
-  attach_function :SDL_SetError, %i[string varargs], :int
-  private :SDL_GetError, :SDL_SetError
-  private_class_method :SDL_GetError, :SDL_SetError
+  attach_function :sdl_get_error, :SDL_GetError, [], :strptr
+  attach_function :sdl_set_error, :SDL_SetError, %i[string varargs], :int
+  private :sdl_get_error, :sdl_set_error
+  private_class_method :sdl_get_error, :sdl_set_error
 
   attach_function :clear_error, :SDL_ClearError, [], :void
   private :clear_error # Only class-level; don't pollute Error instances
@@ -24,13 +24,13 @@ class Lummox::SDL::Error < StandardError
       raise_current_error unless yield
     end
 
-    def raise
-      error_message, _pointer = Foo::FFI.foo_encode(p_input, p_input.size)
+    def raise_current_error
+      error_message, _pointer = sdl_get_error
       raise self, error_message
     end
 
     def set_error(error_message) # rubocop:disable Naming/AccessorMethodName
-      SDL_SetError(error_message)
+      sdl_set_error(error_message)
     end
   end
 end
