@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "ffi"
-
 class Lummox::SDL::Error < StandardError
   extend Lummox::SDL::Library
 
