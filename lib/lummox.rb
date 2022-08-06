@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "lummox/zeitwerk"
+
 module Lummox
-  module SDL
-    VERSION = "0.1.0"
-  end
 end

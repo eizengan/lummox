@@ -1,4 +1,4 @@
-Lummox SDL
+Lummox
 Copyright (C) 2022-2022 Nate Eizenga <eizengan@gmail.com>
 
 This software is provided 'as-is', without any express or implied

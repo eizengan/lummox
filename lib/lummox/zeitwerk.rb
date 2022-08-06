@@ -2,14 +2,15 @@
 
 require "zeitwerk"
 
-module_dir = File.realpath("#{__dir__}/../..")
-module_file = "#{module_dir}/lummox/sdl.rb"
+module_dir = File.realpath("#{__dir__}/..")
+module_file = "#{module_dir}/lummox.rb"
 
 Zeitwerk::Loader.new.tap do |loader|
-  loader.tag = "lummox-sdl"
+  loader.tag = "lummox"
   loader.inflector = Zeitwerk::GemInflector.new(module_file).tap do |inflector|
     inflector.inflect(
-      "sdl" => "SDL"
+      "sdl" => "SDL",
+      "sdl_error" => "SDLError"
     )
   end
   loader.do_not_eager_load(__FILE__)

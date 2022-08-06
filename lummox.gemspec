@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
-require_relative "lib/lummox/sdl/version"
+require_relative "lib/lummox/version"
 
 Gem::Specification.new do |spec|
   raise "RubyGems 2.0 or newer is required to protect against public gem pushes." unless spec.respond_to?(:metadata)
 
-  spec.name = "lummox-sdl"
-  spec.version = Lummox::SDL::VERSION
+  spec.name = "lummox"
+  spec.version = Lummox::VERSION
   spec.authors = ["Nate Eizenga"]
   spec.email = ["eizengan@gmail.com"]
 
-  spec.summary = "A SDL FFI wrapper tailored to lummox"
-  spec.homepage = "https://github.com/eizengan/lummox-sdl"
+  spec.summary = "A SDL-based game library"
+  spec.homepage = "https://github.com/eizengan/lummox"
   spec.license = "zlib"
 
   spec.metadata["homepage_uri"] = spec.homepage

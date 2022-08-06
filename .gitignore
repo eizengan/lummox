@@ -11,7 +11,7 @@
 .rspec_status
 
 # built gems
-lummox-sdl-*.gem
+lummox-*.gem
 
 # lock should vary by version
 Gemfile.lock

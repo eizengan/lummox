@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "../../lib/lummox/sdl_error"
-
 RSpec.describe Lummox::SDLError do
   describe ".raise_current_error" do
     subject(:raise_current_error) { described_class.raise_current_error }

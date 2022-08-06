@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require_relative "sdl/zeitwerk"
-require_relative "./sdl_error"
-
 module Lummox::SDL
   # rubocop:disable Layout/HashAlignment
   SUBSYSTEM_FLAGS = {
@@ -26,7 +23,7 @@ module Lummox::SDL
       flags = flags_from_subsystems(*subsystems)
       initialized_flags = Initialization.was_init(0)
       success_code = Initialization.init(flags ^ initialized_flags)
-      ::Lummox::SDLError.raise_if { success_code.negative? }
+      Lummox::SDLError.raise_if { success_code.negative? }
     end
 
     def init?(*subsystems)

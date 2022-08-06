@@ -3,7 +3,7 @@
 require "bundler/setup"
 require "pry-byebug"
 require "super_diff/rspec"
-require "lummox/sdl"
+require "lummox"
 
 RSpec.configure do |config|
   # Show detailed output when only one file is run

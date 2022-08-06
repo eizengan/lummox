@@ -2,5 +2,5 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in lummox-sdl.gemspec
+# Specify your gem's dependencies in lummox.gemspec
 gemspec
