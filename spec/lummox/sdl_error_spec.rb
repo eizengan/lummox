@@ -1,34 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe Lummox::SDL::Error do
-  describe ".set_error" do
-    subject(:set_error) { described_class.set_error("oh no! an error happened") }
+require_relative "../../lib/lummox/sdl_error"
 
-    it "sets the error stored by SDL and returns an error code" do
-      expect(set_error).to be(-1)
-
-      error_message = described_class.send(:get_error)[0]
-      expect(error_message).to eq "oh no! an error happened"
-    end
-  end
-
-  describe ".clear_error" do
-    subject(:set_error) { described_class.clear_error }
-
-    before { described_class.set_error("oh no! an error happened") }
-
-    it "clears the error stored by SDL" do
-      set_error
-
-      error_message = described_class.send(:get_error)[0]
-      expect(error_message).to be_empty
-    end
-  end
-
+RSpec.describe Lummox::SDLError do
   describe ".raise_current_error" do
     subject(:raise_current_error) { described_class.raise_current_error }
 
-    before { described_class.set_error("oh no! an error happened") }
+    before { Lummox::SDL::Error.set_error("oh no! an error happened") }
 
     it "raises the error stored by SDL" do
       expect { raise_current_error }.to raise_error described_class, "oh no! an error happened"
@@ -40,7 +18,7 @@ RSpec.describe Lummox::SDL::Error do
 
     let(:condition) { nil }
 
-    before { described_class.set_error("oh no! an error happened") }
+    before { Lummox::SDL::Error.set_error("oh no! an error happened") }
 
     describe "when the condition evaluates to true" do
       let(:condition) { true }
@@ -64,7 +42,7 @@ RSpec.describe Lummox::SDL::Error do
 
     let(:condition) { nil }
 
-    before { described_class.set_error("oh no! an error happened") }
+    before { Lummox::SDL::Error.set_error("oh no! an error happened") }
 
     describe "when the condition evaluates to true" do
       let(:condition) { true }

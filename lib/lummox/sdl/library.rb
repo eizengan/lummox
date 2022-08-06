@@ -12,12 +12,10 @@ module Lummox::SDL::Library
     mod.ffi_lib [FFI::CURRENT_PROCESS, LIB_SDL2]
   end
 
-  def attach_sdl_function(method_name, args, ret, visibility: :public)
+  def attach_sdl_function(method_name, args, ret)
     sdl_method_name = sdl_method_name(method_name)
     attach_function method_name, sdl_method_name, args, ret
-
-    private method_name unless %i[public instance].include?(visibility)
-    private_class_method method_name unless %i[public module class].include?(visibility)
+    private method_name
   end
 
   private
