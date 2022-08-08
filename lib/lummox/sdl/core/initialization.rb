@@ -2,7 +2,7 @@
 
 # TODO: move into Core directly?
 module Lummox::SDL::Core::Initialization
-  extend Lummox::SDL::Library
+  extend Lummox::SDL::Core::Library
 
   SDL_INIT_TIMER          = 0x00000001
   SDL_INIT_AUDIO          = 0x00000010

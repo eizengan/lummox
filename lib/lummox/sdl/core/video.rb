@@ -48,7 +48,7 @@
 # - SDL_GetWindowWMInfo           - driver-, and system-dependent info
 
 module Lummox::SDL::Core::Video
-  extend Lummox::SDL::Library
+  extend Lummox::SDL::Core::Library
 
   # MessageBoxButtonData button_flags
   SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001
@@ -128,7 +128,10 @@ module Lummox::SDL::Core::Video
   end
 
   class MessageBoxColorScheme < FFI::Struct
-    layout :colors, [Color, ColorType[:max]]
+    layout :colors, [
+      Lummox::SDL::Core::Video::MessageBoxColor,
+      Lummox::SDL::Core::Video::MessageBoxColorType[:message_box_color_max]
+    ]
   end
 
   class MessageBoxData < FFI::Struct
@@ -137,8 +140,8 @@ module Lummox::SDL::Core::Video
            :title,             :pointer,
            :message,           :pointer,
            :num_buttons,       :int,
-           :buttons,           :buffer_in,
-           :color_scheme,       ColorScheme.by_ref # null for system settings
+           :buttons,           :pointer,
+           :color_scheme,       Lummox::SDL::Core::Video::MessageBoxColorScheme.by_ref # null for system settings
   end
 
   # Displays
@@ -163,7 +166,7 @@ module Lummox::SDL::Core::Video
   #   Creation, ownership
   attach_sdl_function :create_window, %i[string int int int int uint32], :pointer # nil if error
   attach_sdl_function :destroy_window, %i[pointer], :void
-  attach_sdl_function :set_window_modal_for, %i[pointer pointer] # negative if error
+  attach_sdl_function :set_window_modal_for, %i[pointer pointer], :int # negative if error
   #   Display, display mode
   attach_sdl_function :get_window_display_index, %i[pointer], :int
   attach_sdl_function :get_window_display_mode, [:pointer, DisplayMode.by_ref], :int # negative if error
@@ -194,7 +197,7 @@ module Lummox::SDL::Core::Video
   attach_sdl_function :raise_window, %i[pointer], :void
   attach_sdl_function :get_window_opacity, %i[pointer float_pointer], :int # negative if error
   attach_sdl_function :set_window_opacity, %i[pointer float], :int # negative if error
-  attach_sdl_function :flash_window, %i[pointer flash_operation] # negative if error
+  attach_sdl_function :flash_window, [:pointer, WindowFlashOperation], :int # negative if error
   #   Screen saver
   attach_sdl_function :disable_screen_saver, %i[], :void
   attach_sdl_function :enable_screen_saver, %i[], :void
