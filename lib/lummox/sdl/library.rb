@@ -7,15 +7,20 @@ module Lummox::SDL::Library
 
   def self.extended(mod)
     super
+
     mod.extend FFI::Library
     mod.ffi_lib_flags :now, :global
     mod.ffi_lib [FFI::CURRENT_PROCESS, LIB_SDL2]
+
+    mod.enum :bool, %i[false true]
+
+    mod.typedef Lummox::SDL::Pointers::Int.by_ref, :int_pointer
+    mod.typedef Lummox::SDL::Pointers::Float.by_ref, :float_pointer
   end
 
   def attach_sdl_function(method_name, args, ret)
     sdl_method_name = sdl_method_name(method_name)
     attach_function method_name, sdl_method_name, args, ret
-    private method_name
   end
 
   private
