@@ -3,14 +3,14 @@
 module Lummox::SDL
   # rubocop:disable Layout/HashAlignment
   SUBSYSTEM_FLAGS = {
-    timer:          Initialization::SDL_INIT_TIMER,
-    audio:          Initialization::SDL_INIT_AUDIO,
-    video:          Initialization::SDL_INIT_VIDEO,
-    joystick:       Initialization::SDL_INIT_JOYSTICK,
-    haptic:         Initialization::SDL_INIT_HAPTIC,
-    gamecontroller: Initialization::SDL_INIT_GAMECONTROLLER,
-    events:         Initialization::SDL_INIT_EVENTS,
-    sensor:         Initialization::SDL_INIT_SENSOR
+    timer:          Core::Initialization::SDL_INIT_TIMER,
+    audio:          Core::Initialization::SDL_INIT_AUDIO,
+    video:          Core::Initialization::SDL_INIT_VIDEO,
+    joystick:       Core::Initialization::SDL_INIT_JOYSTICK,
+    haptic:         Core::Initialization::SDL_INIT_HAPTIC,
+    gamecontroller: Core::Initialization::SDL_INIT_GAMECONTROLLER,
+    events:         Core::Initialization::SDL_INIT_EVENTS,
+    sensor:         Core::Initialization::SDL_INIT_SENSOR
   }.freeze
   # rubocop:enable Layout/HashAlignment
   SUBSYSTEMS = SUBSYSTEM_FLAGS.keys.freeze
@@ -21,14 +21,14 @@ module Lummox::SDL
       return if init?(*subsystems)
 
       flags = flags_from_subsystems(*subsystems)
-      initialized_flags = Initialization.was_init(0)
-      success_code = Initialization.init(flags ^ initialized_flags)
-      Lummox::SDLError.raise_if { success_code.negative? }
+      initialized_flags = Core.was_init(0)
+      success_code = Core.init(flags ^ initialized_flags)
+      Error.raise_if { success_code.negative? }
     end
 
     def init?(*subsystems)
       flags = flags_from_subsystems(*subsystems)
-      Initialization.was_init(flags) == flags
+      Core.was_init(flags) == flags
     end
 
     # TRICKY: Create helper methods to:
@@ -40,12 +40,12 @@ module Lummox::SDL
     end
 
     def init_subsystems
-      initialized_flags = Initialization.was_init(0)
+      initialized_flags = Core.was_init(0)
       SUBSYSTEM_FLAGS.filter { |_, flag| initialized_flags & flag == flag }.keys
     end
 
     def quit!
-      Initialization.quit
+      Core.quit
     end
 
     def flags_from_subsystems(*subsystems)

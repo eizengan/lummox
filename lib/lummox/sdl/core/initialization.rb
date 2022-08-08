@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-module Lummox::SDL::Initialization
+# TODO: move into Core directly?
+module Lummox::SDL::Core::Initialization
   extend Lummox::SDL::Library
 
   SDL_INIT_TIMER          = 0x00000001
