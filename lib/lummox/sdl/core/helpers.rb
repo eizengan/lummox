@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Lummox::SDL::Pointers
-  class Int < FFI::Struct
+module Lummox::SDL::Core::Helpers
+  class IntPtr < FFI::Struct
     layout  :value, :int
 
     def value
@@ -9,7 +9,7 @@ module Lummox::SDL::Pointers
     end
   end
 
-  class Float < FFI::Struct
+  class FloatPtr < FFI::Struct
     layout  :value, :float
 
     def value
