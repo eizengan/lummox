@@ -1,51 +1,5 @@
 # frozen_string_literal: true
 
-# NEXT UP:
-# - SDL_GetWindowGammaRamp
-# - SDL_SetWindowGammaRamp
-# - SDL_GetGrabbedWindow
-# - SDL_SetWindowIcon
-# - SDL_GetWindowFromID
-# - SDL_GetWindowID
-# - SDL_GetWindowFlags
-# - SDL_GetWindowPixelFormat
-# - SDL_SetWindowHitTest
-# - SDL_HitTestResult
-#
-# - SDL_GL_CreateContext
-# - SDL_GL_DeleteContext
-# - SDL_GL_ExtensionSupported
-# - SDL_GL_GetAttribute
-# - SDL_GL_GetCurrentContext
-# - SDL_GL_GetCurrentWindow
-# - SDL_GL_GetDrawableSize
-# - SDL_GL_GetProcAddress
-# - SDL_GL_GetSwapInterval
-# - SDL_GL_LoadLibrary
-# - SDL_GL_MakeCurrent
-# - SDL_GL_ResetAttributes
-# - SDL_GL_SetAttribute
-# - SDL_GL_SetSwapInterval
-# - SDL_GL_SwapWindow
-# - SDL_GL_UnloadLibrary
-# - SDL_GLattr
-# - SDL_GLcontextFlag
-# - SDL_GLprofile
-# IGNORE:
-# - SDL_CreateWindowAndRenderer   - separate concerns
-# - SDL_CreateWindowFrom          - requires existing native window
-# - SDL_VideoInit                 - prefer consolidated initialization
-# - SDL_VideoQuit                 - prefer consolidated initialization
-# - SDL_GetWindowBrightness       - display brightness, not window; unavailable on many modern platforms
-# - SDL_SetWindowBrightness       - display brightness, not window; unavailable on many modern platforms
-# - SDL_GetWindowData             - what even is this?
-# - SDL_SetWindowData             - what even is this?
-# - SDL_GetWindowSurface          - blitting, not rendering
-# - SDL_UpdateWindowSurface       - blitting, not rendering
-# - SDL_UpdateWindowSurfaceRects  - blitting, not rendering
-# - SDL_SetWindowInputFocus       - raise window instead; don't grab input while buried/hidden
-# - SDL_GetWindowWMInfo           - driver-, and system-dependent info
-
 module Lummox::SDL::Window
   extend Lummox::SDL::Library
 
