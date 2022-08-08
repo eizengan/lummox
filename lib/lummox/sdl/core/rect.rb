@@ -3,21 +3,27 @@
 module Lummox::SDL::Core::Rect
   extend Lummox::SDL::Core::Library
 
+  # rubocop:disable Layout/SpaceInsideArrayPercentLiteral
+
   class Rect < FFI::Struct
-    layout *%i[
+    layout(*%i[
       x      int
       y      int
       width  int
       height int
-    ]
+    ])
   end
 
   class Point < FFI::Struct
-    layout *%i[
+    layout(*%i[
       x      int
       y      int
-    ]
+    ])
   end
+
+  # rubocop:enable Layout/SpaceInsideArrayPercentLiteral
+
+  # rubocop:disable Layout/LineLength
 
   attach_sdl_function :enclose_points, [:pointer, :int, Rect.by_ref, Rect.by_ref], :bool
   attach_sdl_function :has_intersection, [Rect.by_ref, Rect.by_ref], :bool
@@ -28,4 +34,5 @@ module Lummox::SDL::Core::Rect
   # attach_sdl_function :rect_equals, [Rect.by_ref, Rect.by_ref], :bool
   attach_sdl_function :union_rect, [Rect.by_ref, Rect.by_ref, Rect.by_ref], :void
 
+  # rubocop:enable Layout/LineLength
 end

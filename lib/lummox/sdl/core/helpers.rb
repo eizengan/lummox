@@ -2,7 +2,7 @@
 
 module Lummox::SDL::Core::Helpers
   class IntPtr < FFI::Struct
-    layout  :value, :int
+    layout :value, :int
 
     def value
       self[:value]
@@ -10,7 +10,7 @@ module Lummox::SDL::Core::Helpers
   end
 
   class FloatPtr < FFI::Struct
-    layout  :value, :float
+    layout :value, :float
 
     def value
       self[:value]

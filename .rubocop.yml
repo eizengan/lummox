@@ -6,12 +6,18 @@ require:
 AllCops:
   TargetRubyVersion: 2.6
 
+  Exclude:
+    - 'examples/**'
+
   # opt-in new cops
   NewCops: enable
 
 # overrides
 Layout/LineLength:
   Max: 120
+
+Layout/FirstArrayElementIndentation:
+  EnforcedStyle: consistent
 
 Style/ClassAndModuleChildren:
   Enabled: false

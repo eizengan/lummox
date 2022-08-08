@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 # NEXT UP:
+# - SDL_GetWindowFromID
+# - SDL_GetWindowID
+#
 # - SDL_GetDisplayDPI
 # - SDL_GetWindowGammaRamp
 # - SDL_SetWindowGammaRamp
 # - SDL_GetGrabbedWindow
 # - SDL_SetWindowIcon
-# - SDL_GetWindowFromID
-# - SDL_GetWindowID
 # - SDL_GetWindowFlags
 # - SDL_GetWindowPixelFormat
 # - SDL_SetWindowHitTest
@@ -62,7 +63,7 @@ module Lummox::SDL::Core::Video
   # Window flags
   #   Fullscreen Flags
   SDL_WINDOW_FULLSCREEN         = 0x00000001
-  SDL_WINDOW_FULLSCREEN_DESKTOP = SDL_WINDOW_FULLSCREEN | 0x00000010
+  SDL_WINDOW_FULLSCREEN_DESKTOP = (SDL_WINDOW_FULLSCREEN | 0x00000010).freeze
   #   Other capabilities
   SDL_WINDOW_OPENGL             = 0x00000002
   SDL_WINDOW_VULKAN             = 0x10000000
@@ -85,53 +86,55 @@ module Lummox::SDL::Core::Video
   # SDL_WINDOW_TOOLTIP            = 0x00040000 # x11 only
   # SDL_WINDOW_POPUP_MENU         = 0x00080000 # x11 only
 
-  MessageBoxColorType = enum *%i[
+  MessageBoxColorType = enum(*%i[
     message_box_color_background
     message_box_color_text
     message_box_color_button_border
     message_box_color_button_background
     message_box_color_button_selected
     message_box_color_max
-  ]
+  ]).freeze
 
-  WindowFlashOperation = enum %i[
+  WindowFlashOperation = enum(%i[
     flash_cancel
     flash_briefly
     flash_until_focused
-  ]
+  ]).freeze
+
+  # rubocop:disable Layout/SpaceInsideArrayPercentLiteral
 
   # TODO: define flag constants
   class DisplayMode < FFI::Struct
-    layout *%i[
+    layout(*%i[
       format_flags uint32
       width        int
       height       int
       refresh_rate int
       driver_data  pointer
-    ]
+    ])
   end
 
   class MessageBoxButtonData < FFI::Struct
-    layout *%i[
+    layout(*%i[
       button_flags uint32
       id           int
       text         pointer
-    ]
+    ])
   end
 
   class MessageBoxColor < FFI::Struct
-    layout *%i[
+    layout(*%i[
       r uint8
       g uint8
       b uint8
-    ]
+    ])
   end
 
   class MessageBoxColorScheme < FFI::Struct
-    layout :colors, [
+    layout(:colors, [
       Lummox::SDL::Core::Video::MessageBoxColor,
       Lummox::SDL::Core::Video::MessageBoxColorType[:message_box_color_max]
-    ]
+    ])
   end
 
   class MessageBoxData < FFI::Struct
@@ -141,8 +144,12 @@ module Lummox::SDL::Core::Video
            :message,           :pointer,
            :num_buttons,       :int,
            :buttons,           :pointer,
-           :color_scheme,       Lummox::SDL::Core::Video::MessageBoxColorScheme.by_ref # null for system settings
+           :color_scheme,      Lummox::SDL::Core::Video::MessageBoxColorScheme.by_ref # null for system settings
   end
+
+  # rubocop:enable Layout/SpaceInsideArrayPercentLiteral
+
+  # rubocop:disable Layout/LineLength
 
   # Displays
   attach_sdl_function :get_num_video_displays, %i[], :int # negative if error
@@ -205,4 +212,6 @@ module Lummox::SDL::Core::Video
   #   Input grabbing
   attach_sdl_function :get_window_grab, %i[pointer], :bool
   attach_sdl_function :set_window_grab, %i[pointer bool], :void
+
+  # rubocop:enable Layout/LineLength
 end
