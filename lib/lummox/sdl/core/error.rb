@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Lummox::SDL::Core::Error
   extend Lummox::SDL::Core::Library
 

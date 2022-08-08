@@ -2,7 +2,8 @@
 
 module Lummox::SDL::Core
   extend Error
-  extend Rect
   extend Initialization
+  extend Rect
+  extend Timer
   extend Video
 end
