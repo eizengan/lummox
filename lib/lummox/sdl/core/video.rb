@@ -50,7 +50,26 @@
 module Lummox::SDL::Core::Video
   extend Lummox::SDL::Library
 
-  # TODO: named format_flags
+  # MessageBoxButtonData button_flags
+  SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001
+  SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 0x00000002
+  # MessageBoxData message_box_flags
+  SDL_MESSAGEBOX_ERROR                    = 0x00000010
+  SDL_MESSAGEBOX_WARNING                  = 0x00000020
+  SDL_MESSAGEBOX_INFORMATION              = 0x00000040
+  SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT    = 0x00000080
+  SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT    = 0x00000100
+
+  MessageBoxColorType = enum *%i[
+    message_box_color_background
+    message_box_color_text
+    message_box_color_button_border
+    message_box_color_button_background
+    message_box_color_button_selected
+    message_box_color_max
+  ]
+
+  # TODO: define flag constants
   class DisplayMode < FFI::Struct
     layout *%i[
       format_flags uint32
@@ -59,6 +78,36 @@ module Lummox::SDL::Core::Video
       refresh_rate int
       driver_data  pointer
     ]
+  end
+
+  class MessageBoxButtonData < FFI::Struct
+    layout *%i[
+      button_flags uint32
+      id           int
+      text         pointer
+    ]
+  end
+
+  class MessageBoxColor < FFI::Struct
+    layout *%i[
+      r uint8
+      g uint8
+      b uint8
+    ]
+  end
+
+  class MessageBoxColorScheme < FFI::Struct
+    layout :colors, [Color, ColorType[:max]]
+  end
+
+  class MessageBoxData < FFI::Struct
+    layout :message_box_flags, :uint32,
+           :window_handle,     :pointer,
+           :title,             :pointer,
+           :message,           :pointer,
+           :num_buttons,       :int,
+           :buttons,           :buffer_in,
+           :color_scheme,       ColorScheme.by_ref # null for system settings
   end
 
   # Displays
@@ -72,4 +121,22 @@ module Lummox::SDL::Core::Video
   attach_sdl_function :get_desktop_display_mode, [:int, DisplayMode.by_ref], :int # negative if error
   attach_sdl_function :get_current_display_mode, [:int, DisplayMode.by_ref], :int # negative if error
   attach_sdl_function :get_closest_display_mode, [:int, DisplayMode.by_ref, DisplayMode.by_ref], DisplayMode.by_ref # null if error
+  # Message boxes
+  attach_sdl_function :show_message_box, [MessageBoxData.by_ref, Lummox::SDL::Core::Helpers::IntPtr], :int # negative if error
+  attach_sdl_function :show_simple_message_box, %i[uint32 string string pointer], :int # negative if error
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end
