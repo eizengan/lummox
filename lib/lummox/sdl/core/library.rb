@@ -14,8 +14,8 @@ module Lummox::SDL::Core::Library
 
     mod.enum :bool, %i[false true]
 
-    mod.typedef Lummox::SDL::Pointers::Int.by_ref, :int_pointer
-    mod.typedef Lummox::SDL::Pointers::Float.by_ref, :float_pointer
+    mod.typedef Lummox::SDL::Core::Helpers::IntPtr.by_ref, :int_pointer
+    mod.typedef Lummox::SDL::Core::Helpers::FloatPtr.by_ref, :float_pointer
   end
 
   def attach_sdl_function(method_name, args, ret)
