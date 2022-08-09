@@ -6,5 +6,5 @@ class Lummox::SDL::Core::Events::KeyboardEvent < FFI::Struct
          :window_id, :uint32,
          :state,     Lummox::SDL::Core::Events::ButtonState,
          :repeat,    :uint32,
-         :keysym,    Lummox::SDL::Core::Events::Keysym
+         :keysym,    Lummox::SDL::Core::Keyboard::Keysym
 end

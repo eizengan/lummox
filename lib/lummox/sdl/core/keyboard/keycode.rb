@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Lummox::SDL::Core::Events
+module Lummox::SDL::Core::Keyboard
   # rubocop:disable Layout/ExtraSpacing
 
   Keycode = enum(
