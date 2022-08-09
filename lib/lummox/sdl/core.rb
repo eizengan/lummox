@@ -2,6 +2,7 @@
 
 module Lummox::SDL::Core
   extend Error
+  extend Events
   extend Initialization
   extend Rect
   extend Timer
