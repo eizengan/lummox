@@ -1,0 +1,6 @@
+- Clean up *%i[] trash
+- Shift structs to directories
+- Make a call on parallelism:
+  - Prefer nesting
+  - Prefer SDL names
+  - Something in-between
