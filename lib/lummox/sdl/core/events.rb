@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 # NEXT UP:
-# - SDL_ControllerAxisEvent
 # - SDL_ControllerButtonEvent
 # - SDL_ControllerDeviceEvent
-# - SDL_DollarGestureEvent
-# - SDL_DropEvent
+# DEFER:
 # - SDL_JoyAxisEvent
 # - SDL_JoyBallEvent
 # - SDL_JoyButtonEvent
 # - SDL_JoyDeviceEvent
 # - SDL_JoyHatEvent
-# - SDL_SensorEvent
+# - SDL_DropEvent
 # - SDL_SysWMEvent
 # - SDL_UserEvent
-# DEFER:
+# - SDL_SensorEvent
+#
 # - SDL_AddEventWatch
 # - SDL_DelEventWatch
 # - SDL_FilterEvents
@@ -22,6 +21,7 @@
 # - SDL_SetEventFilter
 # - SDL_PeepEvents
 #
+# - SDL_DollarGestureEvent
 # - SDL_Finger
 # - SDL_TouchFingerEvent
 # - SDL_MultiGestureEvent
@@ -66,18 +66,19 @@ module Lummox::SDL::Core::Events
   MouseWheelDirection = enum(*%i[normal flipped])
 
   class Event < FFI::Union
-    layout :type,               Lummox::SDL::Core::Events::EventType,
-           :common_event,       Lummox::SDL::Core::Events::CommonEvent,
-           :display_event,      Lummox::SDL::Core::Events::DisplayEvent,
-           :window_event,       Lummox::SDL::Core::Events::WindowEvent,
-           :keyboard_event,     Lummox::SDL::Core::Events::KeyboardEvent,
-           :text_editing_event, Lummox::SDL::Core::Events::TextEditingEvent,
-           :text_input_event,   Lummox::SDL::Core::Events::TextInputEvent,
-           :mouse_motion_event, Lummox::SDL::Core::Events::MouseMotionEvent,
-           :mouse_button_event, Lummox::SDL::Core::Events::MouseButtonEvent,
-           :mouse_wheel_event,  Lummox::SDL::Core::Events::MouseWheelEvent,
-           :audio_device_event, Lummox::SDL::Core::Events::AudioDeviceEvent,
-           :quit_event,         Lummox::SDL::Core::Events::QuitEvent
+    layout :type,                  Lummox::SDL::Core::Events::EventType,
+           :common_event,          Lummox::SDL::Core::Events::CommonEvent,
+           :display_event,         Lummox::SDL::Core::Events::DisplayEvent,
+           :window_event,          Lummox::SDL::Core::Events::WindowEvent,
+           :keyboard_event,        Lummox::SDL::Core::Events::KeyboardEvent,
+           :text_editing_event,    Lummox::SDL::Core::Events::TextEditingEvent,
+           :text_input_event,      Lummox::SDL::Core::Events::TextInputEvent,
+           :mouse_motion_event,    Lummox::SDL::Core::Events::MouseMotionEvent,
+           :mouse_button_event,    Lummox::SDL::Core::Events::MouseButtonEvent,
+           :mouse_wheel_event,     Lummox::SDL::Core::Events::MouseWheelEvent,
+           :controller_axis_event, Lummox::SDL::Core::Events::ControllerAxisEvent,
+           :audio_device_event,    Lummox::SDL::Core::Events::AudioDeviceEvent,
+           :quit_event,            Lummox::SDL::Core::Events::QuitEvent
   end
 
   attach_sdl_function :event_state, [EventType, EventState], EventState
