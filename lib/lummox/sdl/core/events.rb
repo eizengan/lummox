@@ -18,34 +18,25 @@
 # - SDL_SysWMEvent
 # - SDL_TouchFingerEvent
 # - SDL_UserEvent
-#
+# DEFER:
+# - SDL_AddEventWatch
+# - SDL_DelEventWatch
 # - SDL_FilterEvents
-# - SDL_FlushEvent
-# - SDL_FlushEvents
 # - SDL_GetEventFilter
-# - SDL_GetEventState
+# - SDL_SetEventFilter
+# - SDL_PeepEvents
+#
 # - SDL_GetNumTouchDevices
 # - SDL_GetNumTouchFingers
 # - SDL_GetTouchDevice
 # - SDL_GetTouchFinger
-# - SDL_HasEvent
-# - SDL_HasEvents
 # - SDL_LoadDollarTemplates
-# - SDL_PeepEvents
-# - SDL_PollEvent
-# - SDL_PumpEvents
-# - SDL_PushEvent
-# - SDL_QuitRequested
 # - SDL_RecordGesture
-# - SDL_RegisterEvents
 # - SDL_SaveAllDollarTemplates
 # - SDL_SaveDollarTemplate
-# - SDL_SetEventFilter
-# - SDL_WaitEvent
-# - SDL_WaitEventTimeout
-# DEFER:
-# - SDL_AddEventWatch
-# - SDL_DelEventWatch
+# IGNORE:
+# - SDL_GetEventState - defined by preprocessor macro
+# - SDL_QuitRequested - defined by preprocessor macro
 
 module Lummox::SDL::Core::Events
   extend Lummox::SDL::Core::Library
@@ -76,7 +67,8 @@ module Lummox::SDL::Core::Events
   MouseWheelDirection = enum(*%i[normal flipped])
 
   class Event < FFI::Union
-    layout :window_event,       Lummox::SDL::Core::Events::WindowEvent,
+    layout :common_event,       Lummox::SDL::Core::Events::CommonEvent,
+           :window_event,       Lummox::SDL::Core::Events::WindowEvent,
            :keyboard_event,     Lummox::SDL::Core::Events::KeyboardEvent,
            :mouse_motion_event, Lummox::SDL::Core::Events::MouseMotionEvent,
            :mouse_button_event, Lummox::SDL::Core::Events::MouseButtonEvent,
@@ -85,4 +77,16 @@ module Lummox::SDL::Core::Events
            :text_editing_event, Lummox::SDL::Core::Events::TextEditingEvent,
            :text_input_event,   Lummox::SDL::Core::Events::TextInputEvent
   end
+
+  attach_sdl_function :event_state, [EventType, EventState], EventState
+  attach_sdl_function :flush_event, [EventType], :void
+  attach_sdl_function :flush_events, [EventType, EventType], :void
+  attach_sdl_function :has_event, [EventType], :bool
+  attach_sdl_function :has_events, [EventType, EventType], :bool
+  attach_sdl_function :poll_event, [Event.by_ref], :int
+  attach_sdl_function :pump_events, [], :void
+  attach_sdl_function :push_event, [Event.by_ref], :int # negative if error
+  attach_sdl_function :register_events, [:int], :uint32
+  attach_sdl_function :wait_event, [Event.by_ref], :int # 0 if error
+  attach_sdl_function :wait_event_timeout, [Event.by_ref, :int], :int # 0 if error or timeout elapsed
 end
