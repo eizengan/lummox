@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-# NEXT UP:
-# - SDL_ControllerButtonEvent
-# - SDL_ControllerDeviceEvent
 # DEFER:
 # - SDL_JoyAxisEvent
 # - SDL_JoyBallEvent
@@ -78,6 +75,7 @@ module Lummox::SDL::Core::Events
            :mouse_wheel_event,       Lummox::SDL::Core::Events::MouseWheelEvent,
            :controller_axis_event,   Lummox::SDL::Core::Events::ControllerAxisEvent,
            :controller_button_event, Lummox::SDL::Core::Events::ControllerButtonEvent,
+           :controller_device_event, Lummox::SDL::Core::Events::ControllerDeviceEvent,
            :audio_device_event,      Lummox::SDL::Core::Events::AudioDeviceEvent,
            :quit_event,              Lummox::SDL::Core::Events::QuitEvent
   end
