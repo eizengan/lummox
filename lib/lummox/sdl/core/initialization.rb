@@ -13,9 +13,7 @@ module Lummox::SDL::Core::Initialization
   SDL_INIT_EVENTS         = 0x00004000
   SDL_INIT_SENSOR         = 0x00008000
 
-  typedef :uint32, :init_flags
-
-  attach_sdl_function :init, %i[init_flags], :int # negative if error
-  attach_sdl_function :was_init, %i[init_flags], :init_flags
-  attach_sdl_function :quit, %i[], :void
+  attach_sdl_function :init, [:uint32], :int # negative if error
+  attach_sdl_function :was_init, [:uint32], :uint32
+  attach_sdl_function :quit, [], :void
 end

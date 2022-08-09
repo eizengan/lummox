@@ -37,10 +37,10 @@
 module Lummox::SDL::Core::Events
   extend Lummox::SDL::Core::Library
 
-  ButtonState = enum(*%i[released pressed])
+  ButtonState = enum(:released, :pressed)
   EventState = enum(:query, -1, :disable, :enable)
   MouseButton = enum(:button_left, 1, :button_middle, :button_right, :button_x1, :button_x2)
-  MouseWheelDirection = enum(*%i[normal flipped])
+  MouseWheelDirection = enum(:normal, :flipped)
 
   class Event < FFI::Union
     layout :type,                    Lummox::SDL::Core::Events::EventType,
