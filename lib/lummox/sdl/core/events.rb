@@ -68,6 +68,7 @@ module Lummox::SDL::Core::Events
 
   class Event < FFI::Union
     layout :common_event,       Lummox::SDL::Core::Events::CommonEvent,
+           :display_event,      Lummox::SDL::Core::Events::DisplayEvent,
            :window_event,       Lummox::SDL::Core::Events::WindowEvent,
            :keyboard_event,     Lummox::SDL::Core::Events::KeyboardEvent,
            :mouse_motion_event, Lummox::SDL::Core::Events::MouseMotionEvent,

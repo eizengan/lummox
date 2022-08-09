@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Lummox::SDL::Core::Events
-  # rubocop:disable Layout/ExtraSpacing
-
   WindowEventId = enum(*%i[
     window_event_none
     window_event_shown
