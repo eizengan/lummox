@@ -1,22 +1,18 @@
 # frozen_string_literal: true
 
 # NEXT UP:
-# - SDL_AudioDeviceEvent
 # - SDL_ControllerAxisEvent
 # - SDL_ControllerButtonEvent
 # - SDL_ControllerDeviceEvent
 # - SDL_DollarGestureEvent
 # - SDL_DropEvent
-# - SDL_Finger
 # - SDL_JoyAxisEvent
 # - SDL_JoyBallEvent
 # - SDL_JoyButtonEvent
 # - SDL_JoyDeviceEvent
 # - SDL_JoyHatEvent
-# - SDL_MultiGestureEvent
 # - SDL_SensorEvent
 # - SDL_SysWMEvent
-# - SDL_TouchFingerEvent
 # - SDL_UserEvent
 # DEFER:
 # - SDL_AddEventWatch
@@ -26,6 +22,9 @@
 # - SDL_SetEventFilter
 # - SDL_PeepEvents
 #
+# - SDL_Finger
+# - SDL_TouchFingerEvent
+# - SDL_MultiGestureEvent
 # - SDL_GetNumTouchDevices
 # - SDL_GetNumTouchFingers
 # - SDL_GetTouchDevice
@@ -67,16 +66,18 @@ module Lummox::SDL::Core::Events
   MouseWheelDirection = enum(*%i[normal flipped])
 
   class Event < FFI::Union
-    layout :common_event,       Lummox::SDL::Core::Events::CommonEvent,
+    layout :type,               Lummox::SDL::Core::Events::EventType,
+           :common_event,       Lummox::SDL::Core::Events::CommonEvent,
            :display_event,      Lummox::SDL::Core::Events::DisplayEvent,
            :window_event,       Lummox::SDL::Core::Events::WindowEvent,
            :keyboard_event,     Lummox::SDL::Core::Events::KeyboardEvent,
+           :text_editing_event, Lummox::SDL::Core::Events::TextEditingEvent,
+           :text_input_event,   Lummox::SDL::Core::Events::TextInputEvent,
            :mouse_motion_event, Lummox::SDL::Core::Events::MouseMotionEvent,
            :mouse_button_event, Lummox::SDL::Core::Events::MouseButtonEvent,
            :mouse_wheel_event,  Lummox::SDL::Core::Events::MouseWheelEvent,
-           :quit_event,         Lummox::SDL::Core::Events::QuitEvent,
-           :text_editing_event, Lummox::SDL::Core::Events::TextEditingEvent,
-           :text_input_event,   Lummox::SDL::Core::Events::TextInputEvent
+           :audio_device_event, Lummox::SDL::Core::Events::AudioDeviceEvent,
+           :quit_event,         Lummox::SDL::Core::Events::QuitEvent
   end
 
   attach_sdl_function :event_state, [EventType, EventState], EventState
