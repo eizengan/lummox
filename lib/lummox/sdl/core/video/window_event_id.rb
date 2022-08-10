@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Lummox::SDL::Core::Events
+module Lummox::SDL::Core::Video
   WindowEventId = Lummox::SDL::Core.enum(
     :window_event_none,
     :window_event_shown,
@@ -19,7 +19,7 @@ module Lummox::SDL::Core::Events
     :window_event_close,
     :window_event_take_focus,
     :window_event_hit_test,
-    :window_event_iccprof_changed,
-    :window_event_display_change
+    :window_event_icc_prof_changed,
+    :window_event_display_changed
   ).freeze
 end

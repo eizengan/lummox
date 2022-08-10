@@ -5,7 +5,7 @@ class Lummox::SDL::Core::Events::MouseButtonEvent < FFI::Struct
          :timestamp, :uint32,
          :window_id, :uint32,
          :which,     :uint32,
-         :button,    Lummox::SDL::Core::Events::MouseButton,
+         :button,    Lummox::SDL::Core::Mouse::MouseButton,
          :state,     Lummox::SDL::Core::Events::ButtonState,
          :clicks,    :uint8,
          :x,         :int32,

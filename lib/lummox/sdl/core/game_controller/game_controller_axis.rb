@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module Lummox::SDL::Core::Events
-  ControllerAxis = Lummox::SDL::Core.enum(
+module Lummox::SDL::Core::GameController
+  GameControllerAxis = Lummox::SDL::Core.enum(
     :controller_axis_invalid, -1,
     :controller_axis_left_x,
     :controller_axis_left_y,

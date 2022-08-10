@@ -1,15 +1,14 @@
 # frozen_string_literal: true
 
-# TODO: move into Core directly?
 module Lummox::SDL::Core::Initialization
-  SDL_INIT_TIMER          = 0x00000001
-  SDL_INIT_AUDIO          = 0x00000010
-  SDL_INIT_VIDEO          = 0x00000020
-  SDL_INIT_JOYSTICK       = 0x00000200
-  SDL_INIT_HAPTIC         = 0x00001000
-  SDL_INIT_GAMECONTROLLER = 0x00002000
-  SDL_INIT_EVENTS         = 0x00004000
-  SDL_INIT_SENSOR         = 0x00008000
+  INIT_TIMER           = 0x00000001
+  INIT_AUDIO           = 0x00000010
+  INIT_VIDEO           = 0x00000020
+  INIT_JOYSTICK        = 0x00000200
+  INIT_HAPTIC          = 0x00001000
+  INIT_GAME_CONTROLLER = 0x00002000
+  INIT_EVENTS          = 0x00004000
+  INIT_SENSOR          = 0x00008000
 
   def self.included(base)
     base.class_eval do

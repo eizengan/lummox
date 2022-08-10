@@ -5,10 +5,10 @@ class Lummox::SDL::Core::Events::MouseMotionEvent < FFI::Struct
          :timestamp, :uint32,
          :window_id, :uint32,
          :which,     :uint32,
-         :button,    Lummox::SDL::Core::Events::MouseButton,
+         :button,    Lummox::SDL::Core::Mouse::MouseButton,
          :state,     :uint32,
          :x,         :int32,
          :y,         :int32,
-         :xrel,      :int32,
-         :yrel,      :int32
+         :x_rel,     :int32,
+         :y_rel,     :int32
 end

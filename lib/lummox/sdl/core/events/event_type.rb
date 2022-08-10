@@ -10,7 +10,7 @@ module Lummox::SDL::Core::Events
     :app_terminating,
     :app_low_memory,
     :app_will_enter_background,
-    :app_did_enterb_ackground,
+    :app_did_enter_background,
     :app_will_enter_foreground,
     :app_did_enter_foreground,
     :locale_changed,

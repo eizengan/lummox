@@ -35,8 +35,11 @@ module Lummox::SDL::Core
 
   include Error
   include Events
+  include GameController
   include Initialization
   include Keyboard
+  include MessageBox
+  include Mouse
   include Rect
   include Timer
   include Video

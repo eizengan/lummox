@@ -49,43 +49,34 @@
 # - SDL_GetWindowWMInfo           - driver-, and system-dependent info
 
 module Lummox::SDL::Core::Video
-  # MessageBoxButtonData button_flags
-  SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001
-  SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 0x00000002
-  # MessageBoxData message_box_flags
-  SDL_MESSAGEBOX_ERROR                    = 0x00000010
-  SDL_MESSAGEBOX_WARNING                  = 0x00000020
-  SDL_MESSAGEBOX_INFORMATION              = 0x00000040
-  SDL_MESSAGEBOX_BUTTONS_LEFT_TO_RIGHT    = 0x00000080
-  SDL_MESSAGEBOX_BUTTONS_RIGHT_TO_LEFT    = 0x00000100
   # Window flags
   #   Position flags
-  WINDOWPOS_UNDEFINED = 0x1FFF0000
-  WINDOWPOS_CENTERED  = 0x2FFF0000
+  WINDOW_POS_UNDEFINED      = 0x1FFF0000
+  WINDOW_POS_CENTERED       = 0x2FFF0000
   #   Fullscreen Flags
-  SDL_WINDOW_FULLSCREEN         = 0x00000001
-  SDL_WINDOW_FULLSCREEN_DESKTOP = (SDL_WINDOW_FULLSCREEN | 0x00000010).freeze
+  WINDOW_FULLSCREEN         = 0x00000001
+  WINDOW_FULLSCREEN_DESKTOP = (WINDOW_FULLSCREEN | 0x00000010).freeze
   #   Other capabilities
-  SDL_WINDOW_OPENGL             = 0x00000002
-  SDL_WINDOW_VULKAN             = 0x10000000
-  SDL_WINDOW_SHOWN              = 0x00000004
-  SDL_WINDOW_HIDDEN             = 0x00000008
-  SDL_WINDOW_BORDERLESS         = 0x00000010
-  SDL_WINDOW_RESIZABLE          = 0x00000020
-  SDL_WINDOW_MINIMIZED          = 0x00000040
-  SDL_WINDOW_MAXIMIZED          = 0x00000080
-  SDL_WINDOW_MOUSE_GRABBED      = 0x00000100
-  SDL_WINDOW_INPUT_GRABBED      = SDL_WINDOW_MOUSE_GRABBED
-  SDL_WINDOW_INPUT_FOCUS        = 0x00000200
-  SDL_WINDOW_MOUSE_FOCUS        = 0x00000400
-  SDL_WINDOW_FOREIGN            = 0x00000800
-  SDL_WINDOW_ALLOW_HIGHDPI      = 0x00002000
-  SDL_WINDOW_MOUSE_CAPTURE      = 0x00004000
-  # SDL_WINDOW_ALWAYS_ON_TOP      = 0x00008000 # x11 only
-  # SDL_WINDOW_SKIP_TASKBAR       = 0x00010000 # x11 only
-  # SDL_WINDOW_UTILITY            = 0x00020000 # x11 only
-  # SDL_WINDOW_TOOLTIP            = 0x00040000 # x11 only
-  # SDL_WINDOW_POPUP_MENU         = 0x00080000 # x11 only
+  WINDOW_OPENGL             = 0x00000002
+  WINDOW_VULKAN             = 0x10000000
+  WINDOW_SHOWN              = 0x00000004
+  WINDOW_HIDDEN             = 0x00000008
+  WINDOW_BORDERLESS         = 0x00000010
+  WINDOW_RESIZABLE          = 0x00000020
+  WINDOW_MINIMIZED          = 0x00000040
+  WINDOW_MAXIMIZED          = 0x00000080
+  WINDOW_MOUSE_GRABBED      = 0x00000100
+  WINDOW_INPUT_GRABBED      = WINDOW_MOUSE_GRABBED
+  WINDOW_INPUT_FOCUS        = 0x00000200
+  WINDOW_MOUSE_FOCUS        = 0x00000400
+  WINDOW_FOREIGN            = 0x00000800
+  WINDOW_ALLOW_HIGHDPI      = 0x00002000
+  WINDOW_MOUSE_CAPTURE      = 0x00004000
+  WINDOW_ALWAYS_ON_TOP      = 0x00008000 # x11 only
+  WINDOW_SKIP_TASKBAR       = 0x00010000 # x11 only
+  WINDOW_UTILITY            = 0x00020000 # x11 only
+  WINDOW_TOOLTIP            = 0x00040000 # x11 only
+  WINDOW_POPUP_MENU         = 0x00080000 # x11 only
 
   # rubocop:disable Layout/LineLength
 
@@ -106,9 +97,6 @@ module Lummox::SDL::Core::Video
       attach_sdl_function :get_num_video_drivers, [], :int # negative if error
       attach_sdl_function :get_current_video_driver, [], :string
       attach_sdl_function :get_video_driver, [:int], :string
-      # Message boxes
-      attach_sdl_function :show_message_box, [MessageBoxData.by_ref, Lummox::SDL::Core::Helpers::IntPtr], :int # negative if error
-      attach_sdl_function :show_simple_message_box, %i[uint32 string string pointer], :int # negative if error
       # Windows
       #   Creation, ownership
       attach_sdl_function :create_window, %i[string int int int int uint32], :pointer # nil if error
@@ -144,7 +132,7 @@ module Lummox::SDL::Core::Video
       attach_sdl_function :raise_window, [:pointer], :void
       attach_sdl_function :get_window_opacity, %i[pointer float_pointer], :int # negative if error
       attach_sdl_function :set_window_opacity, %i[pointer float], :int # negative if error
-      attach_sdl_function :flash_window, [:pointer, WindowFlashOperation], :int # negative if error
+      attach_sdl_function :flash_window, [:pointer, FlashOperation], :int # negative if error
       #   Screen saver
       attach_sdl_function :disable_screen_saver, [], :void
       attach_sdl_function :enable_screen_saver, [], :void
@@ -154,5 +142,6 @@ module Lummox::SDL::Core::Video
       attach_sdl_function :set_window_grab, %i[pointer bool], :void
     end
   end
+
   # rubocop:enable Layout/LineLength
 end

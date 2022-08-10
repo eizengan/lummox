@@ -3,14 +3,14 @@
 module Lummox::SDL
   # rubocop:disable Layout/HashAlignment
   SUBSYSTEM_FLAGS = {
-    timer:          Core::Initialization::SDL_INIT_TIMER,
-    audio:          Core::Initialization::SDL_INIT_AUDIO,
-    video:          Core::Initialization::SDL_INIT_VIDEO,
-    joystick:       Core::Initialization::SDL_INIT_JOYSTICK,
-    haptic:         Core::Initialization::SDL_INIT_HAPTIC,
-    gamecontroller: Core::Initialization::SDL_INIT_GAMECONTROLLER,
-    events:         Core::Initialization::SDL_INIT_EVENTS,
-    sensor:         Core::Initialization::SDL_INIT_SENSOR
+    timer:          Core::INIT_TIMER,
+    audio:          Core::INIT_AUDIO,
+    video:          Core::INIT_VIDEO,
+    joystick:       Core::INIT_JOYSTICK,
+    haptic:         Core::INIT_HAPTIC,
+    gamecontroller: Core::INIT_GAME_CONTROLLER,
+    events:         Core::INIT_EVENTS,
+    sensor:         Core::INIT_SENSOR
   }.freeze
   # rubocop:enable Layout/HashAlignment
   SUBSYSTEMS = SUBSYSTEM_FLAGS.keys.freeze
