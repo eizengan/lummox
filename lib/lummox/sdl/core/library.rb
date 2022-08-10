@@ -5,35 +5,41 @@ require "ffi"
 module Lummox::SDL::Core::Library
   LIB_SDL2 = ENV.fetch("LIB_SDL2").freeze
 
-  def self.extended(mod)
+  def self.included(base)
     super
 
-    mod.extend FFI::Library
-    mod.ffi_lib_flags :now, :global
-    mod.ffi_lib [FFI::CURRENT_PROCESS, LIB_SDL2]
+    base.extend FFI::Library
+    base.extend ClassMethods
 
-    mod.enum :bool, %i[false true]
+    base.ffi_lib_flags :now, :global
+    base.ffi_lib [FFI::CURRENT_PROCESS, LIB_SDL2]
 
-    mod.typedef Lummox::SDL::Core::Helpers::IntPtr.by_ref, :int_pointer
-    mod.typedef Lummox::SDL::Core::Helpers::FloatPtr.by_ref, :float_pointer
+    base.enum :bool, %i[false true]
+    base.typedef Lummox::SDL::Core::Helpers::IntPtr.by_ref, :int_pointer
+    base.typedef Lummox::SDL::Core::Helpers::FloatPtr.by_ref, :float_pointer
   end
 
-  def attach_sdl_function(method_name, args, ret, **opts)
-    sdl_method_name = sdl_method_name(method_name)
-    attach_function method_name, sdl_method_name, args, ret, **opts
+  module ClassMethods
+    def attach_sdl_function(method_name, args, ret, **opts)
+      sdl_method_name = sdl_method_name(method_name)
+      attach_function method_name, sdl_method_name, args, ret, **opts
+      private method_name
+    end
+
+    private
+
+    def sdl_method_name(method_name)
+      base_name = /(sdl_)?(\w*)/.match(method_name).captures[1]
+      :"SDL_#{camel_case(base_name)}"
+    end
+
+    def camel_case(sym)
+      str = sym.to_s
+      return str if str !~ /_/ && str =~ /[A-Z]+.*/
+
+      str.split("_").map(&:capitalize).join.to_sym
+    end
   end
 
-  private
-
-  def sdl_method_name(method_name)
-    base_name = /(sdl_)?(\w*)/.match(method_name).captures[1]
-    :"SDL_#{camel_case(base_name)}"
-  end
-
-  def camel_case(sym)
-    str = sym.to_s
-    return str if str !~ /_/ && str =~ /[A-Z]+.*/
-
-    str.split("_").map(&:capitalize).join.to_sym
-  end
+  private_constant :ClassMethods
 end

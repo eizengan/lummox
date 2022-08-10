@@ -3,7 +3,7 @@
 module Lummox::SDL::Core::Keyboard
   # rubocop:disable Layout/ExtraSpacing
 
-  Keycode = enum(
+  Keycode = Lummox::SDL::Core.enum(
     :keycode_unknown,             0,
     :keycode_return,              13,
     :keycode_escape,              27,

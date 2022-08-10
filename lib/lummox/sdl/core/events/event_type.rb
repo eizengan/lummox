@@ -4,7 +4,7 @@ module Lummox::SDL::Core::Events
   # rubocop:disable Layout/ExtraSpacing
 
   # Event type
-  EventType = enum(
+  EventType = Lummox::SDL::Core.enum(
     :first_event,                0x0000,
     :quit,                       0x0100,
     :app_terminating,

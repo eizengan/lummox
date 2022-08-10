@@ -19,8 +19,6 @@
 # - SDL_StopTextInput
 
 module Lummox::SDL::Core::Keyboard
-  extend Lummox::SDL::Core::Library
-
   # Keymod buttons
   KEYMOD_NONE     = 0x0000
   KEYMOD_LSHIFT   = 0x0001

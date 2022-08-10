@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Lummox::SDL::Core::Events
-  ControllerButton = enum(
+  ControllerButton = Lummox::SDL::Core.enum(
     :controller_button_invalid, -1,
     :controller_button_a,
     :controller_button_b,

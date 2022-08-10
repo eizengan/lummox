@@ -49,8 +49,6 @@
 # - SDL_GetWindowWMInfo           - driver-, and system-dependent info
 
 module Lummox::SDL::Core::Video
-  extend Lummox::SDL::Core::Library
-
   # MessageBoxButtonData button_flags
   SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT = 0x00000001
   SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT = 0x00000002
@@ -89,128 +87,72 @@ module Lummox::SDL::Core::Video
   # SDL_WINDOW_TOOLTIP            = 0x00040000 # x11 only
   # SDL_WINDOW_POPUP_MENU         = 0x00080000 # x11 only
 
-  MessageBoxColorType = enum(
-    :message_box_color_background,
-    :message_box_color_text,
-    :message_box_color_button_border,
-    :message_box_color_button_background,
-    :message_box_color_button_selected,
-    :message_box_color_max
-  ).freeze
-
-  WindowFlashOperation = enum(
-    :flash_cancel,
-    :flash_briefly,
-    :flash_until_focused
-  ).freeze
-
-  # rubocop:disable Layout/SpaceInsideArrayPercentLiteral
-
-  # TODO: define flag constants
-  class DisplayMode < FFI::Struct
-    layout :format_flags, :uint32,
-           :width,        :int,
-           :height,       :int,
-           :refresh_rate, :int,
-           :driver_data,  :pointer
-  end
-
-  class MessageBoxButtonData < FFI::Struct
-    layout :button_flags, :uint32,
-           :id,           :int,
-           :text,         :pointer
-  end
-
-  class MessageBoxColor < FFI::Struct
-    layout :r, :uint8,
-           :g, :uint8,
-           :b, :uint8
-  end
-
-  class MessageBoxColorScheme < FFI::Struct
-    color_array = [
-      Lummox::SDL::Core::Video::MessageBoxColor,
-      Lummox::SDL::Core::Video::MessageBoxColorType[:message_box_color_max]
-    ]
-
-    layout :colors, color_array
-  end
-
-  class MessageBoxData < FFI::Struct
-    layout :message_box_flags, :uint32,
-           :window_handle,     :pointer,
-           :title,             :pointer,
-           :message,           :pointer,
-           :num_buttons,       :int,
-           :buttons,           :pointer,
-           :color_scheme,      Lummox::SDL::Core::Video::MessageBoxColorScheme.by_ref # null for system settings
-  end
-
-  # rubocop:enable Layout/SpaceInsideArrayPercentLiteral
-
   # rubocop:disable Layout/LineLength
 
-  # Displays
-  attach_sdl_function :get_num_video_displays, [], :int # negative if error
-  attach_sdl_function :get_display_name, [:int], :string # nullptr if error
-  attach_sdl_function :get_display_bounds, [:int, Lummox::SDL::Core::Rect::Rect.by_ref], :int # negative if error
-  attach_sdl_function :get_display_usable_bounds, [:int, Lummox::SDL::Core::Rect::Rect.by_ref], :int # negative if error
-  # Display modes
-  attach_sdl_function :get_num_display_modes, [:int], :int # negative if error
-  attach_sdl_function :get_display_mode, [:int, :int, DisplayMode.by_ref], :int # negative if error
-  attach_sdl_function :get_desktop_display_mode, [:int, DisplayMode.by_ref], :int # negative if error
-  attach_sdl_function :get_current_display_mode, [:int, DisplayMode.by_ref], :int # negative if error
-  attach_sdl_function :get_closest_display_mode, [:int, DisplayMode.by_ref, DisplayMode.by_ref], DisplayMode.by_ref # null if error
-  # Drivers
-  attach_sdl_function :get_num_video_drivers, [], :int # negative if error
-  attach_sdl_function :get_current_video_driver, [], :string
-  attach_sdl_function :get_video_driver, [:int], :string
-  # Message boxes
-  attach_sdl_function :show_message_box, [MessageBoxData.by_ref, Lummox::SDL::Core::Helpers::IntPtr], :int # negative if error
-  attach_sdl_function :show_simple_message_box, %i[uint32 string string pointer], :int # negative if error
-  # Windows
-  #   Creation, ownership
-  attach_sdl_function :create_window, %i[string int int int int uint32], :pointer # nil if error
-  attach_sdl_function :destroy_window, [:pointer], :void
-  attach_sdl_function :set_window_modal_for, %i[pointer pointer], :int # negative if error
-  #   Display, display mode
-  attach_sdl_function :get_window_display_index, [:pointer], :int
-  attach_sdl_function :get_window_display_mode, [:pointer, DisplayMode.by_ref], :int # negative if error
-  attach_sdl_function :set_window_display_mode, [:pointer, DisplayMode.by_ref], :int # negative if error
-  #   Title
-  attach_sdl_function :get_window_title, [:pointer], :string
-  attach_sdl_function :set_window_title, %i[pointer string], :void
-  #   Position
-  attach_sdl_function :get_window_position, %i[pointer int_pointer int_pointer], :void
-  attach_sdl_function :set_window_position, %i[pointer int int], :void
-  #   Size
-  attach_sdl_function :set_window_resizable, %i[pointer bool], :void
-  attach_sdl_function :get_window_size, %i[pointer int_pointer int_pointer], :void
-  attach_sdl_function :set_window_size, %i[pointer int int], :void
-  attach_sdl_function :minimize_window, [:pointer], :void
-  attach_sdl_function :maximize_window, [:pointer], :void
-  attach_sdl_function :restore_window, [:pointer], :void
-  attach_sdl_function :get_window_maximum_size, %i[pointer int_pointer int_pointer], :void
-  attach_sdl_function :set_window_maximum_size, %i[pointer int int], :void
-  attach_sdl_function :get_window_minimum_size, %i[pointer int_pointer int_pointer], :void
-  attach_sdl_function :set_window_minimum_size, %i[pointer int int], :void
-  attach_sdl_function :get_window_borders_size, %i[pointer int_pointer int_pointer int_pointer int_pointer], :int # negative if error
-  #   Fullscreen, borders, presence, opacity, flashing
-  attach_sdl_function :set_window_fullscreen, %i[pointer uint32], :int # negative if error
-  attach_sdl_function :set_window_bordered, %i[pointer bool], :void
-  attach_sdl_function :hide_window, [:pointer], :void
-  attach_sdl_function :show_window, [:pointer], :void
-  attach_sdl_function :raise_window, [:pointer], :void
-  attach_sdl_function :get_window_opacity, %i[pointer float_pointer], :int # negative if error
-  attach_sdl_function :set_window_opacity, %i[pointer float], :int # negative if error
-  attach_sdl_function :flash_window, [:pointer, WindowFlashOperation], :int # negative if error
-  #   Screen saver
-  attach_sdl_function :disable_screen_saver, [], :void
-  attach_sdl_function :enable_screen_saver, [], :void
-  attach_sdl_function :is_screen_saver_enabled, [], :bool
-  #   Input grabbing
-  attach_sdl_function :get_window_grab, [:pointer], :bool
-  attach_sdl_function :set_window_grab, %i[pointer bool], :void
-
+  def self.included(base)
+    base.class_eval do
+      # Displays
+      attach_sdl_function :get_num_video_displays, [], :int # negative if error
+      attach_sdl_function :get_display_name, [:int], :string # nullptr if error
+      attach_sdl_function :get_display_bounds, [:int, Lummox::SDL::Core::Rect::Rect.by_ref], :int # negative if error
+      attach_sdl_function :get_display_usable_bounds, [:int, Lummox::SDL::Core::Rect::Rect.by_ref], :int # negative if error
+      # Display modes
+      attach_sdl_function :get_num_display_modes, [:int], :int # negative if error
+      attach_sdl_function :get_display_mode, [:int, :int, DisplayMode.by_ref], :int # negative if error
+      attach_sdl_function :get_desktop_display_mode, [:int, DisplayMode.by_ref], :int # negative if error
+      attach_sdl_function :get_current_display_mode, [:int, DisplayMode.by_ref], :int # negative if error
+      attach_sdl_function :get_closest_display_mode, [:int, DisplayMode.by_ref, DisplayMode.by_ref], DisplayMode.by_ref # null if error
+      # Drivers
+      attach_sdl_function :get_num_video_drivers, [], :int # negative if error
+      attach_sdl_function :get_current_video_driver, [], :string
+      attach_sdl_function :get_video_driver, [:int], :string
+      # Message boxes
+      attach_sdl_function :show_message_box, [MessageBoxData.by_ref, Lummox::SDL::Core::Helpers::IntPtr], :int # negative if error
+      attach_sdl_function :show_simple_message_box, %i[uint32 string string pointer], :int # negative if error
+      # Windows
+      #   Creation, ownership
+      attach_sdl_function :create_window, %i[string int int int int uint32], :pointer # nil if error
+      attach_sdl_function :destroy_window, [:pointer], :void
+      attach_sdl_function :set_window_modal_for, %i[pointer pointer], :int # negative if error
+      #   Display, display mode
+      attach_sdl_function :get_window_display_index, [:pointer], :int
+      attach_sdl_function :get_window_display_mode, [:pointer, DisplayMode.by_ref], :int # negative if error
+      attach_sdl_function :set_window_display_mode, [:pointer, DisplayMode.by_ref], :int # negative if error
+      #   Title
+      attach_sdl_function :get_window_title, [:pointer], :string
+      attach_sdl_function :set_window_title, %i[pointer string], :void
+      #   Position
+      attach_sdl_function :get_window_position, %i[pointer int_pointer int_pointer], :void
+      attach_sdl_function :set_window_position, %i[pointer int int], :void
+      #   Size
+      attach_sdl_function :set_window_resizable, %i[pointer bool], :void
+      attach_sdl_function :get_window_size, %i[pointer int_pointer int_pointer], :void
+      attach_sdl_function :set_window_size, %i[pointer int int], :void
+      attach_sdl_function :minimize_window, [:pointer], :void
+      attach_sdl_function :maximize_window, [:pointer], :void
+      attach_sdl_function :restore_window, [:pointer], :void
+      attach_sdl_function :get_window_maximum_size, %i[pointer int_pointer int_pointer], :void
+      attach_sdl_function :set_window_maximum_size, %i[pointer int int], :void
+      attach_sdl_function :get_window_minimum_size, %i[pointer int_pointer int_pointer], :void
+      attach_sdl_function :set_window_minimum_size, %i[pointer int int], :void
+      attach_sdl_function :get_window_borders_size, %i[pointer int_pointer int_pointer int_pointer int_pointer], :int # negative if error
+      #   Fullscreen, borders, presence, opacity, flashing
+      attach_sdl_function :set_window_fullscreen, %i[pointer uint32], :int # negative if error
+      attach_sdl_function :set_window_bordered, %i[pointer bool], :void
+      attach_sdl_function :hide_window, [:pointer], :void
+      attach_sdl_function :show_window, [:pointer], :void
+      attach_sdl_function :raise_window, [:pointer], :void
+      attach_sdl_function :get_window_opacity, %i[pointer float_pointer], :int # negative if error
+      attach_sdl_function :set_window_opacity, %i[pointer float], :int # negative if error
+      attach_sdl_function :flash_window, [:pointer, WindowFlashOperation], :int # negative if error
+      #   Screen saver
+      attach_sdl_function :disable_screen_saver, [], :void
+      attach_sdl_function :enable_screen_saver, [], :void
+      attach_sdl_function :is_screen_saver_enabled, [], :bool
+      #   Input grabbing
+      attach_sdl_function :get_window_grab, [:pointer], :bool
+      attach_sdl_function :set_window_grab, %i[pointer bool], :void
+    end
+  end
   # rubocop:enable Layout/LineLength
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Lummox::SDL::Core::Events
-  WindowEventId = enum(
+  WindowEventId = Lummox::SDL::Core.enum(
     :window_event_none,
     :window_event_shown,
     :window_event_hidden,

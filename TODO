@@ -1,5 +1,12 @@
 - Shift structs to directories
-- Make a call on parallelism:
-  - Prefer nesting
-  - Prefer SDL names
-  - Something in-between
+
+- Make a call on organizational parallelism:
+  - decision:
+    - Prefer nesting
+    - Prefer SDL names
+    - Something in-between
+  - strategies
+    - all Core names mirror SDL names
+    - module files mirror headers
+    - modules use hook to install sdl methods on Core
+    - modules usehook to install constants on Core
