@@ -1,23 +1,5 @@
 # frozen_string_literal: true
 
-# TODO:
-# - SDL_GetKeyboardFocus
-# - SDL_GetKeyboardState
-# - SDL_GetKeyFromName
-# - SDL_GetKeyFromScancode
-# - SDL_GetKeyName
-# - SDL_GetModState
-# - SDL_GetScancodeFromKey
-# - SDL_GetScancodeFromName
-# - SDL_GetScancodeName
-# - SDL_HasScreenKeyboardSupport
-# - SDL_IsScreenKeyboardShown
-# - SDL_IsTextInputActive
-# - SDL_SetModState
-# - SDL_SetTextInputRect
-# - SDL_StartTextInput
-# - SDL_StopTextInput
-
 module Lummox::SDL::Core::Keyboard
   # Keymod buttons
   KEYMOD_NONE     = 0x0000
@@ -38,4 +20,25 @@ module Lummox::SDL::Core::Keyboard
   KEYMOD_MODE     = 0x4000
   KEYMOD_SCROLL   = 0x8000
   KEYMOD_RESERVED = 0x8000
+
+  def self.included(base)
+    base.class_eval do
+      attach_sdl_function :get_keyboard_focus, [], :pointer
+      attach_sdl_function :get_keyboard_state, [:int_pointer], :pointer
+      attach_sdl_function :get_key_from_name, [:string], Keycode
+      attach_sdl_function :get_key_from_scancode, [Scancode], Keycode
+      attach_sdl_function :get_key_name, [Keycode], :string
+      attach_sdl_function :get_mod_state, [], :uint32
+      attach_sdl_function :get_scancode_from_key, [Keycode], Scancode
+      attach_sdl_function :get_scancode_from_name, [:string], Scancode
+      attach_sdl_function :get_scancode_name, [Scancode], :string
+      attach_sdl_function :has_screen_keyboard_support, [], :bool
+      attach_sdl_function :is_screen_keyboard_shown, [:pointer], :bool
+      attach_sdl_function :is_text_input_active, [], :bool
+      attach_sdl_function :set_mod_state, [:uint32], :void
+      attach_sdl_function :set_text_input_rect, [Lummox::SDL::Core::Rect::Rect.by_ref], :void
+      attach_sdl_function :start_text_input, [], :void
+      attach_sdl_function :stop_text_input, [], :void
+    end
+  end
 end
