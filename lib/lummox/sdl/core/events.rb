@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 # DEFER:
-# - SDL_JoyAxisEvent
-# - SDL_JoyBallEvent
-# - SDL_JoyButtonEvent
-# - SDL_JoyDeviceEvent
-# - SDL_JoyHatEvent
 # - SDL_DropEvent
 # - SDL_SysWMEvent
 # - SDL_UserEvent

@@ -14,6 +14,7 @@ module Lummox::SDL::Core
 
   typedef :pointer, :window_pointer
   typedef :pointer, :cursor_pointer
+  typedef :int32, :joystick_id
   typedef Lummox::SDL::Core::Helpers::IntPtr.by_ref, :int_pointer
   typedef Lummox::SDL::Core::Helpers::FloatPtr.by_ref, :float_pointer
 
@@ -41,6 +42,7 @@ module Lummox::SDL::Core
   include Events
   include GameController
   include Initialization
+  include Joystick
   include Keyboard
   include MessageBox
   include Mouse
