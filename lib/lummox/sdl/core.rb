@@ -9,7 +9,11 @@ module Lummox::SDL::Core
   ffi_lib [FFI::CURRENT_PROCESS, LIB_SDL2]
 
   enum :bool, %i[false true]
+  # TRICKY: Not an SDL enum - invented for cleanliness
+  ToggleState = Lummox::SDL::Core.enum(:query, -1, :disable, :enable)
 
+  typedef :pointer, :window_pointer
+  typedef :pointer, :cursor_pointer
   typedef Lummox::SDL::Core::Helpers::IntPtr.by_ref, :int_pointer
   typedef Lummox::SDL::Core::Helpers::FloatPtr.by_ref, :float_pointer
 

@@ -3,7 +3,7 @@
 module Lummox::SDL::Core::MessageBox
   class MessageBoxData < FFI::Struct
     layout :flags,        :uint32,
-           :window,       :pointer,
+           :window,       :window_pointer,
            :title,        :pointer,
            :message,      :pointer,
            :num_buttons,  :int,

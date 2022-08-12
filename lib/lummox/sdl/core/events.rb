@@ -37,7 +37,7 @@
 module Lummox::SDL::Core::Events
   def self.included(base)
     base.class_eval do
-      attach_sdl_function :event_state, [EventType, EventState], EventState
+      attach_sdl_function :event_state, [EventType, Lummox::SDL::Core::ToggleState], Lummox::SDL::Core::ToggleState
       attach_sdl_function :flush_event, [EventType], :void
       attach_sdl_function :flush_events, [EventType, EventType], :void
       attach_sdl_function :has_event, [EventType], :bool

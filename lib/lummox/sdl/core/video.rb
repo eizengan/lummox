@@ -99,47 +99,47 @@ module Lummox::SDL::Core::Video
       attach_sdl_function :get_video_driver, [:int], :string
       # Windows
       #   Creation, ownership
-      attach_sdl_function :create_window, %i[string int int int int uint32], :pointer # nil if error
-      attach_sdl_function :destroy_window, [:pointer], :void
-      attach_sdl_function :set_window_modal_for, %i[pointer pointer], :int # negative if error
+      attach_sdl_function :create_window, %i[string int int int int uint32], :window_pointer # nil if error
+      attach_sdl_function :destroy_window, [:window_pointer], :void
+      attach_sdl_function :set_window_modal_for, %i[window_pointer window_pointer], :int # negative if error
       #   Display, display mode
-      attach_sdl_function :get_window_display_index, [:pointer], :int
-      attach_sdl_function :get_window_display_mode, [:pointer, DisplayMode.by_ref], :int # negative if error
-      attach_sdl_function :set_window_display_mode, [:pointer, DisplayMode.by_ref], :int # negative if error
+      attach_sdl_function :get_window_display_index, [:window_pointer], :int
+      attach_sdl_function :get_window_display_mode, [:window_pointer, DisplayMode.by_ref], :int # negative if error
+      attach_sdl_function :set_window_display_mode, [:window_pointer, DisplayMode.by_ref], :int # negative if error
       #   Title
-      attach_sdl_function :get_window_title, [:pointer], :string
-      attach_sdl_function :set_window_title, %i[pointer string], :void
+      attach_sdl_function :get_window_title, [:window_pointer], :string
+      attach_sdl_function :set_window_title, %i[window_pointer string], :void
       #   Position
-      attach_sdl_function :get_window_position, %i[pointer int_pointer int_pointer], :void
-      attach_sdl_function :set_window_position, %i[pointer int int], :void
+      attach_sdl_function :get_window_position, %i[window_pointer int_pointer int_pointer], :void
+      attach_sdl_function :set_window_position, %i[window_pointer int int], :void
       #   Size
-      attach_sdl_function :set_window_resizable, %i[pointer bool], :void
-      attach_sdl_function :get_window_size, %i[pointer int_pointer int_pointer], :void
-      attach_sdl_function :set_window_size, %i[pointer int int], :void
-      attach_sdl_function :minimize_window, [:pointer], :void
-      attach_sdl_function :maximize_window, [:pointer], :void
-      attach_sdl_function :restore_window, [:pointer], :void
-      attach_sdl_function :get_window_maximum_size, %i[pointer int_pointer int_pointer], :void
-      attach_sdl_function :set_window_maximum_size, %i[pointer int int], :void
-      attach_sdl_function :get_window_minimum_size, %i[pointer int_pointer int_pointer], :void
-      attach_sdl_function :set_window_minimum_size, %i[pointer int int], :void
-      attach_sdl_function :get_window_borders_size, %i[pointer int_pointer int_pointer int_pointer int_pointer], :int # negative if error
+      attach_sdl_function :set_window_resizable, %i[window_pointer bool], :void
+      attach_sdl_function :get_window_size, %i[window_pointer int_pointer int_pointer], :void
+      attach_sdl_function :set_window_size, %i[window_pointer int int], :void
+      attach_sdl_function :minimize_window, [:window_pointer], :void
+      attach_sdl_function :maximize_window, [:window_pointer], :void
+      attach_sdl_function :restore_window, [:window_pointer], :void
+      attach_sdl_function :get_window_maximum_size, %i[window_pointer int_pointer int_pointer], :void
+      attach_sdl_function :set_window_maximum_size, %i[window_pointer int int], :void
+      attach_sdl_function :get_window_minimum_size, %i[window_pointer int_pointer int_pointer], :void
+      attach_sdl_function :set_window_minimum_size, %i[window_pointer int int], :void
+      attach_sdl_function :get_window_borders_size, %i[window_pointer int_pointer int_pointer int_pointer int_pointer], :int # negative if error
       #   Fullscreen, borders, presence, opacity, flashing
-      attach_sdl_function :set_window_fullscreen, %i[pointer uint32], :int # negative if error
-      attach_sdl_function :set_window_bordered, %i[pointer bool], :void
-      attach_sdl_function :hide_window, [:pointer], :void
-      attach_sdl_function :show_window, [:pointer], :void
-      attach_sdl_function :raise_window, [:pointer], :void
-      attach_sdl_function :get_window_opacity, %i[pointer float_pointer], :int # negative if error
-      attach_sdl_function :set_window_opacity, %i[pointer float], :int # negative if error
-      attach_sdl_function :flash_window, [:pointer, FlashOperation], :int # negative if error
+      attach_sdl_function :set_window_fullscreen, %i[window_pointer uint32], :int # negative if error
+      attach_sdl_function :set_window_bordered, %i[window_pointer bool], :void
+      attach_sdl_function :hide_window, [:window_pointer], :void
+      attach_sdl_function :show_window, [:window_pointer], :void
+      attach_sdl_function :raise_window, [:window_pointer], :void
+      attach_sdl_function :get_window_opacity, %i[window_pointer float_pointer], :int # negative if error
+      attach_sdl_function :set_window_opacity, %i[window_pointer float], :int # negative if error
+      attach_sdl_function :flash_window, [:window_pointer, FlashOperation], :int # negative if error
       #   Screen saver
       attach_sdl_function :disable_screen_saver, [], :void
       attach_sdl_function :enable_screen_saver, [], :void
       attach_sdl_function :is_screen_saver_enabled, [], :bool
       #   Input grabbing
-      attach_sdl_function :get_window_grab, [:pointer], :bool
-      attach_sdl_function :set_window_grab, %i[pointer bool], :void
+      attach_sdl_function :get_window_grab, [:window_pointer], :bool
+      attach_sdl_function :set_window_grab, %i[window_pointer bool], :void
     end
   end
 

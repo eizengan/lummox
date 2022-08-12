@@ -23,7 +23,7 @@ module Lummox::SDL::Core::Keyboard
 
   def self.included(base)
     base.class_eval do
-      attach_sdl_function :get_keyboard_focus, [], :pointer
+      attach_sdl_function :get_keyboard_focus, [], :window_pointer
       attach_sdl_function :get_keyboard_state, [:int_pointer], :pointer
       attach_sdl_function :get_key_from_name, [:string], Keycode
       attach_sdl_function :get_key_from_scancode, [Scancode], Keycode
@@ -33,7 +33,7 @@ module Lummox::SDL::Core::Keyboard
       attach_sdl_function :get_scancode_from_name, [:string], Scancode
       attach_sdl_function :get_scancode_name, [Scancode], :string
       attach_sdl_function :has_screen_keyboard_support, [], :bool
-      attach_sdl_function :is_screen_keyboard_shown, [:pointer], :bool
+      attach_sdl_function :is_screen_keyboard_shown, [:window_pointer], :bool
       attach_sdl_function :is_text_input_active, [], :bool
       attach_sdl_function :set_mod_state, [:uint32], :void
       attach_sdl_function :set_text_input_rect, [Lummox::SDL::Core::Rect::Rect.by_ref], :void

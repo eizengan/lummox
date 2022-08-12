@@ -1,3 +1,6 @@
+- simulate failure-to-map returned enum (e.g. returns -99 when all enum values are positive)
+  - apply findings to show_cursor
+- figure out mouse state button macros https://wiki.libsdl.org/SDL_GetMouseState#remarks
 - annotate returned pointers which should be freed, check string/strptr
 - are structures packed correctly?
   - padding in some events
