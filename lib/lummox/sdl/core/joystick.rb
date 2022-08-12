@@ -19,6 +19,10 @@ module Lummox::SDL::Core::Joystick
   HAT_LEFT_UP    = (HAT_LEFT | HAT_UP).freeze
   HAT_LEFT_DOWN  = (HAT_LEFT | HAT_DOWN).freeze
 
+  # rubocop:disable Layout/LineLength
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
+
   def self.included(base)
     base.class_eval do
       attach_sdl_function :joystick_open, [:int], :joystick_pointer # nil if error
@@ -40,4 +44,8 @@ module Lummox::SDL::Core::Joystick
       attach_sdl_function :joystick_num_hats, [:joystick_pointer], :int # negative if error
     end
   end
+
+  # rubocop:enable Layout/LineLength
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end

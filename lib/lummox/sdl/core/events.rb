@@ -30,6 +30,8 @@
 # - SDL_QuitRequested - defined by preprocessor macro
 
 module Lummox::SDL::Core::Events
+  # rubocop:disable Metrics/MethodLength
+
   def self.included(base)
     base.class_eval do
       attach_sdl_function :event_state, [EventType, Lummox::SDL::Core::ToggleState], Lummox::SDL::Core::ToggleState
@@ -45,4 +47,6 @@ module Lummox::SDL::Core::Events
       attach_sdl_function :wait_event_timeout, [Event.by_ref, :int], :int # 0 if error or timeout elapsed
     end
   end
+
+  # rubocop:enable Metrics/MethodLength
 end

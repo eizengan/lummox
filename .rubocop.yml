@@ -22,6 +22,9 @@ Layout/FirstArrayElementIndentation:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+Style/CommentAnnotation:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 

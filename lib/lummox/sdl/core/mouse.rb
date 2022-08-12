@@ -4,6 +4,9 @@
 # - SDL_CreateColorCursor
 # - SDL_CreateCursor
 module Lummox::SDL::Core::Mouse
+  # rubocop:disable Layout/LineLength
+  # rubocop:disable Metrics/MethodLength
+
   def self.included(base)
     base.class_eval do
       attach_sdl_function :capture_mouse, [:bool], :int # negative if error
@@ -23,4 +26,7 @@ module Lummox::SDL::Core::Mouse
       attach_sdl_function :warp_mouse_in_window, %i[int int], :int # negative if error
     end
   end
+
+  # rubocop:enable Layout/LineLength
+  # rubocop:enable Metrics/MethodLength
 end

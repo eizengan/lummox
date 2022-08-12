@@ -11,8 +11,8 @@ module Lummox::SDL::Core
   enum :bool, %i[false true]
 
   # TRICKY: Not true SDL enums - invented for cleanliness
-  ToggleState = Lummox::SDL::Core.enum(:query, -1, :disable, :enable)
-  ButtonState = Lummox::SDL::Core.enum(:released, :pressed)
+  ToggleState = Lummox::SDL::Core.enum(:query, -1, :disable, :enable).freeze
+  ButtonState = Lummox::SDL::Core.enum(:released, :pressed).freeze
 
   typedef :uint32,  :audio_device_id
   typedef :pointer, :cursor_pointer

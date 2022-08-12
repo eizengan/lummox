@@ -15,5 +15,5 @@ module Lummox::SDL::Core::Mouse
     :system_cursor_no,
     :system_cursor_hand,
     :num_system_cursor
-  )
+  ).freeze
 end

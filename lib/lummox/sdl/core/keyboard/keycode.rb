@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+
 module Lummox::SDL::Core::Keyboard
-  # rubocop:disable Layout/ExtraSpacing
+  # rubocop:disable Naming/VariableNumber
+  # rubocop:disable Style/NumericLiterals
 
   Keycode = Lummox::SDL::Core.enum(
     :keycode_unknown,             0,
@@ -248,7 +251,10 @@ module Lummox::SDL::Core::Keyboard
     :keycode_soft_right,          1073742112,
     :keycode_call,                1073742113,
     :keycode_end_call,            1073742114
-  )
+  ).freeze
 
-  # rubocop:disable Layout/ExtraSpacing
+  # rubocop:enable Naming/VariableNumber
+  # rubocop:enable Style/NumericLiterals
 end
+
+# rubocop:enable Metrics/ModuleLength

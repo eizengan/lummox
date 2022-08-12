@@ -10,6 +10,9 @@
 # - SDL_GameControllerEventState - just use event_state
 # - SDL_GameControllerUpdate - just pump events usuing the event methods
 module Lummox::SDL::Core::GameController
+  # rubocop:disable Layout/LineLength
+  # rubocop:disable Metrics/MethodLength
+
   def self.included(base)
     base.class_eval do
       attach_sdl_function :game_controller_open, [:int], :game_controller_pointer # nil if error
@@ -30,4 +33,7 @@ module Lummox::SDL::Core::GameController
       attach_sdl_function :game_controller_get_string_for_button, [], :string
     end
   end
+
+  # rubocop:enable Layout/LineLength
+  # rubocop:enable Metrics/MethodLength
 end

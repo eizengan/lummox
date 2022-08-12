@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module Lummox::SDL::Core::GameController
+  # rubocop:disable Naming/VariableNumber
+
   GameControllerButton = Lummox::SDL::Core.enum(
     :controller_button_invalid, -1,
     :controller_button_a,
@@ -26,4 +28,6 @@ module Lummox::SDL::Core::GameController
     :controller_button_touchpad,
     :controller_button_max
   ).freeze
+
+  # rubocop:enable Naming/VariableNumber
 end

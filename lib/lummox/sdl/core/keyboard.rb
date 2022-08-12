@@ -21,6 +21,9 @@ module Lummox::SDL::Core::Keyboard
   KEYMOD_SCROLL   = 0x8000
   KEYMOD_RESERVED = 0x8000
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
+
   def self.included(base)
     base.class_eval do
       attach_sdl_function :get_keyboard_focus, [], :window_pointer
@@ -41,4 +44,7 @@ module Lummox::SDL::Core::Keyboard
       attach_sdl_function :stop_text_input, [], :void
     end
   end
+
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
 end

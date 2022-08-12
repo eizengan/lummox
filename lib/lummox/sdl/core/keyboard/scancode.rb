@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ModuleLength
+
 module Lummox::SDL::Core::Keyboard
-  # rubocop:disable Layout/ExtraSpacing
+  # rubocop:disable Naming/VariableNumber
 
   Scancode = Lummox::SDL::Core.enum(
     :scancode_unknown,             0,
@@ -252,7 +254,9 @@ module Lummox::SDL::Core::Keyboard
     :scancode_call,                289,
     :scancode_end_call,            290,
     :num_scancodes,                512
-  )
+  ).freeze
 
-  # rubocop:disable Layout/ExtraSpacing
+  # rubocop:enable Naming/VariableNumber
 end
+
+# rubocop:enable Metrics/ModuleLength

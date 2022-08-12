@@ -76,6 +76,9 @@ module Lummox::SDL::Core::Video
   WINDOW_POPUP_MENU         = 0x00080000 # x11 only
 
   # rubocop:disable Layout/LineLength
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/BlockLength
+  # rubocop:disable Metrics/MethodLength
 
   def self.included(base)
     base.class_eval do
@@ -143,4 +146,7 @@ module Lummox::SDL::Core::Video
   end
 
   # rubocop:enable Layout/LineLength
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/BlockLength
+  # rubocop:enable Metrics/MethodLength
 end
