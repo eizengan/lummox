@@ -48,8 +48,8 @@ module Lummox::SDL::Core
   # TODO:
   # include Render
   # include Audio
-  # include Clipboard
   # include Hints
+  # include Clipboard
   # include Haptic
   include Error
   include Events
@@ -59,6 +59,7 @@ module Lummox::SDL::Core
   include Keyboard
   include MessageBox
   include Mouse
+  include Pixel
   include Rect
   include Timer
   include Video
