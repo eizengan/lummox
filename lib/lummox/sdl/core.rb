@@ -38,13 +38,19 @@ module Lummox::SDL::Core
 
   def self.camel_case(sym)
     str = sym.to_s
-    return str if str !~ /_/ && str =~ /[A-Z]+.*/
+    return sym if str !~ /_/ && str =~ /[A-Z]+.*/
 
     str.split("_").map(&:capitalize).join.to_sym
   end
 
   include Helpers
 
+  # TODO:
+  # include Render
+  # include Audio
+  # include Clipboard
+  # include Hints
+  # include Haptic
   include Error
   include Events
   include GameController
