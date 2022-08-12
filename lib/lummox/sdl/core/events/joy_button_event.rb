@@ -5,5 +5,5 @@ class Lummox::SDL::Core::Events::JoyButtonEvent < FFI::Struct
          :timestamp, :uint32,
          :which,     :joystick_id,
          :button,    :uint8,
-         :state,     Lummox::SDL::Core::Events::ButtonState
+         :state,     Lummox::SDL::Core::ButtonState
 end

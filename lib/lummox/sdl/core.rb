@@ -9,12 +9,15 @@ module Lummox::SDL::Core
   ffi_lib [FFI::CURRENT_PROCESS, LIB_SDL2]
 
   enum :bool, %i[false true]
-  # TRICKY: Not an SDL enum - invented for cleanliness
+
+  # TRICKY: Not true SDL enums - invented for cleanliness
   ToggleState = Lummox::SDL::Core.enum(:query, -1, :disable, :enable)
+  ButtonState = Lummox::SDL::Core.enum(:released, :pressed)
 
   typedef :uint32,  :audio_device_id
   typedef :pointer, :cursor_pointer
   typedef :int32,   :joystick_id
+  typedef :pointer, :joystick_pointer
   typedef :uint32,  :window_id
   typedef :pointer, :window_pointer
 
