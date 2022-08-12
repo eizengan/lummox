@@ -23,8 +23,8 @@ module Lummox::SDL::Core::Joystick
     base.class_eval do
       attach_sdl_function :joystick_open, [:int], :joystick_pointer # nil if error
       attach_sdl_function :joystick_close, [:joystick_pointer], :void
-      attach_sdl_function :joystick_from_instance_id, [:joystick_id], :joystick_pointer # nil if error
-      attach_sdl_function :joystick_instance_id, [:joystick_pointer], :joystick_id # negative if error
+      attach_sdl_function :joystick_from_instance_id, [:joystick_id], :joystick_pointer, sdl_method_name: :SDL_JoystickFromInstanceID # nil if error
+      attach_sdl_function :joystick_instance_id, [:joystick_pointer], :joystick_id, sdl_method_name: :SDL_JoystickInstanceID # negative if error
       attach_sdl_function :num_joysticks, [], :int # negative if error
       attach_sdl_function :joystick_get_attached, [:joystick_pointer], :bool # false may have error
       attach_sdl_function :joystick_name, [:joystick_pointer], :string # nil may have error

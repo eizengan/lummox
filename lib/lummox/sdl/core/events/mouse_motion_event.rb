@@ -3,7 +3,7 @@
 class Lummox::SDL::Core::Events::MouseMotionEvent < FFI::Struct
   layout :type,      Lummox::SDL::Core::Events::EventType,
          :timestamp, :uint32,
-         :window_id, :window_id,
+         :window_id, :uint32,
          :which,     :uint32,
          :button,    Lummox::SDL::Core::Mouse::MouseButton,
          :state,     :uint32,

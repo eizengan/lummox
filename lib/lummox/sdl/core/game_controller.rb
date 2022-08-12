@@ -14,7 +14,7 @@ module Lummox::SDL::Core::GameController
     base.class_eval do
       attach_sdl_function :game_controller_open, [:int], :game_controller_pointer # nil if error
       attach_sdl_function :game_controller_close, [:game_controller_pointer], :void
-      attach_sdl_function :game_controller_from_instance_id, [:joystick_id], :game_controller_pointer # nil if error
+      attach_sdl_function :game_controller_from_instance_id, [:joystick_id], :game_controller_pointer, sdl_method_name: :SDL_GameControllerFromInstanceID # nil if error
       attach_sdl_function :game_controller_get_joystick, [:game_controller_pointer], :joystick_pointer
       attach_sdl_function :game_controller_get_attached, [:game_controller_pointer], :bool
       attach_sdl_function :is_game_controller, [:int], :bool

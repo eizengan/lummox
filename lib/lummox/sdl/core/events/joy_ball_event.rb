@@ -3,8 +3,8 @@
 class Lummox::SDL::Core::Events::JoyBallEvent < FFI::Struct
   layout :type,      Lummox::SDL::Core::Events::EventType,
          :timestamp, :uint32,
-         :which,     :joystick_id,
+         :which,     :int32,
          :ball,      :uint8,
-         :x_rel,     :int16
+         :x_rel,     :int16,
          :y_rel,     :int16
 end

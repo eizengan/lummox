@@ -26,7 +26,7 @@ module Lummox::SDL::Core
   typedef Lummox::SDL::Core::Helpers::FloatPtr.by_ref, :float_pointer
 
   def self.attach_sdl_function(method_name, args, ret, **opts)
-    sdl_method_name = sdl_method_name(method_name)
+    sdl_method_name = opts.delete(:sdl_method_name) || sdl_method_name(method_name)
     attach_function method_name, sdl_method_name, args, ret, **opts
     private method_name
   end
