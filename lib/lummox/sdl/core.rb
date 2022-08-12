@@ -16,6 +16,7 @@ module Lummox::SDL::Core
 
   typedef :uint32,  :audio_device_id
   typedef :pointer, :cursor_pointer
+  typedef :pointer, :game_controller_pointer
   typedef :int32,   :joystick_id
   typedef :pointer, :joystick_pointer
   typedef :uint32,  :window_id
