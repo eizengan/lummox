@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 # NEXT UP:
-# - SDL_GetWindowFromID
-# - SDL_GetWindowID
-#
 # - SDL_GetDisplayDPI
 # - SDL_GetWindowGammaRamp
 # - SDL_SetWindowGammaRamp
@@ -98,10 +95,12 @@ module Lummox::SDL::Core::Video
       attach_sdl_function :get_current_video_driver, [], :string
       attach_sdl_function :get_video_driver, [:int], :string
       # Windows
-      #   Creation, ownership
+      #   Creation, identification, ownership
       attach_sdl_function :create_window, %i[string int int int int uint32], :window_pointer # nil if error
       attach_sdl_function :destroy_window, [:window_pointer], :void
       attach_sdl_function :set_window_modal_for, %i[window_pointer window_pointer], :int # negative if error
+      attach_sdl_function :get_window_from_id, [:uint32], :window_pointer # nil if error
+      attach_sdl_function :get_window_id, [:window_pointer], :uint32 # 0 if error
       #   Display, display mode
       attach_sdl_function :get_window_display_index, [:window_pointer], :int
       attach_sdl_function :get_window_display_mode, [:window_pointer, DisplayMode.by_ref], :int # negative if error
