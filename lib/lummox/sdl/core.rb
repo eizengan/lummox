@@ -12,9 +12,12 @@ module Lummox::SDL::Core
   # TRICKY: Not an SDL enum - invented for cleanliness
   ToggleState = Lummox::SDL::Core.enum(:query, -1, :disable, :enable)
 
-  typedef :pointer, :window_pointer
+  typedef :uint32,  :audio_device_id
   typedef :pointer, :cursor_pointer
-  typedef :int32, :joystick_id
+  typedef :int32,   :joystick_id
+  typedef :uint32,  :window_id
+  typedef :pointer, :window_pointer
+
   typedef Lummox::SDL::Core::Helpers::IntPtr.by_ref, :int_pointer
   typedef Lummox::SDL::Core::Helpers::FloatPtr.by_ref, :float_pointer
 
