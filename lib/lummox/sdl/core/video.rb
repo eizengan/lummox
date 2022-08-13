@@ -85,8 +85,8 @@ module Lummox::SDL::Core::Video
       # Displays
       attach_sdl_function :get_num_video_displays, [], :int # negative if error
       attach_sdl_function :get_display_name, [:int], :string # nullptr if error
-      attach_sdl_function :get_display_bounds, [:int, Lummox::SDL::Core::Rect::Rect.by_ref], :int # negative if error
-      attach_sdl_function :get_display_usable_bounds, [:int, Lummox::SDL::Core::Rect::Rect.by_ref], :int # negative if error
+      attach_sdl_function :get_display_bounds, [:int, Lummox::SDL::Core::Geometry::Rect.by_ref], :int # negative if error
+      attach_sdl_function :get_display_usable_bounds, [:int, Lummox::SDL::Core::Geometry::Rect.by_ref], :int # negative if error
       # Display modes
       attach_sdl_function :get_num_display_modes, [:int], :int # negative if error
       attach_sdl_function :get_display_mode, [:int, :int, DisplayMode.by_ref], :int # negative if error

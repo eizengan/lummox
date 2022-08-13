@@ -39,7 +39,7 @@ module Lummox::SDL::Core::Keyboard
       attach_sdl_function :is_screen_keyboard_shown, [:window_pointer], :bool
       attach_sdl_function :is_text_input_active, [], :bool
       attach_sdl_function :set_mod_state, [:uint32], :void
-      attach_sdl_function :set_text_input_rect, [Lummox::SDL::Core::Rect::Rect.by_ref], :void
+      attach_sdl_function :set_text_input_rect, [Lummox::SDL::Core::Geometry::Rect.by_ref], :void
       attach_sdl_function :start_text_input, [], :void
       attach_sdl_function :stop_text_input, [], :void
     end
