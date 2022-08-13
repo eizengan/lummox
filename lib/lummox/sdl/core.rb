@@ -21,6 +21,8 @@ module Lummox::SDL::Core
   typedef :pointer, :game_controller_pointer
   typedef :int32,   :joystick_id
   typedef :pointer, :joystick_pointer
+  typedef :pointer, :renderer_pointer
+  typedef :pointer, :texture_pointer
   typedef :uint32,  :window_id
   typedef :pointer, :window_pointer
 
@@ -31,7 +33,6 @@ module Lummox::SDL::Core
   end
 
   # TODO:
-  # include Render
   # include Audio
   # include Hints
   # include Clipboard
@@ -46,6 +47,7 @@ module Lummox::SDL::Core
   include Mouse
   include Pixel
   include Rect
+  include Render
   include Timer
   include Video
 end
