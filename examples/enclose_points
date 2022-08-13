@@ -13,17 +13,13 @@ point_buffer = FFI::MemoryPointer.new(Lummox::SDL::Core::Point, 5)
   [2, 4],
   [10, 10]
 ].each_with_index do |point_data, index|
-  Lummox::SDL::Core::Point.new(point_buffer + index * Lummox::SDL::Core::Point.size).tap do |point|
-    point[:x] = point_data[0]
-    point[:y] = point_data[1]
-  end
+  Lummox::SDL::Core::Point.new(
+    point_buffer + index * Lummox::SDL::Core::Point.size,
+    x: point_data[0], y: point_data[1]
+  )
 end
 
-clip_rect = Lummox::SDL::Core::Rect.new
-clip_rect[:x] = 0
-clip_rect[:y] = 0
-clip_rect[:w] = 6
-clip_rect[:h] = 6
+clip_rect = Lummox::SDL::Core::Rect.new(x: 0, y: 0, w: 6, h: 6)
 
 output = Lummox::SDL::Core::Rect.new
 ret = Lummox::SDL::Core.enclose_points(point_buffer, point_buffer.size / point_buffer.type_size, clip_rect, output)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Lummox::SDL::Core::Geometry::Rect < FFI::Struct
+class Lummox::SDL::Core::Geometry::Rect < Lummox::SDL::Core::Struct
   layout :x, :int,
          :y, :int,
          :w, :int,

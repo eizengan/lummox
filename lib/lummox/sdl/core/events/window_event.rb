@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Lummox::SDL::Core::Events::WindowEvent < FFI::Struct
+class Lummox::SDL::Core::Events::WindowEvent < Lummox::SDL::Core::Struct
   layout :type,      Lummox::SDL::Core::Events::EventType,
          :timestamp, :uint32,
          :window_id, :uint32,

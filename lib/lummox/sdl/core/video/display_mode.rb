@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
-module Lummox::SDL::Core::Video
-  class DisplayMode < FFI::Struct
-    layout :format,       :uint32,
-           :w,            :int,
-           :h,            :int,
-           :refresh_rate, :int,
-           :driver_data,  :pointer
-  end
+class Lummox::SDL::Core::Video::DisplayMode < Lummox::SDL::Core::Struct
+  layout :format,       :uint32,
+         :w,            :int,
+         :h,            :int,
+         :refresh_rate, :int,
+         :driver_data,  :pointer
 end
