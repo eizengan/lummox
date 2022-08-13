@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox::SDL.init!
+
+name = "A Test Window"
+window = Lummox::SDL::Core.create_window(
+  name,
+  Lummox::SDL::Core::WINDOW_POS_CENTERED, Lummox::SDL::Core::WINDOW_POS_CENTERED,
+  480, 360,
+  Lummox::SDL::Core::WINDOW_OPENGL
+)
+
+closing = false
+event = Lummox::SDL::Core::Event.new
+until closing do
+  while Lummox::SDL::Core.poll_event(event).nonzero? do
+    closing = (event[:type] == :quit)
+  end
+end
+
+Lummox::SDL::Core.destroy_window(window)
+Lummox::SDL.quit!
+
+puts "all done!"
