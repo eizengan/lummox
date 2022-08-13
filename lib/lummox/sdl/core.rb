@@ -3,8 +3,10 @@
 require "ffi"
 
 module Lummox::SDL::Core
-  LIB_SDL2 = ENV.fetch("LIB_SDL2").freeze
   extend FFI::Library
+  extend CoreHelpers
+
+  LIB_SDL2 = ENV.fetch("LIB_SDL2").freeze
   ffi_lib_flags :now, :global
   ffi_lib [FFI::CURRENT_PROCESS, LIB_SDL2]
 
@@ -22,28 +24,11 @@ module Lummox::SDL::Core
   typedef :uint32,  :window_id
   typedef :pointer, :window_pointer
 
-  typedef Lummox::SDL::Core::Helpers::IntPtr.by_ref, :int_pointer
-  typedef Lummox::SDL::Core::Helpers::FloatPtr.by_ref, :float_pointer
-
-  def self.attach_sdl_function(method_name, args, ret, **opts)
-    sdl_method_name = opts.delete(:sdl_method_name) || sdl_method_name(method_name)
-    attach_function method_name, sdl_method_name, args, ret, **opts
-    private method_name
+  # TRICKY: Creates pointer helpers for each class, e.g. :uint8 creates Uint8Ptr and :uint8_pointer typedef
+  %i[uint8 uint32 int float].each do |type|
+    klass = const_set(:"#{camel_case(type)}Ptr", pointer_struct(type))
+    typedef klass.by_ref, :"#{type}_pointer"
   end
-
-  def self.sdl_method_name(method_name)
-    base_name = /(sdl_)?(\w*)/.match(method_name).captures[1]
-    :"SDL_#{camel_case(base_name)}"
-  end
-
-  def self.camel_case(sym)
-    str = sym.to_s
-    return sym if str !~ /_/ && str =~ /[A-Z]+.*/
-
-    str.split("_").map(&:capitalize).join.to_sym
-  end
-
-  include Helpers
 
   # TODO:
   # include Render
