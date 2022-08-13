@@ -1,4 +1,3 @@
-- Buffer arguments -> buffer_inout, buffer_in, buffer_out
 - better method of creating, using flags-type enums
 - simulate failure-to-map returned enum (e.g. returns -99 when all enum values are positive)
   - apply findings to show_cursor

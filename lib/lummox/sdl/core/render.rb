@@ -70,9 +70,9 @@ module Lummox::SDL::Core::Render
       attach_sdl_function :get_texture_color_mod, %i[texture_pointer uint8_pointer uint8_pointer uint8_pointer], :int # negative if error
       attach_sdl_function :set_texture_color_mod, %i[texture_pointer uint8 uint8 uint8], :int # negative if error
       #   Modification
-      attach_sdl_function :lock_texture, [:texture_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref, :pointer, :int], :int # negative if error
+      attach_sdl_function :lock_texture, [:texture_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref, :buffer_inout, :int], :int # negative if error
       attach_sdl_function :unlock_texture, [:texture_pointer], :void
-      attach_sdl_function :update_texture, [:texture_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref, :pointer, :int], :int # negative if error
+      attach_sdl_function :update_texture, [:texture_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref, :buffer_in, :int], :int # negative if error
       # Drawing
       attach_sdl_function :render_clear, [:renderer_pointer], :int # negative if error
       attach_sdl_function :render_present, [:renderer_pointer], :void
@@ -84,23 +84,23 @@ module Lummox::SDL::Core::Render
       #   Lines
       attach_sdl_function :render_draw_line, %i[renderer_pointer int int int int], :int # negative if error
       attach_sdl_function :render_draw_line_f, %i[renderer_pointer float float float float], :int # negative if error
-      attach_sdl_function :render_draw_lines, %i[renderer_pointer pointer int], :int # negative if error
-      attach_sdl_function :render_draw_lines_f, %i[renderer_pointer pointer int], :int # negative if error
+      attach_sdl_function :render_draw_lines, %i[renderer_pointer buffer_in int], :int # negative if error
+      attach_sdl_function :render_draw_lines_f, %i[renderer_pointer buffer_in int], :int # negative if error
       #   Points
       attach_sdl_function :render_draw_point, %i[renderer_pointer int int], :int # negative if error
       attach_sdl_function :render_draw_point_f, %i[renderer_pointer float float], :int # negative if error
-      attach_sdl_function :render_draw_points, %i[renderer_pointer pointer int], :int # negative if error
-      attach_sdl_function :render_draw_points_f, %i[renderer_pointer pointer int], :int # negative if error
+      attach_sdl_function :render_draw_points, %i[renderer_pointer buffer_in int], :int # negative if error
+      attach_sdl_function :render_draw_points_f, %i[renderer_pointer buffer_in int], :int # negative if error
       #   Rects
       attach_sdl_function :render_draw_rect, [:renderer_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref], :int # negative if error
       attach_sdl_function :render_draw_rect_f, [:renderer_pointer, Lummox::SDL::Core::Geometry::FRect.by_ref], :int # negative if error
-      attach_sdl_function :render_draw_rects, %i[renderer_pointer pointer int], :int # negative if error
-      attach_sdl_function :render_draw_rects_f, %i[renderer_pointer pointer int], :int # negative if error
+      attach_sdl_function :render_draw_rects, %i[renderer_pointer buffer_in int], :int # negative if error
+      attach_sdl_function :render_draw_rects_f, %i[renderer_pointer buffer_in int], :int # negative if error
       #   FillRects
       attach_sdl_function :render_fill_rect, [:renderer_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref], :int # negative if error
       attach_sdl_function :render_fill_rect_f, [:renderer_pointer, Lummox::SDL::Core::Geometry::FRect.by_ref], :int # negative if error
-      attach_sdl_function :render_fill_rects, %i[renderer_pointer pointer int], :int # negative if error
-      attach_sdl_function :render_fill_rects_f, %i[renderer_pointer pointer int], :int # negative if error
+      attach_sdl_function :render_fill_rects, %i[renderer_pointer buffer_in int], :int # negative if error
+      attach_sdl_function :render_fill_rects_f, %i[renderer_pointer buffer_in int], :int # negative if error
       #   Textures
       attach_sdl_function :render_copy, [:renderer_pointer, :texture_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref, Lummox::SDL::Core::Geometry::Rect.by_ref], :int # negative if error
       attach_sdl_function :render_copy_f, [:renderer_pointer, :texture_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref, Lummox::SDL::Core::Geometry::FRect.by_ref], :int # negative if error
