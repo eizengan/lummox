@@ -13,6 +13,8 @@ window = Lummox::SDL::Core.create_window(
   480, 360,
   Lummox::SDL::Core::WINDOW_OPENGL
 )
+window_id = Lummox::SDL::Core.get_window_id(window)
+puts "Window created with ID #{window_id}"
 
 closing = false
 event = Lummox::SDL::Core::Event.new
