@@ -2,12 +2,16 @@
 
 class Lummox::SDL::Error < StandardError
   class << self
-    def raise_if
-      raise_current_error if yield
+    def raise_if(method_sym)
+      result = yield
+      raise_current_error if result.send(method_sym)
+      result
     end
 
-    def raise_unless
-      raise_current_error unless yield
+    def raise_unless(method_sym)
+      result = yield
+      raise_current_error unless result.send(method_sym)
+      result
     end
 
     def raise_current_error

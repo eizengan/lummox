@@ -23,7 +23,7 @@ module Lummox::SDL
       flags = flags_from_subsystems(*subsystems)
       initialized_flags = Core.was_init(0)
       success_code = Core.init(flags ^ initialized_flags)
-      Error.raise_if { success_code.negative? }
+      Error.raise_if(:negative?) { success_code }
     end
 
     def init?(*subsystems)

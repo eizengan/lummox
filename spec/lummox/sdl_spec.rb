@@ -26,12 +26,12 @@ RSpec.describe Lummox::SDL do
 
     describe "when initialization fails" do
       before do
-        allow(Lummox::SDL::Initialization).to receive(:init).and_return(-1)
-        Lummox::SDL::Error.set_error("oh no! an error happened")
+        allow(Lummox::SDL::Core).to receive(:init).and_return(-1)
+        Lummox::SDL::Core.set_error("oh no! an error happened")
       end
 
       it "raises an error with the expected message" do
-        expect { init! }.to raise_error Lummox::SDLError, "oh no! an error happened"
+        expect { init! }.to raise_error Lummox::SDL::Error, "oh no! an error happened"
       end
     end
   end
