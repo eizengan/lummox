@@ -10,7 +10,7 @@ module Lummox::SDL::Core::Mouse
   def self.included(base)
     base.class_eval do
       attach_sdl_function :capture_mouse, [:bool], :int # negative if error
-      attach_sdl_function :create_system_cursor, [SystemCursor], :cursor_pointer
+      attach_sdl_function :create_system_cursor, [SystemCursor], :cursor_pointer # nil if error, free with free_cursor
       attach_sdl_function :free_cursor, [:cursor_pointer], :void
       attach_sdl_function :get_cursor, [], :cursor_pointer
       attach_sdl_function :get_default_cursor, [], :cursor_pointer

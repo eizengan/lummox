@@ -1,6 +1,9 @@
 - better method of creating, using flags-type enums
 - figure out mouse state button macros https://wiki.libsdl.org/SDL_GetMouseState#remarks
-- annotate returned pointers which should be freed, check string/strptr
 - are structures packed correctly?
   - padding in some events
   - enum sizes - underlying type
+- testing
+  - fix existing tests
+  - strategize tests for FFI wrapper
+  - strategize tests for API

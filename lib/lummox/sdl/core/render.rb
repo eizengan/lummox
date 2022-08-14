@@ -32,7 +32,7 @@ module Lummox::SDL::Core::Render
     base.class_eval do
       # Renderer
       #   Creation
-      attach_sdl_function :create_renderer, %i[window_pointer int uint32], :renderer_pointer # nil if error
+      attach_sdl_function :create_renderer, %i[window_pointer int uint32], :renderer_pointer # nil if error, free with destroy_renderer
       attach_sdl_function :destroy_renderer, [:renderer_pointer], :void
       attach_sdl_function :get_renderer, [:window_pointer], :renderer_pointer # nil if error
       #   Information
@@ -58,7 +58,7 @@ module Lummox::SDL::Core::Render
       attach_sdl_function :render_set_clip_rect, [:renderer_pointer, Lummox::SDL::Core::Geometry::Rect.by_ref], :void # negative if error
       # Texture
       #   Creation
-      attach_sdl_function :create_texture, [:renderer_pointer, :uint32, TextureAccess, :int, :int], :texture_pointer # nil if error
+      attach_sdl_function :create_texture, [:renderer_pointer, :uint32, TextureAccess, :int, :int], :texture_pointer # nil if error, free with destroy_texture
       attach_sdl_function :destroy_texture, [:texture_pointer], :void
       #   Information
       attach_sdl_function :query_texture, %i[texture_pointer uint32_pointer int_pointer int_pointer int_pointer], :int # negative if error
