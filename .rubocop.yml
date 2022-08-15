@@ -19,6 +19,9 @@ Layout/LineLength:
 Layout/FirstArrayElementIndentation:
   EnforcedStyle: consistent
 
+Lint/BooleanSymbol:
+  Enabled: false
+
 Style/ClassAndModuleChildren:
   Enabled: false
 

@@ -11,7 +11,7 @@ button_buffer = FFI::MemoryPointer.new(Lummox::SDL::Core::MessageBoxButtonData, 
 button_texts = %w[Okay Cancel].map { |t| FFI::MemoryPointer.from_string(t) }
 button_texts.each_with_index do |text, index|
   Lummox::SDL::Core::MessageBoxButtonData.new(
-    button_buffer + index * Lummox::SDL::Core::MessageBoxButtonData.size,
+    button_buffer + (index * Lummox::SDL::Core::MessageBoxButtonData.size),
     flags: 0, button_id: index, text: text
   )
 end
@@ -25,7 +25,7 @@ color_buffer = FFI::MemoryPointer.new(Lummox::SDL::Core::MessageBoxColor, 5)
   message_box_color_button_selected: [63, 0, 63]
 }.each do |color_type, color_array|
   Lummox::SDL::Core::MessageBoxColor.new(
-    color_buffer + Lummox::SDL::Core::MessageBoxColorType[color_type] * Lummox::SDL::Core::MessageBoxColor.size,
+    color_buffer + (Lummox::SDL::Core::MessageBoxColorType[color_type] * Lummox::SDL::Core::MessageBoxColor.size),
     r: color_array[0], g: color_array[1], b: color_array[2]
   )
 end
@@ -49,7 +49,7 @@ clicked_button_text = button_texts[clicked_button_id.value].read_string
 puts "clicked '#{clicked_button_text}' button"
 
 event = Lummox::SDL::Core::Event.new
-while Lummox::SDL::Core.poll_event(event).nonzero? do
+while Lummox::SDL::Core.poll_event(event).nonzero?
   # clear out the queue
 end
 

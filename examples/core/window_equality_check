@@ -25,7 +25,7 @@ else
 end
 
 event = Lummox::SDL::Core::Event.new
-while Lummox::SDL::Core.poll_event(event).nonzero? do
+while Lummox::SDL::Core.poll_event(event).nonzero?
   # clear out the queue
 end
 

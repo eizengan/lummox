@@ -18,8 +18,8 @@ puts "Window created with ID #{window_id}"
 
 closing = false
 event = Lummox::SDL::Core::Event.new
-until closing do
-  while Lummox::SDL::Core.poll_event(event).nonzero? do
+until closing
+  while Lummox::SDL::Core.poll_event(event).nonzero? # rubocop:disable Style/WhileUntilModifier
     closing = (event[:type] == :quit)
   end
 end

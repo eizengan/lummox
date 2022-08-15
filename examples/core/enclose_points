@@ -14,7 +14,7 @@ point_buffer = FFI::MemoryPointer.new(Lummox::SDL::Core::Point, 5)
   [10, 10]
 ].each_with_index do |point_data, index|
   Lummox::SDL::Core::Point.new(
-    point_buffer + index * Lummox::SDL::Core::Point.size,
+    point_buffer + (index * Lummox::SDL::Core::Point.size),
     x: point_data[0], y: point_data[1]
   )
 end
