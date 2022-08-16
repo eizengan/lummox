@@ -3,6 +3,7 @@
 class Lummox::SDL::Core::Events::Event < FFI::Union
   layout :type,                    Lummox::SDL::Core::Events::EventType,
          :common_event,            Lummox::SDL::Core::Events::CommonEvent,
+         :display_event,           Lummox::SDL::Core::Events::DisplayEvent,
          :window_event,            Lummox::SDL::Core::Events::WindowEvent,
          :keyboard_event,          Lummox::SDL::Core::Events::KeyboardEvent,
          :text_editing_event,      Lummox::SDL::Core::Events::TextEditingEvent,
