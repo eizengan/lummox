@@ -12,16 +12,16 @@ module Lummox::SDL::InstanceRegistry
       @registry.values
     end
 
-    def register_instance(pointer, instance)
-      @registry[pointer.address] = instance
+    def register_instance(id, instance)
+      @registry[id] = instance
     end
 
-    def deregister_instance(pointer)
-      @registry.delete(pointer.address)
+    def deregister_instance(id)
+      @registry.delete(id)
     end
 
-    def find_instance(pointer)
-      @registry[pointer.address]
+    def find_instance(id)
+      @registry[id]
     end
   end
 end

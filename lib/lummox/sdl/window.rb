@@ -25,12 +25,12 @@ class Lummox::SDL::Window
     @resizable = false
     flags = Lummox::SDL::Core::WINDOW_OPENGL
     @pointer = create_managed_pointer(title, position, size, flags)
-    self.class.register_instance(@pointer, self)
+    self.class.register_instance(@pointer.address, self)
   end
 
   def self.from_id(id)
     pointer = Lummox::SDL::Error.raise_if(:nil?) { Lummox::SDL::Core.get_window_from_id(id) }
-    self.class.find_instance(pointer)
+    self.class.find_instance(pointer.address)
   end
 
   def self.all
@@ -38,7 +38,7 @@ class Lummox::SDL::Window
   end
 
   def close!
-    self.class.deregister_instance(@pointer)
+    self.class.deregister_instance(@pointer.address)
     @pointer.free
     @pointer = FFI::Pointer::NULL
   end
