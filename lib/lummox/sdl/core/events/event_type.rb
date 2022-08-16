@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::Events
   # rubocop:disable Layout/ExtraSpacing
 
   # Event type
   EventType = Lummox::SDL::Core.enum(
+    FFI::Type::UINT32,
     :first_event,                0x0000,
     :quit,                       0x0100,
     :app_terminating,

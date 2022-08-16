@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 # rubocop:disable Metrics/ModuleLength
 
 module Lummox::SDL::Core::Keyboard
@@ -7,6 +9,7 @@ module Lummox::SDL::Core::Keyboard
   # rubocop:disable Style/NumericLiterals
 
   Keycode = Lummox::SDL::Core.enum(
+    FFI::Type::INT32,
     :keycode_unknown,             0,
     :keycode_return,              13,
     :keycode_escape,              27,

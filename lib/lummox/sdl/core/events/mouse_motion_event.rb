@@ -5,7 +5,6 @@ class Lummox::SDL::Core::Events::MouseMotionEvent < Lummox::SDL::Core::Struct
          :timestamp, :uint32,
          :window_id, :uint32,
          :which,     :uint32,
-         :button,    Lummox::SDL::Core::Mouse::MouseButton,
          :state,     :uint32,
          :x,         :int32,
          :y,         :int32,

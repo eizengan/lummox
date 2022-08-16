@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::GameController
   GameControllerAxis = Lummox::SDL::Core.enum(
+    # TODO: This type is used by a struct, but the declaration is quite apparently int; does this work in all cases?
+    FFI::Type::UINT8,
     :controller_axis_invalid, -1,
     :controller_axis_left_x,
     :controller_axis_left_y,

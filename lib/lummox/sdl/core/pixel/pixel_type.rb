@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::Pixel
   # rubocop:disable Naming/VariableNumber
 
   PixelType = Lummox::SDL::Core.enum(
+    FFI::Type::INT,
     :pixel_type_unknown,
     :pixel_type_index_1,
     :pixel_type_index_4,

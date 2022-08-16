@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 # rubocop:disable Metrics/ModuleLength
 
 module Lummox::SDL::Core::Keyboard
   # rubocop:disable Naming/VariableNumber
 
   Scancode = Lummox::SDL::Core.enum(
+    FFI::Type::INT,
     :scancode_unknown,             0,
     :scancode_a,                   4,
     :scancode_b,                   5,

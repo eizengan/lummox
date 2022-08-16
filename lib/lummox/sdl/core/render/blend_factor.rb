@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::Render
   BlendFactor = Lummox::SDL::Core.enum(
+    FFI::Type::INT,
     :blend_factor_zero,                0x1,
     :blend_factor_one,                 0x2,
     :blend_factor_src_color,           0x3,

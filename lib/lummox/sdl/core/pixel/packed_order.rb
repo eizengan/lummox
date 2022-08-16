@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::Pixel
   PackedOrder = Lummox::SDL::Core.enum(
+    FFI::Type::INT,
     :packed_order_none,
     :packed_order_xrgb,
     :packed_order_rgbx,

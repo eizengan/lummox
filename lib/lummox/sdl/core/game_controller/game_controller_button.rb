@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::GameController
   # rubocop:disable Naming/VariableNumber
 
   GameControllerButton = Lummox::SDL::Core.enum(
+    # TODO: This type is used by a struct, but the declaration is quite apparently int; does this work in all cases?
+    FFI::Type::UINT8,
     :controller_button_invalid, -1,
     :controller_button_a,
     :controller_button_b,

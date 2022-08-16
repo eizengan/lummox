@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::Video
   WindowEventId = Lummox::SDL::Core.enum(
+    FFI::Type::UINT8,
     :window_event_none,
     :window_event_shown,
     :window_event_hidden,

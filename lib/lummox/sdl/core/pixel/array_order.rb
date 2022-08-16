@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::Pixel
   ArrayOrder = Lummox::SDL::Core.enum(
+    FFI::Type::INT,
     :array_order_none,
     :array_order_rgb,
     :array_order_rgba,

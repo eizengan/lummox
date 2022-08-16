@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::Mouse
   SystemCursor = Lummox::SDL::Core.enum(
+    FFI::Type::INT,
     :system_cursor_arrow,
     :system_cursor_i_beam,
     :system_cursor_wait,

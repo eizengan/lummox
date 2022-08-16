@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require "ffi"
+
 module Lummox::SDL::Core::Pixel
   # rubocop:disable Naming/VariableNumber
 
-  PackedOrder = Lummox::SDL::Core.enum(
+  PackedLayout = Lummox::SDL::Core.enum(
+    FFI::Type::INT,
     :packed_layout_none,
     :packed_layout_332,
     :packed_layout_4444,

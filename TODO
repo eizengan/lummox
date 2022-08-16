@@ -3,7 +3,6 @@
 - figure out mouse state button macros https://wiki.libsdl.org/SDL_GetMouseState#remarks
 - are structures packed correctly?
   - padding in some events
-  - enum sizes - underlying type
 - testing
   - fix existing tests
   - strategize tests for FFI wrapper

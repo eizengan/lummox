@@ -10,11 +10,11 @@ module Lummox::SDL::Core
   ffi_lib_flags :now, :global
   ffi_lib [FFI::CURRENT_PROCESS, LIB_SDL2]
 
-  enum :bool, %i[false true]
+  enum FFI::Type::INT, :bool, %i[false true]
 
   # TRICKY: Not true SDL enums - invented for cleanliness
-  ToggleState = Lummox::SDL::Core.enum(:query, -1, :disable, :enable).freeze
-  ButtonState = Lummox::SDL::Core.enum(:released, :pressed).freeze
+  ToggleState = Lummox::SDL::Core.enum(FFI::Type::INT, :query, -1, :disable, :enable).freeze
+  ButtonState = Lummox::SDL::Core.enum(FFI::Type::UINT8, :released, :pressed).freeze
 
   typedef :uint32,  :audio_device_id
   typedef :pointer, :cursor_pointer
