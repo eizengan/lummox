@@ -3,8 +3,6 @@
 require "ffi"
 
 # TODO:
-# - get_window_display_mode
-# - set_window_display_mode
 # IGNORE:
 # - set_window_modal_for - raises "That operation is not supported" MacOS; try Windows/Linux?
 
@@ -66,6 +64,16 @@ class Lummox::SDL::Window
     @fullscreen
   end
 
+  def display_mode
+    display_mode = Lummox::SDL::Core::DisplayMode.new
+    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_window_display_mode(@pointer, display_mode) }
+    display_mode
+  end
+
+  def display_mode=(display_mode)
+    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.set_window_display_mode(@pointer, display_mode) }
+  end
+
   def bordered=(bordered)
     raise Lummox::SDL::Error, "Fullscreen windows cannot change bordered state" if fullscreen?
 
@@ -93,8 +101,9 @@ class Lummox::SDL::Window
     @title = new_title
   end
 
-  def display_index
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_window_display_index(@pointer) }
+  def display
+    display_index = Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_window_display_index(@pointer) }
+    Lummox::SDL::Display.new(display_index)
   end
 
   def position

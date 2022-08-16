@@ -1,3 +1,4 @@
+- display modes by index - what happens after disconnect, reconnect?
 - better method of creating, using flags-type enums
 - figure out mouse state button macros https://wiki.libsdl.org/SDL_GetMouseState#remarks
 - are structures packed correctly?

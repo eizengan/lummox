@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 module Lummox::SDL
+  DisplayMode = Core::DisplayMode
+  Rect = Core::Rect
+
   # rubocop:disable Layout/HashAlignment
   SUBSYSTEM_FLAGS = {
     timer:          Core::INIT_TIMER,
