@@ -37,7 +37,7 @@ class Lummox::SDL::Window
 
   def close!
     self.class.deregister_instance(@pointer.address)
-    @pointer.free
+    Lummox::SDL::Core.destroy_window(@pointer)
     @pointer = FFI::Pointer::NULL
   end
 
@@ -218,7 +218,7 @@ class Lummox::SDL::Window
 
   def create_managed_pointer(title, position, size, flags)
     pointer = Lummox::SDL::Error.raise_if(:nil?) { Lummox::SDL::Core.create_window(title, *position, *size, flags) }
-    FFI::AutoPointer.new(pointer, Lummox::SDL::Core.method(:destroy_window))
+    FFI::AutoPointer.new(pointer, method(:close!))
   end
 
   def translate_position(position_arg)
