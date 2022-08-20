@@ -28,11 +28,7 @@ class Lummox::SDL::Window
 
   def self.from_id(id)
     pointer = Lummox::SDL::Error.raise_if(:nil?) { Lummox::SDL::Core.get_window_from_id(id) }
-    self.class.find_instance(pointer.address)
-  end
-
-  def self.all
-    @windows.values
+    find_instance(pointer.address)
   end
 
   def close!
