@@ -31,6 +31,7 @@ class Lummox::SDL::EventDispatcher
     audio_device_added: :audio_device_event,
     audio_device_removed: :audio_device_event
   }.freeze
+  EVENT_TYPES = Set.new(EVENT_FIELDS_FOR_TYPE.keys).freeze
 
   @instance = nil
 
@@ -40,6 +41,8 @@ class Lummox::SDL::EventDispatcher
     end
 
     def add_event_listener(type, &event_listener)
+      raise Lummox::SDL::Error, "Unknown event type #{type}" unless EVENT_TYPES.include?(type)
+
       instance.add_event_listener(type, &event_listener)
     end
 
