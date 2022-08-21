@@ -27,7 +27,7 @@ class Lummox::SDL::Window
   end
 
   def self.from_id(id)
-    pointer = Lummox::SDL::Error.raise_if(:nil?) { Lummox::SDL::Core.get_window_from_id(id) }
+    pointer = Lummox::SDL::Error.raise_if(:null?) { Lummox::SDL::Core.get_window_from_id(id) }
     find_instance(pointer.address)
   end
 
@@ -213,7 +213,7 @@ class Lummox::SDL::Window
   private
 
   def create_managed_pointer(title, position, size, flags)
-    pointer = Lummox::SDL::Error.raise_if(:nil?) { Lummox::SDL::Core.create_window(title, *position, *size, flags) }
+    pointer = Lummox::SDL::Error.raise_if(:null?) { Lummox::SDL::Core.create_window(title, *position, *size, flags) }
     FFI::AutoPointer.new(pointer, method(:close!))
   end
 
