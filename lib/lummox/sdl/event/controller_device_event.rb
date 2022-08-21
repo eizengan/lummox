@@ -3,13 +3,32 @@
 class Lummox::SDL::Event::ControllerDeviceEvent
   include Lummox::SDL::Event::Helpers
 
-  delegate_to_event :which, alias_as: :joystick_id
-
   def initialize(sdl_event)
     @event = sdl_event[:controller_device_event]
   end
 
+  def joystick_index
+    raise Lummox::SDL::Error, "No joystick_index for type '#{type}'" unless type == :controller_device_added
+
+    event[:which]
+  end
+
+  def joystick_instance_id
+    raise Lummox::SDL::Error, "No joystick_instance_id for type '#{type}'" if type == :controller_device_added
+
+    event[:which]
+  end
+
+  def game_controller
+    Lummox::SDL::GameController.from_instance_id(joystick_instance_id)
+  end
+
   def inspect
-    "#<Lummox::SDL::Event::ControllerDeviceEvent type=#{type} joystick_id=#{joystick_id}>"
+    identifier_details = if type == :controller_device_added
+      "joystick_index=#{joystick_index}"
+    else
+      "joystick_instance_id=#{joystick_instance_id}"
+    end
+    "#<Lummox::SDL::Event::ControllerDeviceEvent type=#{type} #{identifier_details}>"
   end
 end
