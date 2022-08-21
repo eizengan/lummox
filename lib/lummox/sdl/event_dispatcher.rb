@@ -3,36 +3,6 @@
 require "securerandom"
 
 class Lummox::SDL::EventDispatcher
-  EVENT_FIELDS_FOR_TYPE = {
-    quit: :quit_event,
-    display_event: :display_event,
-    window_event: :window_event,
-    key_down: :keyboard_event,
-    key_up: :keyboard_event,
-    text_editing: :text_editing_event,
-    text_input: :text_input_event,
-    mouse_motion: :mouse_motion_event,
-    mouse_button_down: :mouse_button_event,
-    mouse_button_up: :mouse_button_event,
-    mouse_wheel: :mouse_wheel_event,
-    joy_axis_motion: :joy_axis_event,
-    joy_ball_motion: :joy_ball_event,
-    joy_hat_motion: :joy_hat_event,
-    joy_button_down: :joy_button_event,
-    joy_button_up: :joy_button_event,
-    joy_device_added: :joy_device_event,
-    joy_device_removed: :joy_device_event,
-    controller_axis_motion: :controller_axis_event,
-    controller_button_down: :controller_button_event,
-    controller_button_up: :controller_button_event,
-    controller_device_added: :controller_device_event,
-    controller_device_removed: :controller_device_event,
-    controller_device_remapped: :controller_device_event,
-    audio_device_added: :audio_device_event,
-    audio_device_removed: :audio_device_event
-  }.freeze
-  EVENT_TYPES = Set.new(EVENT_FIELDS_FOR_TYPE.keys).freeze
-
   @instance = nil
 
   class << self
@@ -41,7 +11,7 @@ class Lummox::SDL::EventDispatcher
     end
 
     def add_event_listener(type, &event_listener)
-      raise Lummox::SDL::Error, "Unknown event type #{type}" unless EVENT_TYPES.include?(type)
+      raise Lummox::SDL::Error, "Unknown event type #{type}" unless Lummox::SDL::Event::TYPES.include?(type)
 
       instance.add_event_listener(type, &event_listener)
     end
@@ -80,12 +50,8 @@ class Lummox::SDL::EventDispatcher
   end
 
   def dispatch_next_event
+    typed_event = Lummox::SDL::Event.from(@next_event.clone)
     @type_map[@next_event[:type]]&.map { |event_listener_id| @event_listeners[event_listener_id] }
-                                 &.each { |type, event_listener| event_listener.call(typed_next_event) }
-  end
-
-  def typed_next_event
-    event_field = EVENT_FIELDS_FOR_TYPE[@next_event[:type]] || :common_event
-    @next_event[event_field]
+                                 &.each { |type, event_listener| event_listener.call(typed_event) }
   end
 end

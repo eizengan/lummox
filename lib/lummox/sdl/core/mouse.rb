@@ -7,6 +7,9 @@ module Lummox::SDL::Core::Mouse
   # rubocop:disable Layout/LineLength
   # rubocop:disable Metrics/MethodLength
 
+  # TODO: Move this to Core::Touch upon implementing
+  TOUCH_MOUSE_ID = 0xffffffff
+
   def self.included(base)
     base.class_eval do
       attach_sdl_function :capture_mouse, [:bool], :int # negative if error

@@ -9,7 +9,7 @@ Lummox::SDL.init!
 window = Lummox::SDL::Window.new("A Test Window", size: [480, 360])
 puts "Window created with ID #{window.id}"
 
-Lummox::SDL::EventDispatcher.add_event_listener(:quit) { |_event| window.close! }
+Lummox::SDL::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
 Lummox::SDL::EventDispatcher.dispatch_events until window.closed?
 
 Lummox::SDL.quit!

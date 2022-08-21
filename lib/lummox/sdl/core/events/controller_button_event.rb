@@ -5,5 +5,7 @@ class Lummox::SDL::Core::Events::ControllerButtonEvent < Lummox::SDL::Core::Stru
          :timestamp, :uint32,
          :which,     :int32,
          :button,    Lummox::SDL::Core::GameController::GameControllerButton,
-         :state,     Lummox::SDL::Core::ButtonState
+         :state,     Lummox::SDL::Core::ButtonState,
+         :padding1,  :uint8,
+         :padding2,  :uint8
 end
