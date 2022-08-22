@@ -8,6 +8,6 @@ class Lummox::SDL::Event::CommonEvent
   end
 
   def inspect
-    "#<Lummox::SDL::Event::CommonEvent type=#{type} timestamp=#{timestamp}>"
+    "#<#{self.class} type=#{type} timestamp=#{timestamp}>"
   end
 end

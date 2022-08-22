@@ -24,6 +24,6 @@ class Lummox::SDL::Event::MouseMotionEvent
   end
 
   def inspect
-    "#<Lummox::SDL::Event::MouseMotionEvent window_id=#{window_id} x=#{x} y=#{y}>"
+    "#<#{self.class} window_id=#{window_id} x=#{x} y=#{y}>"
   end
 end

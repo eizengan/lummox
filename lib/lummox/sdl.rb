@@ -3,6 +3,7 @@
 module Lummox::SDL
   DisplayMode = Core::DisplayMode
   Rect = Core::Rect
+  FRect = Core::FRect
 
   # rubocop:disable Layout/HashAlignment
   SUBSYSTEM_FLAGS = {

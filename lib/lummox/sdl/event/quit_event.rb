@@ -8,6 +8,6 @@ class Lummox::SDL::Event::QuitEvent
   end
 
   def inspect
-    "#<Lummox::SDL::Event::QuitEvent timestamp=#{timestamp}>"
+    "#<#{self.class} timestamp=#{timestamp}>"
   end
 end

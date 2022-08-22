@@ -20,6 +20,6 @@ class Lummox::SDL::Event::ControllerButtonEvent
   end
 
   def inspect
-    "#<Lummox::SDL::Event::ControllerButtonEvent type=#{type} joystick_instance_id=#{joystick_instance_id} button=#{button} state=#{state}>"
+    "#<#{self.class} type=#{type} joystick_instance_id=#{joystick_instance_id} button=#{button} state=#{state}>"
   end
 end

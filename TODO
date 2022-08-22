@@ -1,8 +1,8 @@
+- figure out relative mouse mode, xrel, yrel
 - display modes by index - what happens after disconnect, reconnect?
+  - also mice
 - better method of creating, using flags-type enums
 - figure out mouse state button macros https://wiki.libsdl.org/SDL_GetMouseState#remarks
-- are structures packed correctly?
-  - padding in some events
 - testing
   - fix existing tests
   - strategize tests for FFI wrapper

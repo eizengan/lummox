@@ -1,0 +1,26 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox::SDL.init!
+
+Lummox::SDL::EventDispatcher.add_event_listener(:audio_device_added) do |event|
+  puts event.inspect
+  puts "can capture audio" if event.capture?
+  puts "can output audio" if event.output?
+end
+Lummox::SDL::EventDispatcher.add_event_listener(:audio_device_removed) do |event|
+  puts event.inspect
+  puts "can capture audio" if event.capture?
+  puts "can output audio" if event.output?
+end
+
+stop_dispatch = false
+Lummox::SDL::EventDispatcher.add_event_listener(:quit) { stop_dispatch = true }
+Lummox::SDL::EventDispatcher.dispatch_events until stop_dispatch
+
+Lummox::SDL.quit!
+
+puts "all done!"

@@ -40,7 +40,7 @@ class Lummox::SDL::Event::MouseWheelEvent
   end
 
   def inspect
-    "#<Lummox::SDL::Event::MouseWheelEvent window_id=#{window_id} dx=#{dx} dy=#{dy}>"
+    "#<#{self.class} window_id=#{window_id} dx=#{dx} dy=#{dy}>"
   end
 
   private

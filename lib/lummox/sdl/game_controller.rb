@@ -48,11 +48,8 @@ class Lummox::SDL::GameController
   end
 
   def [](axis_or_button)
-    if AXES.include?(axis_or_button)
-      return Lummox::SDL::Error.raise_if(:zero?) { Lummox::SDL::Core.game_controller_get_axis(@pointer, axis_or_button) }
-    elsif BUTTONS.include?(axis_or_button)
-      return Lummox::SDL::Error.raise_if(:zero?) { Lummox::SDL::Core.game_controller_get_button(@pointer, axis_or_button) }
-    end
+    return axis_value(axis_or_button) if AXES.include?(axis_or_button)
+    return button_value(axis_or_button) if BUTTONS.include?(axis_or_button)
 
     raise Lummox::SDL::Error, "Unknown axis or button '#{axis_or_button}'"
   end
@@ -68,5 +65,16 @@ class Lummox::SDL::GameController
   def create_managed_pointer(joystick_index)
     pointer = Lummox::SDL::Error.raise_if(:null?) { Lummox::SDL::Core.game_controller_open(joystick_index) }
     FFI::AutoPointer.new(pointer, method(:close!))
+  end
+
+  def button_value(button)
+    # TRICKY: This might be an error, but it's oppressively hard to check
+    Lummox::SDL::Core.game_controller_get_button(@pointer, button)
+  end
+
+  def axis_value(axis)
+    Lummox::SDL::Error.raise_if(:zero?) do
+      Lummox::SDL::Core.game_controller_get_axis(@pointer, axis)
+    end
   end
 end

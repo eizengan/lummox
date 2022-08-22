@@ -16,6 +16,6 @@ class Lummox::SDL::Event::ControllerAxisEvent
   end
 
   def inspect
-    "#<Lummox::SDL::Event::ControllerAxisEvent joystick_instance_id=#{joystick_instance_id} axis=#{axis} value=#{value}>"
+    "#<#{self.class} joystick_instance_id=#{joystick_instance_id} axis=#{axis} value=#{value}>"
   end
 end

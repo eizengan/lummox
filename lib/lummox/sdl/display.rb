@@ -30,7 +30,9 @@ class Lummox::SDL::Display
 
   def usable_bounds
     usable_bounds = Lummox::SDL::Core::Rect.new
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_display_usable_bounds(@display_index, usable_bounds) }
+    Lummox::SDL::Error.raise_if(:negative?) do
+      Lummox::SDL::Core.get_display_usable_bounds(@display_index, usable_bounds)
+    end
     usable_bounds
   end
 
@@ -38,7 +40,9 @@ class Lummox::SDL::Display
     size = Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_num_display_modes(@display_index) }
     Array.new(size) do |mode_index|
       display_mode = Lummox::SDL::Core::DisplayMode.new
-      Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_display_mode(@display_index, mode_index, display_mode) }
+      Lummox::SDL::Error.raise_if(:negative?) do
+        Lummox::SDL::Core.get_display_mode(@display_index, mode_index, display_mode)
+      end
       display_mode
     end
   end

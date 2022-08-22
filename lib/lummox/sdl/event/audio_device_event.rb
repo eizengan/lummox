@@ -25,10 +25,10 @@ class Lummox::SDL::Event::AudioDeviceEvent
   end
 
   def output?
-    event[:is_capture] == 0
+    event[:is_capture] == 0 # rubocop:disable Style/NumericPredicate
   end
 
   def inspect
-    "#<Lummox::SDL::Event::AudioDeviceEvent type=#{type} index=#{index} device_type=#{device_type}>"
+    "#<#{self.class} type=#{type} index=#{index} device_type=#{device_type}>"
   end
 end

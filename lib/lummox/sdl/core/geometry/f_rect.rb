@@ -6,8 +6,8 @@ class Lummox::SDL::Core::Geometry::FRect < Lummox::SDL::Core::Struct
          :w, :float,
          :h, :float
 
-  alias_method :width, :w
-  alias_method :height, :h
+  alias width w
+  alias height h
 
   def inspect
     "#<Lummox::SDL::Rect x=#{x} y=#{y} width=#{width} height=#{height}>"

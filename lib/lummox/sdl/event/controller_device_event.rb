@@ -25,10 +25,10 @@ class Lummox::SDL::Event::ControllerDeviceEvent
 
   def inspect
     identifier_details = if type == :controller_device_added
-      "joystick_index=#{joystick_index}"
-    else
-      "joystick_instance_id=#{joystick_instance_id}"
-    end
-    "#<Lummox::SDL::Event::ControllerDeviceEvent type=#{type} #{identifier_details}>"
+                           "joystick_index=#{joystick_index}"
+                         else
+                           "joystick_instance_id=#{joystick_instance_id}"
+                         end
+    "#<#{self.class} type=#{type} #{identifier_details}>"
   end
 end

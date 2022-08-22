@@ -27,7 +27,7 @@ class Lummox::SDL::EventDispatcher
 
   def add_event_listener(type, &event_listener)
     event_listener_id = SecureRandom.uuid
-    @event_listeners[event_listener_id] = [type, event_listener]
+    @event_listeners[event_listener_id] = event_listener
     (@type_map[type] ||= []) << event_listener_id
     event_listener_id
   end
@@ -52,6 +52,6 @@ class Lummox::SDL::EventDispatcher
   def dispatch_next_event
     typed_event = Lummox::SDL::Event.from(@next_event.clone)
     @type_map[@next_event[:type]]&.map { |event_listener_id| @event_listeners[event_listener_id] }
-                                 &.each { |type, event_listener| event_listener.call(typed_event) }
+                                 &.each { |event_listener| event_listener.call(typed_event) }
   end
 end

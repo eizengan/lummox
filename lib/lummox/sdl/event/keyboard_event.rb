@@ -29,6 +29,6 @@ class Lummox::SDL::Event::KeyboardEvent
   end
 
   def inspect
-    "#<Lummox::SDL::Event::KeyboardEvent type=#{type} keycode=#{keycode} scancode=#{scancode}>"
+    "#<#{self.class} type=#{type} keycode=#{keycode} scancode=#{scancode}>"
   end
 end

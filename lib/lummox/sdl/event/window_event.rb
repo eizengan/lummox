@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Naming/VariableNumber
+
 class Lummox::SDL::Event::WindowEvent
   EVENT_IDS = Set.new(Lummox::SDL::Core::WindowEventId.symbols).freeze
 
@@ -22,7 +24,7 @@ class Lummox::SDL::Event::WindowEvent
   EVENT_IDS.each do |event_id|
     event_id_suffix = event_id.match(/window_event_(.*)/)[1]
     event_id_check_method = :"#{event_id_suffix}?"
-    define_method(event_id_check_method) { self.event_id == event_id  }
+    define_method(event_id_check_method) { self.event_id == event_id }
   end
 
   def x
@@ -54,6 +56,8 @@ class Lummox::SDL::Event::WindowEvent
     event_description += " x=#{x} y=#{y}" if moved?
     event_description += " width=#{width} height=#{height}" if resized? || size_changed?
 
-    "#<Lummox::SDL::Event::WindowEvent #{event_description}>"
+    "#<#{self.class} #{event_description}>"
   end
 end
+
+# rubocop:enable Naming/VariableNumber

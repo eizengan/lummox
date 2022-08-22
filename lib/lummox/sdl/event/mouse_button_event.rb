@@ -28,6 +28,6 @@ class Lummox::SDL::Event::MouseButtonEvent
   end
 
   def inspect
-    "#<Lummox::SDL::Event::MouseButtonEvent type=#{type} window_id=#{window_id} button=#{button} x=#{x} y=#{y}>"
+    "#<#{self.class} type=#{type} window_id=#{window_id} button=#{button} x=#{x} y=#{y}>"
   end
 end
