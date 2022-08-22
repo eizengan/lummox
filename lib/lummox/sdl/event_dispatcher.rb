@@ -1,18 +1,13 @@
 # frozen_string_literal: true
 
 require "securerandom"
+require "singleton"
 
 class Lummox::SDL::EventDispatcher
-  @instance = nil
+  include Singleton
 
   class << self
-    def instance
-      @instance ||= new
-    end
-
     def add_event_listener(type, &event_listener)
-      raise Lummox::SDL::Error, "Unknown event type #{type}" unless Lummox::SDL::Event::TYPES.include?(type)
-
       instance.add_event_listener(type, &event_listener)
     end
 
@@ -25,7 +20,15 @@ class Lummox::SDL::EventDispatcher
     end
   end
 
+  def initialize
+    @next_event = Lummox::SDL::Core::Event.new
+    @event_listeners = {}
+    @type_map = {}
+  end
+
   def add_event_listener(type, &event_listener)
+    raise Lummox::SDL::Error, "Unknown event type #{type}" unless Lummox::SDL::Event::TYPES.include?(type)
+
     event_listener_id = SecureRandom.uuid
     @event_listeners[event_listener_id] = event_listener
     (@type_map[type] ||= []) << event_listener_id
@@ -42,12 +45,6 @@ class Lummox::SDL::EventDispatcher
   end
 
   private
-
-  def initialize
-    @next_event = Lummox::SDL::Core::Event.new
-    @event_listeners = {}
-    @type_map = {}
-  end
 
   def dispatch_next_event
     typed_event = Lummox::SDL::Event.from(@next_event.clone)
