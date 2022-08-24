@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "forwardable"
 require "securerandom"
 require "singleton"
 
@@ -7,17 +8,9 @@ class Lummox::SDL::EventDispatcher
   include Singleton
 
   class << self
-    def add_event_listener(type, &event_listener)
-      instance.add_event_listener(type, &event_listener)
-    end
+    extend Forwardable
 
-    def remove_event_listener(event_listener_id)
-      instance.remove_event_listener(event_listener_id)
-    end
-
-    def dispatch_events
-      instance.dispatch_events
-    end
+    def_delegators :instance, :add_event_listener, :remove_event_listener, :dispatch_events
   end
 
   def initialize
