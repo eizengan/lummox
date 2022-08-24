@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
+require "forwardable"
+
 module Lummox::SDL::Event::Helpers
-  def self.included(base)
+  include Forwardable
+
+  def self.extended(base)
     base.attr_reader :event
-    base.extend ClassMethods
     base.delegate_to_event :type
     base.delegate_to_event :timestamp
   end
 
-  module ClassMethods
-    def delegate_to_event(field, alias_as: nil)
-      method_name = alias_as || field
-      define_method(method_name) { @event[field] }
-    end
+  def delegate_to_event(field, alias_as: nil)
+    def_delegator(*[:@event, field, alias_as].compact)
   end
 end

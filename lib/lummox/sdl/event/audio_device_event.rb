@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Lummox::SDL::Event::AudioDeviceEvent
-  include Lummox::SDL::Event::Helpers
+  extend Lummox::SDL::Event::Helpers
 
   delegate_to_event :which, alias_as: :index
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Lummox::SDL::Event::MouseButtonEvent
-  include Lummox::SDL::Event::Helpers
+  extend Lummox::SDL::Event::Helpers
 
   delegate_to_event :window_id
   delegate_to_event :which, alias_as: :mouse_id

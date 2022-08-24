@@ -5,7 +5,7 @@
 class Lummox::SDL::Event::WindowEvent
   EVENT_IDS = Set.new(Lummox::SDL::Core::WindowEventId.symbols).freeze
 
-  include Lummox::SDL::Event::Helpers
+  extend Lummox::SDL::Event::Helpers
 
   delegate_to_event :window_id
   delegate_to_event :event, alias_as: :event_id
