@@ -1,0 +1,29 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+require "pry-byebug"
+
+Lummox::SDL.init!
+
+window = Lummox::SDL::Window.new("Press start to break, test gamecontroller state", size: [480, 360])
+puts "Window created with ID #{window.id}"
+
+Lummox::SDL::EventDispatcher.add_event_listener(:controller_device_added) { |event| Lummox::SDL::GameController.new(event.joystick_index) }
+Lummox::SDL::EventDispatcher.add_event_listener(:controller_device_removed) { |event| event.game_controller.close! }
+
+Lummox::SDL::EventDispatcher.add_event_listener(:controller_button_down) do |event|
+  next unless event.button == :controller_button_start
+  game_controller = event.game_controller
+  puts "Test axes with game_controller.position(...)"
+  puts "Test buttons with game_controller.pressed?(...)"
+  binding.pry
+end
+
+Lummox::SDL::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+Lummox::SDL::EventDispatcher.dispatch_events until window.closed?
+
+Lummox::SDL.quit!
+
+puts "all done!"
