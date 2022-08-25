@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+require "pry-byebug"
+
+Lummox::SDL.init!
+
+window = Lummox::SDL::Window.new("Press spacebar to break, test keyboard state", size: [480, 360])
+puts "Window created with ID #{window.id}"
+
+Lummox::SDL::EventDispatcher.add_event_listener(:key_down) do |event|
+  next unless event.keycode == :keycode_space
+
+  puts "Test keys with Lummox::SDL::Keyboard.pressed?(...)"
+  binding.pry
+end
+
+Lummox::SDL::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+Lummox::SDL::EventDispatcher.dispatch_events until window.closed?
+
+Lummox::SDL.quit!
+
+puts "all done!"

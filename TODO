@@ -1,3 +1,6 @@
+- explore scancode/keycode/name when scancode/keycode are not in-sync
+  - safe to add KeyboardEvent#name?
+  - safe to add Keyboard#pressed?(name)?
 - figure out relative mouse mode, xrel, yrel
 - display modes by index - what happens after disconnect, reconnect?
   - also mice
