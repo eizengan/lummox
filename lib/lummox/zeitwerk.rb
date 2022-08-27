@@ -9,6 +9,10 @@ Zeitwerk::Loader.new.tap do |loader|
   loader.tag = "lummox"
   loader.inflector = Zeitwerk::GemInflector.new(module_file).tap do |inflector|
     inflector.inflect(
+      "io" => "IO",
+      "rw_ops" => "RWOps",
+      "rw_ops_type" => "RWOpsType",
+      "rw_seek_position" => "RWSeekPosition",
       "sdl" => "SDL",
       "sdl_error" => "SDLError"
     )

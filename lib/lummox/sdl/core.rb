@@ -42,6 +42,7 @@ module Lummox::SDL::Core
   include GameController
   include Geometry
   include Initialization
+  include IO
   include Joystick
   include Keyboard
   include MessageBox
