@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox::SDL.init!
+
+# Open an audio device
+device = nil
+is_capture = 0
+desired_spec = Lummox::SDL::Core::AudioSpec.new.tap do |spec|
+  spec[:freq]   = 44100
+  spec[:format] = Lummox::SDL::Core::AUDIO_S16
+  spec[:channels] = 2
+end
+opened_spec = Lummox::SDL::Core::AudioSpec.new
+allowed_changes = Lummox::SDL::Core::AUDIO_ALLOW_ANY_CHANGE
+
+audio_device_id = Lummox::SDL::Core.open_audio_device(device, is_capture, desired_spec, opened_spec, allowed_changes)
+
+# Open and load the wav file
+filepath = "examples/fixtures/sample-3s.wav"
+rw_ops = Lummox::SDL::Core.rw_from_file(filepath, "r")
+audio_buffer_pointer = FFI::MemoryPointer.new(:pointer)
+buffer_size = Lummox::SDL::Core::Uint32Ptr.new
+Lummox::SDL::Core.load_wav_rw(rw_ops, :true, desired_spec, audio_buffer_pointer, buffer_size)
+# TODO: rw_ops closed here?
+audio_buffer = audio_buffer_pointer.get_pointer(0)
+
+# Play file
+Lummox::SDL::Core.queue_audio(audio_device_id, audio_buffer, buffer_size.value)
+Lummox::SDL::Core.pause_audio_device(audio_device_id, :false)
+sleep 4
+
+# Clean up
+Lummox::SDL::Core.free_wav(audio_buffer)
+Lummox::SDL::Core.close_audio_device(audio_device_id)
+
+Lummox::SDL.quit!
+
+puts "all done!"

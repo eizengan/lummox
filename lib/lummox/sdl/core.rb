@@ -33,10 +33,10 @@ module Lummox::SDL::Core
   end
 
   # TODO:
-  # include Audio
   # include Hints
   # include Clipboard
   # include Haptic
+  include Audio
   include Error
   include Events
   include GameController
