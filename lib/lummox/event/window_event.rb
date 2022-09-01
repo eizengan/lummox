@@ -2,20 +2,20 @@
 
 # rubocop:disable Naming/VariableNumber
 
-class Lummox::SDL::Event::WindowEvent
+class Lummox::Event::WindowEvent
   EVENT_IDS = Set.new(Lummox::SDL::Core::WindowEventId.symbols).freeze
 
-  extend Lummox::SDL::Event::Helpers
+  extend Lummox::Event::Helpers
 
   delegate_to_event :window_id
   delegate_to_event :event, alias_as: :event_id
 
   def initialize(sdl_event)
-    @event = sdl_event[:window_event]
+    @sdl_event = sdl_event[:window_event]
   end
 
   def window
-    Lummox::SDL::Window.from_id(window_id)
+    Lummox::Window.from_id(window_id)
   end
 
   # TRICKY: Create helper methods to check for a particular event id, e.g.:
@@ -30,25 +30,25 @@ class Lummox::SDL::Event::WindowEvent
   def x
     return unless moved?
 
-    event[:data_1]
+    sdl_event[:data_1]
   end
 
   def y
     return unless moved?
 
-    event[:data_2]
+    sdl_event[:data_2]
   end
 
   def width
     return unless resized? || size_changed?
 
-    event[:data_1]
+    sdl_event[:data_1]
   end
 
   def height
     return unless resized? || size_changed?
 
-    event[:data_2]
+    sdl_event[:data_2]
   end
 
   def inspect

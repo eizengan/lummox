@@ -9,7 +9,7 @@ require "singleton"
 # IGNORE:
 # - set_text_input_rect - how does ime work?
 # - set_mod_state       - this function is poor form
-class Lummox::SDL::Keyboard
+class Lummox::Keyboard
   include Singleton
 
   class << self
@@ -43,7 +43,7 @@ class Lummox::SDL::Keyboard
 
     def focused_window
       window_pointer = Lummox::SDL::Core.get_keyboard_focus
-      Lummox::SDL::Window.find_instance(window_pointer.address)
+      Lummox::Window.find_instance(window_pointer.address)
     end
 
     def screen_keyboard_available?
@@ -75,7 +75,7 @@ class Lummox::SDL::Keyboard
     index = keyboard_state_index_for(scancode_or_keycode)
     return !@keyboard_state.get(:uint8, index).zero? unless index.nil?
 
-    raise Lummox::SDL::Error, "Unknown keycode or scancode '#{scancode_or_keycode}'"
+    raise Lummox::SDLError, "Unknown keycode or scancode '#{scancode_or_keycode}'"
   end
 
   private

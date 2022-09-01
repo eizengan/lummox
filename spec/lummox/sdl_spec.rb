@@ -31,7 +31,7 @@ RSpec.describe Lummox::SDL do
       end
 
       it "raises an error with the expected message" do
-        expect { init! }.to raise_error Lummox::SDL::Error, "oh no! an error happened"
+        expect { init! }.to raise_error Lummox::SDLError, "oh no! an error happened"
       end
     end
   end
@@ -52,7 +52,7 @@ RSpec.describe Lummox::SDL do
     end
   end
 
-  %i[timer audio video joystick haptic gamecontroller events sensor].each do |subsystem|
+  %i[timer audio video joystick haptic game_controller events sensor].each do |subsystem|
     describe ".#{subsystem}_init!" do
       subject(:subsystem_init!) { described_class.send(:"#{subsystem}_init!") }
 

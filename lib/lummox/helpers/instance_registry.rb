@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Lummox::SDL::InstanceRegistry
+module Lummox::Helpers::InstanceRegistry
   def self.included(base)
     base.instance_variable_set(:@registry, {})
     base.attr_reader :registry

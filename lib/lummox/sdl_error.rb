@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Lummox::SDL::Error < StandardError
+class Lummox::SDLError < StandardError
   class << self
     def raise_if(method_sym)
       result = yield

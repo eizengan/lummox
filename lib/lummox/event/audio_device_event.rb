@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-class Lummox::SDL::Event::AudioDeviceEvent
-  extend Lummox::SDL::Event::Helpers
+class Lummox::Event::AudioDeviceEvent
+  extend Lummox::Event::Helpers
 
   delegate_to_event :which, alias_as: :index
 
   def initialize(sdl_event)
-    @event = sdl_event[:audio_device_event]
+    @sdl_event = sdl_event[:audio_device_event]
   end
 
   def device_type
-    case event[:is_capture]
+    case sdl_event[:is_capture]
     when 1
       :capture
     when 0
@@ -21,11 +21,11 @@ class Lummox::SDL::Event::AudioDeviceEvent
   end
 
   def capture?
-    event[:is_capture] == 1
+    device_type == :capture
   end
 
   def output?
-    event[:is_capture] == 0 # rubocop:disable Style/NumericPredicate
+    device_type == :output
   end
 
   def inspect

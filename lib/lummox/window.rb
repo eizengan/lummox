@@ -8,8 +8,8 @@ require "ffi"
 
 # rubocop:disable Metrics/ClassLength
 
-class Lummox::SDL::Window
-  include Lummox::SDL::InstanceRegistry
+class Lummox::Window
+  include Lummox::Helpers::InstanceRegistry
 
   attr_reader :pointer, :title
 
@@ -27,7 +27,7 @@ class Lummox::SDL::Window
   end
 
   def self.from_id(id)
-    pointer = Lummox::SDL::Error.raise_if(:null?) { Lummox::SDL::Core.get_window_from_id(id) }
+    pointer = Lummox::SDLError.raise_if(:null?) { Lummox::SDL::Core.get_window_from_id(id) }
     find_instance(pointer.address)
   end
 
@@ -42,17 +42,17 @@ class Lummox::SDL::Window
   end
 
   def id
-    Lummox::SDL::Error.raise_if(:zero?) { Lummox::SDL::Core.get_window_id(@pointer) }
+    Lummox::SDLError.raise_if(:zero?) { Lummox::SDL::Core.get_window_id(@pointer) }
   end
 
   def enable_fullscreen(desktop: true)
     flags = desktop ? Lummox::SDL::Core::WINDOW_FULLSCREEN_DESKTOP : Lummox::SDL::Core::WINDOW_FULLSCREEN
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.set_window_fullscreen(@pointer, flags) }
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.set_window_fullscreen(@pointer, flags) }
     @fullscreen = true
   end
 
   def disable_fullscreen
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.set_window_fullscreen(@pointer, 0) }
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.set_window_fullscreen(@pointer, 0) }
     @fullscreen = false
   end
 
@@ -61,17 +61,17 @@ class Lummox::SDL::Window
   end
 
   def display_mode
-    display_mode = Lummox::SDL::Core::DisplayMode.new
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_window_display_mode(@pointer, display_mode) }
+    display_mode = Lummox::DisplayMode.new
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.get_window_display_mode(@pointer, display_mode.sdl_display_mode) }
     display_mode
   end
 
   def display_mode=(display_mode)
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.set_window_display_mode(@pointer, display_mode) }
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.set_window_display_mode(@pointer, display_mode) }
   end
 
   def bordered=(bordered)
-    raise Lummox::SDL::Error, "Fullscreen windows cannot change bordered state" if fullscreen?
+    raise Lummox::SDLError, "Fullscreen windows cannot change bordered state" if fullscreen?
 
     Lummox::SDL::Core.set_window_bordered(@pointer, bordered.to_s.to_sym)
     @bordered = bordered
@@ -82,7 +82,7 @@ class Lummox::SDL::Window
   end
 
   def resizable=(resizable)
-    raise Lummox::SDL::Error, "Fullscreen windows cannot change resizability state" if fullscreen?
+    raise Lummox::SDLError, "Fullscreen windows cannot change resizability state" if fullscreen?
 
     Lummox::SDL::Core.set_window_resizable(@pointer, resizable.to_s.to_sym)
     @resizable = resizable
@@ -98,8 +98,8 @@ class Lummox::SDL::Window
   end
 
   def display
-    display_index = Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_window_display_index(@pointer) }
-    Lummox::SDL::Display.new(display_index)
+    display_index = Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.get_window_display_index(@pointer) }
+    Lummox::Display.new(display_index)
   end
 
   def position
@@ -144,12 +144,12 @@ class Lummox::SDL::Window
 
   def opacity
     opacity_pointer = Lummox::SDL::Core::FloatPtr.new
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.get_window_opacity(@pointer, opacity_pointer) }
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.get_window_opacity(@pointer, opacity_pointer) }
     opacity_pointer.value
   end
 
   def opacity=(opacity)
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.set_window_opacity(@pointer, opacity) }
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.set_window_opacity(@pointer, opacity) }
   end
 
   def minimize
@@ -178,11 +178,11 @@ class Lummox::SDL::Window
 
   def flash(until_focused: false)
     operation = until_focused ? :flash_until_focused : :flash_briefly
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.flash_window(@pointer, operation) }
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.flash_window(@pointer, operation) }
   end
 
   def cancel_flash
-    Lummox::SDL::Error.raise_if(:negative?) { Lummox::SDL::Core.flash_window(@pointer, :flash_cancel) }
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.flash_window(@pointer, :flash_cancel) }
   end
 
   def grab_input
@@ -204,7 +204,7 @@ class Lummox::SDL::Window
       bottom: Lummox::SDL::Core::IntPtr.new,
       right: Lummox::SDL::Core::IntPtr.new
     }
-    Lummox::SDL::Error.raise_if(:negative?) do
+    Lummox::SDLError.raise_if(:negative?) do
       Lummox::SDL::Core.get_window_borders_size(@pointer, *size_pointers.values)
     end
     size_pointers.transform_values!(&:value)
@@ -213,7 +213,7 @@ class Lummox::SDL::Window
   private
 
   def create_managed_pointer(title, position, size, flags)
-    pointer = Lummox::SDL::Error.raise_if(:null?) { Lummox::SDL::Core.create_window(title, *position, *size, flags) }
+    pointer = Lummox::SDLError.raise_if(:null?) { Lummox::SDL::Core.create_window(title, *position, *size, flags) }
     FFI::AutoPointer.new(pointer, method(:close!))
   end
 

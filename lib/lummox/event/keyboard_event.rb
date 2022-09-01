@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Lummox::SDL::Event::KeyboardEvent
-  extend Lummox::SDL::Event::Helpers
+class Lummox::Event::KeyboardEvent
+  extend Lummox::Event::Helpers
 
   delegate_to_event :window_id
   delegate_to_event :state
@@ -9,11 +9,11 @@ class Lummox::SDL::Event::KeyboardEvent
   delegate_to_event :keysym
 
   def initialize(sdl_event)
-    @event = sdl_event[:keyboard_event]
+    @sdl_event = sdl_event[:keyboard_event]
   end
 
   def window
-    Lummox::SDL::Window.from_id(window_id)
+    Lummox::Window.from_id(window_id)
   end
 
   def pressed?

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Lummox::SDL::Event::MouseButtonEvent
-  extend Lummox::SDL::Event::Helpers
+class Lummox::Event::MouseButtonEvent
+  extend Lummox::Event::Helpers
 
   delegate_to_event :window_id
   delegate_to_event :which, alias_as: :mouse_id
@@ -12,11 +12,11 @@ class Lummox::SDL::Event::MouseButtonEvent
   delegate_to_event :y
 
   def initialize(sdl_event)
-    @event = sdl_event[:mouse_button_event]
+    @sdl_event = sdl_event[:mouse_button_event]
   end
 
   def window
-    Lummox::SDL::Window.from_id(window_id)
+    Lummox::Window.from_id(window_id)
   end
 
   def touch?

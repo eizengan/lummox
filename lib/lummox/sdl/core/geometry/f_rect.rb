@@ -5,11 +5,4 @@ class Lummox::SDL::Core::Geometry::FRect < Lummox::SDL::Core::Struct
          :y, :float,
          :w, :float,
          :h, :float
-
-  alias width w
-  alias height h
-
-  def inspect
-    "#<Lummox::SDL::Rect x=#{x} y=#{y} width=#{width} height=#{height}>"
-  end
 end

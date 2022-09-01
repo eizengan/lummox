@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class Lummox::SDL::Event::MouseWheelEvent
-  extend Lummox::SDL::Event::Helpers
+class Lummox::Event::MouseWheelEvent
+  extend Lummox::Event::Helpers
 
   delegate_to_event :window_id
   delegate_to_event :which, alias_as: :mouse_id
@@ -12,11 +12,11 @@ class Lummox::SDL::Event::MouseWheelEvent
   delegate_to_event :precise_y
 
   def initialize(sdl_event)
-    @event = sdl_event[:mouse_wheel_event]
+    @sdl_event = sdl_event[:mouse_wheel_event]
   end
 
   def window
-    Lummox::SDL::Window.from_id(window_id)
+    Lummox::Window.from_id(window_id)
   end
 
   def touch?
@@ -52,7 +52,7 @@ class Lummox::SDL::Event::MouseWheelEvent
     when :mouse_wheel_flipped
       -value
     else
-      raise Lummox::SDL::Error, "Unknown MouseWheelDirection #{direction}"
+      raise Lummox::SDLError, "Unknown MouseWheelDirection #{direction}"
     end
   end
 end

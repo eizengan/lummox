@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-class Lummox::SDL::Event::QuitEvent
-  extend Lummox::SDL::Event::Helpers
+class Lummox::Event::QuitEvent
+  extend Lummox::Event::Helpers
 
   def initialize(sdl_event)
-    @event = sdl_event[:quit_event]
+    @sdl_event = sdl_event[:quit_event]
   end
 
   def inspect

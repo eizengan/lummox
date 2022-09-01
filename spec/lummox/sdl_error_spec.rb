@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Lummox::SDL::Error do
+RSpec.describe Lummox::SDLError do
   before { Lummox::SDL::Core.set_error("oh no! an error happened") }
 
   describe ".raise_current_error" do

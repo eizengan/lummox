@@ -4,7 +4,7 @@ require "forwardable"
 require "securerandom"
 require "singleton"
 
-class Lummox::SDL::EventDispatcher
+class Lummox::EventDispatcher
   include Singleton
 
   class << self
@@ -20,7 +20,7 @@ class Lummox::SDL::EventDispatcher
   end
 
   def add_event_listener(type, &event_listener)
-    raise Lummox::SDL::Error, "Unknown event type #{type}" unless Lummox::SDL::Event::TYPES.include?(type)
+    raise Lummox::SDLError, "Unknown event type #{type}" unless Lummox::Event::TYPES.include?(type)
 
     event_listener_id = SecureRandom.uuid
     @event_listeners[event_listener_id] = event_listener
@@ -40,7 +40,7 @@ class Lummox::SDL::EventDispatcher
   private
 
   def dispatch_next_event
-    typed_event = Lummox::SDL::Event.from(@next_event.clone)
+    typed_event = Lummox::Event.from(@next_event.clone)
     @type_map[@next_event[:type]]&.map { |event_listener_id| @event_listeners[event_listener_id] }
                                  &.each { |event_listener| event_listener.call(typed_event) }
   end

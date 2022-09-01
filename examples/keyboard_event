@@ -3,19 +3,14 @@
 
 require "bundler/setup"
 require "lummox"
-require "pry-byebug"
 
 Lummox.init!
 
-window = Lummox::Window.new("Press spacebar to break, test keyboard state", size: [480, 360])
+window = Lummox::Window.new("A Test Window", size: [480, 360])
 puts "Window created with ID #{window.id}"
 
-Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
-  next unless event.keycode == :keycode_space
-
-  puts "Test keys with Lummox::Keyboard.pressed?(...)"
-  binding.pry
-end
+Lummox::EventDispatcher.add_event_listener(:key_down) { |event| puts event.inspect }
+Lummox::EventDispatcher.add_event_listener(:key_up) { |event| puts event.inspect }
 
 Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
 Lummox::EventDispatcher.dispatch_events until window.closed?

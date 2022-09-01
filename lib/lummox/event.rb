@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Lummox::SDL::Event
+module Lummox::Event
   EVENT_CLASSES_FOR_TYPE = {
     first_event: nil,
     quit: QuitEvent,

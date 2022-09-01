@@ -4,20 +4,20 @@
 require "bundler/setup"
 require "lummox"
 
-Lummox::SDL.init!
+Lummox.init!
 
-window = Lummox::SDL::Window.new("A Test Window", size: [480, 360])
+window = Lummox::Window.new("A Test Window", size: [480, 360])
 puts "Window created with ID #{window.id}"
 
-Lummox::SDL::EventDispatcher.add_event_listener(:controller_device_added) { |event| Lummox::SDL::GameController.new(event.joystick_index) }
-Lummox::SDL::EventDispatcher.add_event_listener(:controller_device_removed) { |event| event.game_controller.close! }
+Lummox::EventDispatcher.add_event_listener(:controller_device_added) { |event| Lummox::Controller.new(event.joystick_index) }
+Lummox::EventDispatcher.add_event_listener(:controller_device_removed) { |event| event.controller.close! }
 
-Lummox::SDL::EventDispatcher.add_event_listener(:controller_button_down) { |event| puts event.inspect; puts event.game_controller.inspect }
-Lummox::SDL::EventDispatcher.add_event_listener(:controller_button_up) { |event| puts event.inspect; puts event.game_controller.inspect }
+Lummox::EventDispatcher.add_event_listener(:controller_button_down) { |event| puts event.inspect; puts event.controller.inspect }
+Lummox::EventDispatcher.add_event_listener(:controller_button_up) { |event| puts event.inspect; puts event.controller.inspect }
 
-Lummox::SDL::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
-Lummox::SDL::EventDispatcher.dispatch_events until window.closed?
+Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+Lummox::EventDispatcher.dispatch_events until window.closed?
 
-Lummox::SDL.quit!
+Lummox.quit!
 
 puts "all done!"

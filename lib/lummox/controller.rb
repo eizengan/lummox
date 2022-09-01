@@ -13,11 +13,11 @@ require "ffi"
 # - game_controller_get_bind_for_button - direct access should be fine
 # - game_controller_get_string_for_button - direct access should be fine
 
-class Lummox::SDL::GameController
+class Lummox::Controller
   AXES = Set.new(Lummox::SDL::Core::GameControllerAxis.symbols).freeze
   BUTTONS = Set.new(Lummox::SDL::Core::GameControllerButton.symbols).freeze
 
-  include Lummox::SDL::InstanceRegistry
+  include Lummox::Helpers::InstanceRegistry
 
   attr_reader :pointer
 
@@ -50,13 +50,13 @@ class Lummox::SDL::GameController
   def position(axis)
     return axis_position(axis) if AXES.include?(axis)
 
-    raise Lummox::SDL::Error, "Unknown axis '#{axis}'"
+    raise Lummox::SDLError, "Unknown axis '#{axis}'"
   end
 
   def pressed?(button)
     return button_pressed?(button) if BUTTONS.include?(button)
 
-    raise Lummox::SDL::Error, "Unknown button '#{button}'"
+    raise Lummox::SDLError, "Unknown button '#{button}'"
   end
 
   private
@@ -64,11 +64,11 @@ class Lummox::SDL::GameController
   def ensure_game_controller!(joystick_index)
     return if Lummox::SDL::Core.is_game_controller(joystick_index) == :true
 
-    raise Lummox::SDL::Error, "Joystick at index #{joystick_index} is not a GameController"
+    raise Lummox::SDLError, "Joystick at index #{joystick_index} is not a GameController"
   end
 
   def create_managed_pointer(joystick_index)
-    pointer = Lummox::SDL::Error.raise_if(:null?) { Lummox::SDL::Core.game_controller_open(joystick_index) }
+    pointer = Lummox::SDLError.raise_if(:null?) { Lummox::SDL::Core.game_controller_open(joystick_index) }
     FFI::AutoPointer.new(pointer, method(:close!))
   end
 

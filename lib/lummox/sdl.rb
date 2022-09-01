@@ -1,20 +1,16 @@
 # frozen_string_literal: true
 
 module Lummox::SDL
-  DisplayMode = Core::DisplayMode
-  Rect = Core::Rect
-  FRect = Core::FRect
-
   # rubocop:disable Layout/HashAlignment
   SUBSYSTEM_FLAGS = {
-    timer:          Core::INIT_TIMER,
-    audio:          Core::INIT_AUDIO,
-    video:          Core::INIT_VIDEO,
-    joystick:       Core::INIT_JOYSTICK,
-    haptic:         Core::INIT_HAPTIC,
-    gamecontroller: Core::INIT_GAME_CONTROLLER,
-    events:         Core::INIT_EVENTS,
-    sensor:         Core::INIT_SENSOR
+    timer:           Core::INIT_TIMER,
+    audio:           Core::INIT_AUDIO,
+    video:           Core::INIT_VIDEO,
+    joystick:        Core::INIT_JOYSTICK,
+    haptic:          Core::INIT_HAPTIC,
+    game_controller: Core::INIT_GAME_CONTROLLER,
+    events:          Core::INIT_EVENTS,
+    sensor:          Core::INIT_SENSOR
   }.freeze
   # rubocop:enable Layout/HashAlignment
   SUBSYSTEMS = SUBSYSTEM_FLAGS.keys.freeze
@@ -27,7 +23,7 @@ module Lummox::SDL
       flags = flags_from_subsystems(*subsystems)
       initialized_flags = Core.was_init(0)
       success_code = Core.init(flags ^ initialized_flags)
-      Error.raise_if(:negative?) { success_code }
+      Lummox::SDLError.raise_if(:negative?) { success_code }
     end
 
     def init?(*subsystems)
