@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
-class Lummox::Event::KeyboardEvent
-  extend Lummox::Event::Helpers
+class Lummox::Event::KeyboardEvent < Lummox::Event
+  SDL_EVENT_FIELD = :keyboard_event
 
-  delegate_to_event :window_id
-  delegate_to_event :state
-  delegate_to_event :repeat
-  delegate_to_event :keysym
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:keyboard_event]
-  end
+  def_delegators :@sdl_event, :window_id, :state, :repeat, :keysym
 
   def window
     Lummox::Window.from_id(window_id)

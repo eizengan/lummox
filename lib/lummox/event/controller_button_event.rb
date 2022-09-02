@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
-class Lummox::Event::ControllerButtonEvent
-  extend Lummox::Event::Helpers
+class Lummox::Event::ControllerButtonEvent < Lummox::Event
+  SDL_EVENT_FIELD = :controller_button_event
 
-  delegate_to_event :which, alias_as: :joystick_instance_id
-  delegate_to_event :button
-  delegate_to_event :state
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:controller_button_event]
-  end
+  def_delegator :@sdl_event, :which, :joystick_instance_id
+  def_delegators :@sdl_event, :button, :state
 
   def controller
     Lummox::Controller.from_instance_id(joystick_instance_id)

@@ -1,15 +1,10 @@
 # frozen_string_literal: true
 
-class Lummox::Event::ControllerAxisEvent
-  extend Lummox::Event::Helpers
+class Lummox::Event::ControllerAxisEvent < Lummox::Event
+  SDL_EVENT_FIELD = :controller_axis_event
 
-  delegate_to_event :which, alias_as: :joystick_instance_id
-  delegate_to_event :axis
-  delegate_to_event :value
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:controller_axis_event]
-  end
+  def_delegator :@sdl_event, :which, :joystick_instance_id
+  def_delegators :@sdl_event, :axis, :value
 
   def controller
     Lummox::Controller.from_instance_id(joystick_instance_id)

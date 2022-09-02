@@ -1,13 +1,9 @@
 # frozen_string_literal: true
 
-class Lummox::Event::AudioDeviceEvent
-  extend Lummox::Event::Helpers
+class Lummox::Event::AudioDeviceEvent < Lummox::Event
+  SDL_EVENT_FIELD = :audio_device_event
 
-  delegate_to_event :which, alias_as: :index
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:audio_device_event]
-  end
+  def_delegator :@sdl_event, :which, :index
 
   def device_type
     case sdl_event[:is_capture]

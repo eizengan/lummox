@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
-class Lummox::Event::WindowEvent
+class Lummox::Event::WindowEvent < Lummox::Event
+  SDL_EVENT_FIELD = :window_event
   EVENT_IDS = Set.new(Lummox::SDL::Core::WindowEventId.symbols).freeze
 
-  extend Lummox::Event::Helpers
-
-  delegate_to_event :window_id
-  delegate_to_event :event, alias_as: :event_id
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:window_event]
-  end
+  def_delegator :@sdl_event, :event, :event_id
+  def_delegator :@sdl_event, :window_id
 
   def window
     Lummox::Window.from_id(window_id)

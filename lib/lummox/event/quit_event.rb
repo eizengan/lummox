@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-class Lummox::Event::QuitEvent
-  extend Lummox::Event::Helpers
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:quit_event]
-  end
+class Lummox::Event::QuitEvent < Lummox::Event
+  SDL_EVENT_FIELD = :quit_event
 
   def inspect
     "#<#{self.class} timestamp=#{timestamp}>"

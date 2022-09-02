@@ -11,7 +11,7 @@ class Lummox::EventDispatcher
   def_delegators :instance, :add_event_listener, :remove_event_listener, :dispatch_events
 
   def initialize
-    @next_event = Lummox::SDL::Core::Event.new
+    @next_sdl_event = Lummox::SDL::Core::Event.new
     @event_listeners = {}
     @type_map = {}
   end
@@ -31,14 +31,16 @@ class Lummox::EventDispatcher
   end
 
   def dispatch_events
-    dispatch_next_event while Lummox::SDL::Core.poll_event(@next_event).nonzero?
+    dispatch_next_event while Lummox::SDL::Core.poll_event(@next_sdl_event).nonzero?
   end
 
   private
 
   def dispatch_next_event
-    typed_event = Lummox::Event.from(@next_event.clone)
-    @type_map[@next_event[:type]]&.map { |event_listener_id| @event_listeners[event_listener_id] }
-                                 &.each { |event_listener| event_listener.call(typed_event) }
+    event_listener_ids = @type_map[@next_sdl_event[:type]]
+    event_listeners = event_listener_ids&.map { |event_listener_id| @event_listeners[event_listener_id] }
+
+    typed_event = Lummox::Event.from(@next_sdl_event.clone)
+    event_listeners&.each { |event_listener| event_listener.call(typed_event) }
   end
 end

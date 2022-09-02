@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-module Lummox::Event
+require "forwardable"
+
+class Lummox::Event
+  extend Forwardable
+
   EVENT_CLASSES_FOR_TYPE = {
     first_event: nil,
     quit: QuitEvent,
@@ -36,6 +40,21 @@ module Lummox::Event
 
   def self.from(sdl_event)
     klass = EVENT_CLASSES_FOR_TYPE[sdl_event[:type]] || CommonEvent
-    klass.new(sdl_event)
+    field = klass::SDL_EVENT_FIELD
+    klass.new(sdl_event, field)
+  end
+
+  attr_reader :sdl_event
+
+  def_delegators :@sdl_event, :type, :timestamp
+
+  def inspect
+    "#<#{self.class} type=#{type} timestamp=#{timestamp}>"
+  end
+
+  private
+
+  def initialize(sdl_event, field)
+    @sdl_event = sdl_event[field]
   end
 end

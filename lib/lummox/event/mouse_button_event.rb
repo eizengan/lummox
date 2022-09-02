@@ -1,19 +1,10 @@
 # frozen_string_literal: true
 
-class Lummox::Event::MouseButtonEvent
-  extend Lummox::Event::Helpers
+class Lummox::Event::MouseButtonEvent < Lummox::Event
+  SDL_EVENT_FIELD = :mouse_button_event
 
-  delegate_to_event :window_id
-  delegate_to_event :which, alias_as: :mouse_id
-  delegate_to_event :button
-  delegate_to_event :state
-  delegate_to_event :clicks
-  delegate_to_event :x
-  delegate_to_event :y
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:mouse_button_event]
-  end
+  def_delegator :@sdl_event, :which, :mouse_id
+  def_delegators :@sdl_event, :window_id, :button, :state, :clicks, :x, :y
 
   def window
     Lummox::Window.from_id(window_id)

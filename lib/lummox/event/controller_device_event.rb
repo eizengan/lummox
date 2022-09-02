@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
-class Lummox::Event::ControllerDeviceEvent
-  extend Lummox::Event::Helpers
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:controller_device_event]
-  end
+class Lummox::Event::ControllerDeviceEvent < Lummox::Event
+  SDL_EVENT_FIELD = :controller_device_event
 
   def joystick_index
     raise Lummox::SDLError, "No joystick_index for type '#{type}'" unless type == :controller_device_added

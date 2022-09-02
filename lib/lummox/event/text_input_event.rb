@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-class Lummox::Event::TextInputEvent
-  extend Lummox::Event::Helpers
+class Lummox::Event::TextInputEvent < Lummox::Event
+  SDL_EVENT_FIELD = :text_input_event
 
-  delegate_to_event :window_id
-  delegate_to_event :text
-
-  def initialize(sdl_event)
-    @sdl_event = sdl_event[:text_input_event]
-  end
+  def_delegators :@sdl_event, :window_id, :text
 
   def window
     Lummox::Window.from_id(window_id)
