@@ -6,12 +6,9 @@ require "singleton"
 
 class Lummox::EventDispatcher
   include Singleton
+  extend SingleForwardable
 
-  class << self
-    extend Forwardable
-
-    def_delegators :instance, :add_event_listener, :remove_event_listener, :dispatch_events
-  end
+  def_delegators :instance, :add_event_listener, :remove_event_listener, :dispatch_events
 
   def initialize
     @next_event = Lummox::SDL::Core::Event.new

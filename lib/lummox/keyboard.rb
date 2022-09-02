@@ -11,12 +11,11 @@ require "singleton"
 # - set_mod_state       - this function is poor form
 class Lummox::Keyboard
   include Singleton
+  extend SingleForwardable
+
+  def_delegators :instance, :pressed?
 
   class << self
-    extend Forwardable
-
-    def_delegators :instance, :pressed?
-
     def keycode_for(scancode_or_name)
       if scancode_or_name.is_a? Symbol
         Lummox::SDL::Core.get_key_from_scancode(scancode_or_name)
