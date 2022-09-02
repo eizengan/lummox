@@ -6,9 +6,8 @@ class Lummox::DisplayMode
   extend Forwardable
 
   attr_reader :sdl_display_mode
-  def_delegators :sdl_display_mode, :format, :format=,
-                                    :refresh_rate, :refresh_rate=,
-                                    :driver_data, :driver_data=
+
+  def_delegators :sdl_display_mode, :format, :format=, :refresh_rate, :refresh_rate=, :driver_data, :driver_data=
   def_delegator :sdl_display_mode, :w, :width
   def_delegator :sdl_display_mode, :w=, :width=
   def_delegator :sdl_display_mode, :h, :height

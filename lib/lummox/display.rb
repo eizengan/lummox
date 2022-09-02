@@ -50,7 +50,7 @@ class Lummox::Display
   def current_display_mode
     display_mode = Lummox::DisplayMode.new
     Lummox::SDLError.raise_if(:negative?) do
-       Lummox::SDL::Core.get_current_display_mode(@display_index, display_mode.sdl_display_mode)
+      Lummox::SDL::Core.get_current_display_mode(@display_index, display_mode.sdl_display_mode)
     end
     display_mode
   end

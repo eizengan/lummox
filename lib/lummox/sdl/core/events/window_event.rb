@@ -5,9 +5,9 @@ class Lummox::SDL::Core::Events::WindowEvent < Lummox::SDL::Core::Struct
          :timestamp, :uint32,
          :window_id, :uint32,
          :event,     Lummox::SDL::Core::Video::WindowEventId,
-         :padding1,  :uint8,
-         :padding2,  :uint8,
-         :padding3,  :uint8,
-         :data_1,    :int32, # rubocop:disable Naming/VariableNumber
-         :data_2,    :int32  # rubocop:disable Naming/VariableNumber
+         :padding_1, :uint8,
+         :padding_2, :uint8,
+         :padding_3, :uint8,
+         :data_1,    :int32,
+         :data_2,    :int32
 end

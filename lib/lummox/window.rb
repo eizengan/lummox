@@ -62,7 +62,9 @@ class Lummox::Window
 
   def display_mode
     display_mode = Lummox::DisplayMode.new
-    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL::Core.get_window_display_mode(@pointer, display_mode.sdl_display_mode) }
+    Lummox::SDLError.raise_if(:negative?) do
+      Lummox::SDL::Core.get_window_display_mode(@pointer, display_mode.sdl_display_mode)
+    end
     display_mode
   end
 

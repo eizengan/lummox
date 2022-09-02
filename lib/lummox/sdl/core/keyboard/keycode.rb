@@ -2,12 +2,9 @@
 
 require "ffi"
 
-# rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/ModuleLength, Naming/VariableNumber, Style/NumericLiterals
 
 module Lummox::SDL::Core::Keyboard
-  # rubocop:disable Naming/VariableNumber
-  # rubocop:disable Style/NumericLiterals
-
   Keycode = Lummox::SDL::Core.enum(
     FFI::Type::INT32,
     :keycode_unknown,             0,
@@ -255,9 +252,6 @@ module Lummox::SDL::Core::Keyboard
     :keycode_call,                1073742113,
     :keycode_end_call,            1073742114
   ).freeze
-
-  # rubocop:enable Naming/VariableNumber
-  # rubocop:enable Style/NumericLiterals
 end
 
-# rubocop:enable Metrics/ModuleLength
+# rubocop:enable all

@@ -10,7 +10,7 @@ Lummox::SDL.init!
 device = nil
 is_capture = 0
 desired_spec = Lummox::SDL::Core::AudioSpec.new.tap do |spec|
-  spec[:freq]   = 44100
+  spec[:freq]   = 44_100
   spec[:format] = Lummox::SDL::Core::AUDIO_S16
   spec[:channels] = 2
 end

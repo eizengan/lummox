@@ -4,11 +4,10 @@
 # - SDL_CreateColorCursor
 # - SDL_CreateCursor
 module Lummox::SDL::Core::Mouse
-  # rubocop:disable Layout/LineLength
-  # rubocop:disable Metrics/MethodLength
-
   # TODO: Move this to Core::Touch upon implementing
   TOUCH_MOUSE_ID = 0xffffffff
+
+  # rubocop:disable Layout/LineLength, Metrics/MethodLength
 
   def self.included(base)
     base.class_eval do
@@ -30,6 +29,5 @@ module Lummox::SDL::Core::Mouse
     end
   end
 
-  # rubocop:enable Layout/LineLength
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable all
 end

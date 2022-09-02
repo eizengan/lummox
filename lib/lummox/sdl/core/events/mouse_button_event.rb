@@ -8,7 +8,7 @@ class Lummox::SDL::Core::Events::MouseButtonEvent < Lummox::SDL::Core::Struct
          :button,    Lummox::SDL::Core::Mouse::MouseButton,
          :state,     Lummox::SDL::Core::ButtonState,
          :clicks,    :uint8,
-         :padding1,  :uint8,
+         :padding_1, :uint8,
          :x,         :int32,
          :y,         :int32
 end

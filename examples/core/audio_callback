@@ -7,7 +7,7 @@ require "lummox"
 Lummox::SDL.init!
 
 # Create a callback to play the file
-audio_enqueue_callback = Proc.new do |user_data, sample_ptr, num_samples|
+audio_enqueue_callback = proc do |user_data, sample_ptr, num_samples|
   puts "received #{user_data.read_string_to_null}"
 
   # Write white noise to pointer
@@ -20,7 +20,7 @@ device = nil
 is_capture = 0
 user_data_value = "desired user data\x0"
 desired_spec = Lummox::SDL::Core::AudioSpec.new.tap do |spec|
-  spec[:freq]   = 44100
+  spec[:freq]   = 44_100
   spec[:format] = Lummox::SDL::Core::AUDIO_S16
   spec[:channels] = 2
   spec[:callback] = audio_enqueue_callback

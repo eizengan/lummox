@@ -6,6 +6,6 @@ class Lummox::SDL::Core::Events::ControllerButtonEvent < Lummox::SDL::Core::Stru
          :which,     :int32,
          :button,    Lummox::SDL::Core::GameController::GameControllerButton,
          :state,     Lummox::SDL::Core::ButtonState,
-         :padding1,  :uint8,
-         :padding2,  :uint8
+         :padding_1, :uint8,
+         :padding_2, :uint8
 end

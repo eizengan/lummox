@@ -11,7 +11,7 @@ module Lummox::SDL::Core::Timer
       attach_sdl_function :get_performance_counter, [], :uint64
       attach_sdl_function :get_performance_frequency, [], :uint64
       attach_sdl_function :get_ticks, [], :uint32
-      attach_sdl_function :get_ticks_64, [], :uint64 # rubocop:disable Naming/VariableNumber
+      attach_sdl_function :get_ticks_64, [], :uint64
     end
   end
 end

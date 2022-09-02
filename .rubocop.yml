@@ -22,6 +22,10 @@ Layout/FirstArrayElementIndentation:
 Lint/BooleanSymbol:
   Enabled: false
 
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+  AllowedIdentifiers: [int8, int16, int32, int64, uint8, uint16, uint32, uint64]
+
 Style/ClassAndModuleChildren:
   Enabled: false
 

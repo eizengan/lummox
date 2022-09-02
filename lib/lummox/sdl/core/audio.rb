@@ -21,6 +21,10 @@
 # SDL_PauseAudio     - legacy interface
 # SDL_UnlockAudio    - legacy interface
 module Lummox::SDL::Core::Audio
+  # rubocop:disable Layout/LineLength
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/MethodLength
+
   AUDIO_S8     = 0x8008
   AUDIO_U8     = 0x0008
   AUDIO_S16LSB = 0x8010
@@ -71,4 +75,6 @@ module Lummox::SDL::Core::Audio
       attach_sdl_function :load_wav_rw, [Lummox::SDL::Core::IO::RWOps.by_ref, :bool, AudioSpec.by_ref, :pointer, :uint32_pointer], :void, sdl_method_name: :SDL_LoadWAV_RW # null if error
     end
   end
+
+  # rubocop:enable all
 end

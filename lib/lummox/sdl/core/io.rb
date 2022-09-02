@@ -24,6 +24,8 @@
 # IGNORE:
 # - SDL_RWFromFP - file from standard I/O file pointer
 module Lummox::SDL::Core::IO
+  # rubocop:disable Metrics/MethodLength
+
   def self.included(base)
     base.class_eval do
       # Creation, identification, ownership
@@ -39,4 +41,6 @@ module Lummox::SDL::Core::IO
       attach_sdl_function :rw_write, [RWOps.by_ref, :pointer, :size_t, :size_t], :size_t, sdl_method_name: :SDL_RWwrite
     end
   end
+
+  # rubocop:enable all
 end

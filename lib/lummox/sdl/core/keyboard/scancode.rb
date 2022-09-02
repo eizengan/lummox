@@ -2,11 +2,9 @@
 
 require "ffi"
 
-# rubocop:disable Metrics/ModuleLength
+# rubocop:disable Metrics/ModuleLength, Naming/VariableNumber
 
 module Lummox::SDL::Core::Keyboard
-  # rubocop:disable Naming/VariableNumber
-
   Scancode = Lummox::SDL::Core.enum(
     FFI::Type::INT,
     :scancode_unknown,             0,
@@ -258,8 +256,6 @@ module Lummox::SDL::Core::Keyboard
     :scancode_end_call,            290,
     :num_scancodes,                512
   ).freeze
-
-  # rubocop:enable Naming/VariableNumber
 end
 
-# rubocop:enable Metrics/ModuleLength
+# rubocop:enable all

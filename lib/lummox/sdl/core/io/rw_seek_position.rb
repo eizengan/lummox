@@ -7,6 +7,6 @@ module Lummox::SDL::Core::IO
     FFI::Type::INT,
     :rw_seek_set,
     :rw_seek_cur,
-    :rw_seek_end,
+    :rw_seek_end
   ).freeze
 end

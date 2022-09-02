@@ -23,10 +23,7 @@ module Lummox::SDL::Core::Render
   FLIP_HORIZONTAL = 0x00000001
   FLIP_VERTICAL   = 0x00000002
 
-  # rubocop:disable Layout/LineLength
-  # rubocop:disable Metrics/AbcSize
-  # rubocop:disable Metrics/BlockLength
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Layout/LineLength, Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
 
   def self.included(base)
     base.class_eval do
@@ -111,8 +108,5 @@ module Lummox::SDL::Core::Render
     end
   end
 
-  # rubocop:enable Layout/LineLength
-  # rubocop:enable Metrics/AbcSize
-  # rubocop:enable Metrics/BlockLength
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable all
 end

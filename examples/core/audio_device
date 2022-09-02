@@ -18,7 +18,7 @@ device = nil
 # device = device_names[0]
 
 desired_spec = Lummox::SDL::Core::AudioSpec.new
-desired_spec[:freq]   = 44100
+desired_spec[:freq]   = 44_100
 desired_spec[:format] = Lummox::SDL::Core::AUDIO_S16
 desired_spec[:channels] = 2
 puts <<~DESIRED_SPEC
@@ -31,8 +31,7 @@ puts <<~DESIRED_SPEC
   Sample Size:   #{desired_spec[:samples]}
   Buffer Size:   #{desired_spec[:size]}
   Silence Value: #{desired_spec[:silence]}
-
-  DESIRED_SPEC
+DESIRED_SPEC
 
 opened_spec = Lummox::SDL::Core::AudioSpec.new
 

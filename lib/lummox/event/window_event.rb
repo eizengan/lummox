@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/VariableNumber
-
 class Lummox::Event::WindowEvent
   EVENT_IDS = Set.new(Lummox::SDL::Core::WindowEventId.symbols).freeze
 
@@ -59,5 +57,3 @@ class Lummox::Event::WindowEvent
     "#<#{self.class} #{event_description}>"
   end
 end
-
-# rubocop:enable Naming/VariableNumber

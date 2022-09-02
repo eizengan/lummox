@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class Lummox::Rect
   attr_accessor :x, :y, :width, :height
+
+  # rubocop:disable Metrics/MethodLength, Metrics/ParameterLists, Naming/MethodParameterName
 
   def initialize(x = 0, y = 0, width = 0, height = 0, sdl_rect: nil)
     if sdl_rect.nil?
@@ -14,6 +18,8 @@ class Lummox::Rect
       @height = sdl_rect.h
     end
   end
+
+  # rubocop:enable all
 
   def sdl_rect
     Lummox::SDL::Core::Rect.new(x: x, y: y, w: width, h: height)

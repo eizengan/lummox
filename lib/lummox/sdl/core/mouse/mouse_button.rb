@@ -10,7 +10,7 @@ module Lummox::SDL::Core::Mouse
     :button_left, 1,
     :button_middle,
     :button_right,
-    :button_x1,
-    :button_x2
+    :button_x1, # rubocop:disable Naming/VariableNumber
+    :button_x2  # rubocop:disable Naming/VariableNumber
   ).freeze
 end

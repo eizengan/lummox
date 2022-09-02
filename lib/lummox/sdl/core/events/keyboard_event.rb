@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Naming/VariableNumber
-
 class Lummox::SDL::Core::Events::KeyboardEvent < Lummox::SDL::Core::Struct
   layout :type,      Lummox::SDL::Core::Events::EventType,
          :timestamp, :uint32,
@@ -12,5 +10,3 @@ class Lummox::SDL::Core::Events::KeyboardEvent < Lummox::SDL::Core::Struct
          :padding_3, :uint8,
          :keysym,    Lummox::SDL::Core::Keyboard::Keysym
 end
-
-# rubocop:enable Naming/VariableNumber

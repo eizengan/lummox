@@ -3,8 +3,6 @@
 require "ffi"
 
 module Lummox::SDL::Core::GameController
-  # rubocop:disable Naming/VariableNumber
-
   GameControllerButton = Lummox::SDL::Core.enum(
     # TODO: This type is used by a struct, but the declaration is quite apparently int; does this work in all cases?
     FFI::Type::UINT8,
@@ -32,6 +30,4 @@ module Lummox::SDL::Core::GameController
     :controller_button_touchpad,
     :controller_button_max
   ).freeze
-
-  # rubocop:enable Naming/VariableNumber
 end

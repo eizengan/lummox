@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
 module Lummox::SDL
-  # rubocop:disable Layout/HashAlignment
   SUBSYSTEM_FLAGS = {
-    timer:           Core::INIT_TIMER,
-    audio:           Core::INIT_AUDIO,
-    video:           Core::INIT_VIDEO,
-    joystick:        Core::INIT_JOYSTICK,
-    haptic:          Core::INIT_HAPTIC,
+    timer: Core::INIT_TIMER,
+    audio: Core::INIT_AUDIO,
+    video: Core::INIT_VIDEO,
+    joystick: Core::INIT_JOYSTICK,
+    haptic: Core::INIT_HAPTIC,
     game_controller: Core::INIT_GAME_CONTROLLER,
-    events:          Core::INIT_EVENTS,
-    sensor:          Core::INIT_SENSOR
+    events: Core::INIT_EVENTS,
+    sensor: Core::INIT_SENSOR
   }.freeze
-  # rubocop:enable Layout/HashAlignment
   SUBSYSTEMS = SUBSYSTEM_FLAGS.keys.freeze
 
   class << self
