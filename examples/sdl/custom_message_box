@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+require "ffi"
+
+Lummox.init!
+
+button_buffer = FFI::MemoryPointer.new(Lummox::SDL::MessageBoxButtonData, 2)
+button_texts = %w[Okay Cancel].map { |t| FFI::MemoryPointer.from_string(t) }
+button_texts.each_with_index do |text, index|
+  Lummox::SDL::MessageBoxButtonData.new(
+    button_buffer + (index * Lummox::SDL::MessageBoxButtonData.size),
+    flags: 0, button_id: index, text: text
+  )
+end
+
+color_buffer = FFI::MemoryPointer.new(Lummox::SDL::MessageBoxColor, 5)
+{
+  message_box_color_background: [0, 0, 0],
+  message_box_color_text: [0, 0, 0],
+  message_box_color_button_border: [127, 0, 0],
+  message_box_color_button_background: [63, 0, 0],
+  message_box_color_button_selected: [63, 0, 63]
+}.each do |color_type, color_array|
+  Lummox::SDL::MessageBoxColor.new(
+    color_buffer + (Lummox::SDL::MessageBoxColorType[color_type] * Lummox::SDL::MessageBoxColor.size),
+    r: color_array[0], g: color_array[1], b: color_array[2]
+  )
+end
+color_scheme = Lummox::SDL::MessageBoxColorScheme.new(color_buffer)
+
+title = FFI::MemoryPointer.from_string("a custom message")
+message = FFI::MemoryPointer.from_string("but not a very good one")
+data = Lummox::SDL::MessageBoxData.new(
+  flags: Lummox::SDL::MESSAGE_BOX_BUTTONS_RIGHT_TO_LEFT,
+  window: nil,
+  title: title,
+  message: message,
+  num_buttons: button_buffer.size / button_buffer.type_size,
+  buttons: button_buffer,
+  color_scheme: color_scheme
+)
+
+clicked_button_id = Lummox::SDL::IntPtr.new
+Lummox::SDL.show_message_box(data, clicked_button_id)
+clicked_button_text = button_texts[clicked_button_id.value].read_string
+puts "clicked '#{clicked_button_text}' button"
+
+event = Lummox::SDL::Event.new
+while Lummox::SDL.poll_event(event).nonzero?
+  # clear out the queue
+end
+
+Lummox.quit!
+
+puts "all done!"

@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+name = "A Test Window"
+window = Lummox::SDL.create_window(
+  name,
+  Lummox::SDL::WINDOW_POS_CENTERED, Lummox::SDL::WINDOW_POS_CENTERED,
+  480, 360,
+  Lummox::SDL::WINDOW_OPENGL
+)
+window_id = Lummox::SDL.get_window_id(window)
+puts "Window created with ID #{window_id}"
+
+closing = false
+event = Lummox::SDL::Event.new
+until closing
+  while Lummox::SDL.poll_event(event).nonzero? # rubocop:disable Style/WhileUntilModifier
+    closing = (event[:type] == :quit)
+  end
+end
+
+Lummox::SDL.destroy_window(window)
+Lummox.quit!
+
+puts "all done!"

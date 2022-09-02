@@ -14,7 +14,7 @@ class Lummox::DisplayMode
   def_delegator :sdl_display_mode, :h=, :height=
 
   def initialize(sdl_display_mode = nil)
-    sdl_display_mode ||= Lummox::SDL::Core::DisplayMode.new
+    sdl_display_mode ||= Lummox::SDL::DisplayMode.new
     @sdl_display_mode = sdl_display_mode
   end
 

@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+require "ffi"
+
+Lummox.init!
+
+name = "A Test Window"
+window = Lummox::SDL.create_window(
+  name,
+  Lummox::SDL::WINDOW_POS_CENTERED, Lummox::SDL::WINDOW_POS_CENTERED,
+  480, 360,
+  Lummox::SDL::WINDOW_OPENGL
+)
+
+window_id = Lummox::SDL.get_window_id(window)
+window_from_id = Lummox::SDL.get_window_from_id(window_id)
+
+if window == window_from_id
+  puts "Passing through ID gives == window"
+else
+  puts "Passing through ID gives != window"
+end
+
+event = Lummox::SDL::Event.new
+while Lummox::SDL.poll_event(event).nonzero?
+  # clear out the queue
+end
+
+Lummox::SDL.destroy_window(window)
+Lummox.quit!
+
+puts "all done!"

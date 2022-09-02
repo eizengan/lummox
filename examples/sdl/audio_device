@@ -1,0 +1,56 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+is_capture = 0
+
+num_output_devices = Lummox::SDL.get_num_audio_devices(is_capture)
+device_names = (0...num_output_devices).map { |index| Lummox::SDL.get_audio_device_name(index, is_capture) }
+device_names.each_with_index { |name, index| puts "#{index}: #{name}" }
+
+device = nil
+# UNCOMMENT TO SELECT A SPECIFIC DEVICE
+# device = device_names[0]
+
+desired_spec = Lummox::SDL::AudioSpec.new
+desired_spec[:freq]   = 44_100
+desired_spec[:format] = Lummox::SDL::AUDIO_S16
+desired_spec[:channels] = 2
+puts <<~DESIRED_SPEC
+
+  REQUESTED
+  ---------------------------------------
+  Sampling Rate: #{desired_spec[:freq]} Hz
+  Format:        #{desired_spec[:format]}
+  Channels:      #{desired_spec[:channels]}
+  Sample Size:   #{desired_spec[:samples]}
+  Buffer Size:   #{desired_spec[:size]}
+  Silence Value: #{desired_spec[:silence]}
+DESIRED_SPEC
+
+opened_spec = Lummox::SDL::AudioSpec.new
+
+allowed_changes = Lummox::SDL::AUDIO_ALLOW_ANY_CHANGE
+
+audio_device_id = Lummox::SDL.open_audio_device(device, is_capture, desired_spec, opened_spec, allowed_changes)
+status = Lummox::SDL.get_audio_device_status(audio_device_id)
+
+puts <<~OPENED_SPEC
+
+  OPENED (ID: #{audio_device_id}, Status: #{status})
+  ---------------------------------------
+  Sampling Rate: #{opened_spec[:freq]} Hz
+  Format:        #{opened_spec[:format]}
+  Channels:      #{opened_spec[:channels]}
+  Sample Size:   #{opened_spec[:samples]}
+  Buffer Size:   #{opened_spec[:size]}
+  Silence Value: #{opened_spec[:silence]}
+OPENED_SPEC
+
+Lummox.quit!
+
+puts "all done!"

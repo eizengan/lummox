@@ -15,7 +15,7 @@ class Lummox::SDLError < StandardError
     end
 
     def raise_current_error
-      error_message = Lummox::SDL::Core.get_error
+      error_message = Lummox::SDL.get_error
       raise self, error_message
     end
   end

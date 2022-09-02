@@ -11,7 +11,7 @@ class Lummox::Event::MouseWheelEvent < Lummox::Event
   end
 
   def touch?
-    mouse_id == Lummox::SDL::Core::Mouse::TOUCH_MOUSE_ID
+    mouse_id == Lummox::SDL::Mouse::TOUCH_MOUSE_ID
   end
 
   def y

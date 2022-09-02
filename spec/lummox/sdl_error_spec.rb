@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe Lummox::SDLError do
-  before { Lummox::SDL::Core.set_error("oh no! an error happened") }
+  before { Lummox::SDL.set_error("oh no! an error happened") }
 
   describe ".raise_current_error" do
     subject(:raise_current_error) { described_class.raise_current_error }

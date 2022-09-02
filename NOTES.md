@@ -2,7 +2,7 @@
 - modules for headers
   - except for changing Rect to Geometry to avoid collision with Rect struct
 - files for module structs/unions/enums
-  - except for some shared enums - add directly to core
+  - except for some shared enums - add directly to sdl
 - no changes to names other than...
   - SDL_ prefixes removed
   - case based on ruby-side norms to avoid surprise

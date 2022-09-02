@@ -22,11 +22,11 @@ class Lummox::Rect
   # rubocop:enable all
 
   def sdl_rect
-    Lummox::SDL::Core::Rect.new(x: x, y: y, w: width, h: height)
+    Lummox::SDL::Rect.new(x: x, y: y, w: width, h: height)
   end
 
   def sdl_frect
-    Lummox::SDL::Core::FRect.new(x: x, y: y, w: width, h: height)
+    Lummox::SDL::FRect.new(x: x, y: y, w: width, h: height)
   end
 
   def inspect

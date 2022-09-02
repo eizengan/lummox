@@ -2,7 +2,7 @@
 
 class Lummox::Event::WindowEvent < Lummox::Event
   SDL_EVENT_FIELD = :window_event
-  EVENT_IDS = Set.new(Lummox::SDL::Core::WindowEventId.symbols).freeze
+  EVENT_IDS = Set.new(Lummox::SDL::WindowEventId.symbols).freeze
 
   def_delegator :@sdl_event, :event, :event_id
   def_delegator :@sdl_event, :window_id

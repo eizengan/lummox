@@ -10,10 +10,10 @@ module Lummox
   end
 
   def self.init!
-    SDLError.raise_if(:negative?) { SDL::Core.init(Configuration.sdl_init_flags) }
+    SDLError.raise_if(:negative?) { SDL.init(Configuration.sdl_init_flags) }
   end
 
   def self.quit!
-    SDL::Core.quit
+    SDL.quit
   end
 end

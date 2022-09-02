@@ -5,14 +5,14 @@ require "forwardable"
 
 class Lummox::Configuration
   SDL_FLAGS_FOR_SUBSYSTEMS = {
-    audio: Lummox::SDL::Core::INIT_AUDIO,
-    controller: Lummox::SDL::Core::INIT_GAME_CONTROLLER,
-    events: Lummox::SDL::Core::INIT_EVENTS,
-    # haptic: Lummox::SDL::Core::INIT_HAPTIC,
-    joystick: Lummox::SDL::Core::INIT_JOYSTICK,
-    # sensor: Lummox::SDL::Core::INIT_SENSOR,
-    timer: Lummox::SDL::Core::INIT_TIMER,
-    video: Lummox::SDL::Core::INIT_VIDEO
+    audio: Lummox::SDL::INIT_AUDIO,
+    controller: Lummox::SDL::INIT_GAME_CONTROLLER,
+    events: Lummox::SDL::INIT_EVENTS,
+    # haptic: Lummox::SDL::INIT_HAPTIC,
+    joystick: Lummox::SDL::INIT_JOYSTICK,
+    # sensor: Lummox::SDL::INIT_SENSOR,
+    timer: Lummox::SDL::INIT_TIMER,
+    video: Lummox::SDL::INIT_VIDEO
   }.freeze
   SUBSYSTEMS = SDL_FLAGS_FOR_SUBSYSTEMS.keys.freeze
 
