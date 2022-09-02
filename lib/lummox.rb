@@ -3,11 +3,17 @@
 require_relative "lummox/zeitwerk"
 
 module Lummox
+  def configuration
+    yield Configuration.instance if block_given?
+
+    Configuration.instance
+  end
+
   def self.init!
-    SDL.init!
+    SDLError.raise_if(:negative?) { SDL::Core.init(Configuration.sdl_init_flags) }
   end
 
   def self.quit!
-    SDL.quit!
+    SDL::Core.quit
   end
 end
