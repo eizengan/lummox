@@ -11,14 +11,10 @@ module Lummox::SDL::MessageBox
   MESSAGE_BOX_BUTTONS_LEFT_TO_RIGHT    = 0x00000080
   MESSAGE_BOX_BUTTONS_RIGHT_TO_LEFT    = 0x00000100
 
-  # rubocop:disable Layout/LineLength
-
   def self.included(base)
     base.class_eval do
       attach_sdl_function :show_message_box, [MessageBoxData.by_ref, Lummox::SDL::IntPtr], :int # negative if error
       attach_sdl_function :show_simple_message_box, %i[uint32 string string window_pointer], :int # negative if error
     end
   end
-
-  # rubocop:enable Layout/LineLength
 end

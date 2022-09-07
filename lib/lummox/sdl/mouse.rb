@@ -7,7 +7,7 @@ module Lummox::SDL::Mouse
   # TODO: Move this to SDL::Touch upon implementing
   TOUCH_MOUSE_ID = 0xffffffff
 
-  # rubocop:disable Layout/LineLength, Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
 
   def self.included(base)
     base.class_eval do
@@ -29,5 +29,5 @@ module Lummox::SDL::Mouse
     end
   end
 
-  # rubocop:enable all
+  # rubocop:enable Metrics/MethodLength
 end
