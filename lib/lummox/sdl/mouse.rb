@@ -24,8 +24,8 @@ module Lummox::SDL::Mouse
       attach_sdl_function :set_cursor, [:cursor_pointer], :void
       attach_sdl_function :set_relative_mouse_mode, [:bool], :int # negative if error
       attach_sdl_function :show_cursor, [Lummox::SDL::ToggleState], Lummox::SDL::ToggleState # negative if error
-      attach_sdl_function :warp_mouse_global, %i[int int], :void
-      attach_sdl_function :warp_mouse_in_window, %i[int int], :int # negative if error
+      attach_sdl_function :warp_mouse_global, %i[int int], :int # negative if error
+      attach_sdl_function :warp_mouse_in_window, %i[window_pointer int int], :void
     end
   end
 

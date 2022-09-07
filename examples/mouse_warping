@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+window = Lummox::Window.new("Click to warp mouse in window, space to global warp", size: [480, 360])
+global_width, global_height = Lummox::Display.all.first.usable_bounds.size
+window_width, window_height = window.size
+
+Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
+  next unless event.keycode == :keycode_space
+
+  x = Random.rand(0..global_width)
+  y = Random.rand(0..global_height)
+  Lummox::Mouse.warp_to(x, y)
+
+  puts "position: #{Lummox::Mouse.position.inspect}"
+  puts "global position: #{Lummox::Mouse.position(global: true).inspect}"
+end
+
+Lummox::EventDispatcher.add_event_listener(:mouse_button_down) do |event|
+  next unless event.button == :button_left
+
+  x = Random.rand(0..window_width)
+  y = Random.rand(0..window_height)
+  Lummox::Mouse.warp_to(x, y, in_window: :current)
+
+  puts "position: #{Lummox::Mouse.position.inspect}"
+  puts "global position: #{Lummox::Mouse.position(global: true).inspect}"
+end
+
+Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+Lummox::EventDispatcher.dispatch_events until window.closed?
+
+Lummox.quit!
+
+puts "all done!"
