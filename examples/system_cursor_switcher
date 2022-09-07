@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+window = Lummox::Window.new("Click to hide/show cursor, space to switch cursor", size: [480, 360])
+
+cursor_types = Lummox::Mouse::Cursor::SDL_CURSOR_TYPES.map { |t| t[14..-1].to_sym }.cycle
+
+Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
+  next unless event.keycode == :keycode_space
+
+  cursor_type = cursor_types.next
+  Lummox::Mouse::Cursor.switch_to(cursor_type)
+  puts "Cursor is now #{cursor_type}: #{Lummox::Mouse::Cursor.current.inspect}"
+end
+
+Lummox::EventDispatcher.add_event_listener(:mouse_button_down) do |event|
+  next unless event.button == :button_left
+
+  if Lummox::Mouse::Cursor.enabled?
+    puts "Disabling cursor"
+    Lummox::Mouse::Cursor.disable
+  else
+    puts "Enabling cursor"
+    Lummox::Mouse::Cursor.enable
+  end
+end
+
+Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+Lummox::EventDispatcher.dispatch_events until window.closed?
+
+Lummox.quit!
+
+puts "all done!"
