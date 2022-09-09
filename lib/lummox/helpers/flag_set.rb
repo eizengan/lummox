@@ -5,7 +5,7 @@ class Lummox::Helpers::FlagSet
   @prefix = ""
 
   class << self
-    attr_reader :prefixed_flag_map, :prefix, :flags
+    attr_reader :prefixed_flag_map, :prefix
 
     def for(prefixed_flag_map, prefix: "")
       Class.new(self) do
@@ -30,7 +30,7 @@ class Lummox::Helpers::FlagSet
 
   attr_reader :value
 
-  def initialize(*flags, value: 0 , all: false)
+  def initialize(*flags, value: 0, all: false)
     @value = value
     flags = self.class.flags if all
     flags.each { |flag| add(flag) }
@@ -52,7 +52,6 @@ class Lummox::Helpers::FlagSet
   end
 
   def to_a
-    prefix_size = self.class.prefix.size
     self.class.prefixed_flag_map
         .select { |_k, v| value_include?(v) }
         .keys

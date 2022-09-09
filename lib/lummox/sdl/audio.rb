@@ -50,7 +50,7 @@ module Lummox::SDL::Audio
     AUDIO_ALLOW_CHANNELS_CHANGE: 0x00000004,
     AUDIO_ALLOW_SAMPLES_CHANGE: 0x00000008,
     AUDIO_ALLOW_ANY_CHANGE: 0x00000001 | 0x00000002 | 0x00000004 | 0x00000008
-  }
+  }.freeze
 
   def self.included(base)
     base.class_eval do

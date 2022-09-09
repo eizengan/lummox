@@ -4,7 +4,7 @@ require "singleton"
 require "forwardable"
 
 class Lummox::Configuration
-  InitFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::INIT_FLAGS, prefix: :INIT_)
+  InitFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::INIT_FLAGS, prefix: :INIT_) # rubocop:disable Style/MutableConstant
 
   include Singleton
   extend SingleForwardable

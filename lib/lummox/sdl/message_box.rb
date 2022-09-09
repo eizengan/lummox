@@ -12,7 +12,7 @@ module Lummox::SDL::MessageBox
     MESSAGE_BOX_INFORMATION: 0x00000040,
     MESSAGE_BOX_BUTTONS_LEFT_TO_RIGHT: 0x00000080,
     MESSAGE_BOX_BUTTONS_RIGHT_TO_LEFT: 0x00000100
-  }
+  }.freeze
 
   def self.included(base)
     base.class_eval do
