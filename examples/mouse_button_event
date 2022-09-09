@@ -9,9 +9,6 @@ Lummox.init!
 window = Lummox::Window.new("A Test Window", size: [480, 360])
 puts "Window created with ID #{window.id}"
 
-Lummox::EventDispatcher.add_event_listener(:controller_device_added) { |event| Lummox::Controller.new(event.joystick_index) }
-Lummox::EventDispatcher.add_event_listener(:controller_device_removed) { |event| event.controller.close! }
-
 Lummox::EventDispatcher.add_event_listener(:mouse_button_down) { |event| puts event.inspect; }
 Lummox::EventDispatcher.add_event_listener(:mouse_button_up) { |event| puts event.inspect; }
 
