@@ -27,7 +27,7 @@ desired_spec = Lummox::SDL::AudioSpec.new.tap do |spec|
   spec[:user_data] = FFI::MemoryPointer.from_string(user_data_value)
 end
 opened_spec = Lummox::SDL::AudioSpec.new
-allowed_changes = Lummox::SDL::AUDIO_ALLOW_ANY_CHANGE
+allowed_changes = Lummox::SDL::AUDIO_ALLOWED_CHANGES[:AUDIO_ALLOW_ANY_CHANGE]
 audio_device_id = Lummox::SDL.open_audio_device(device, is_capture, desired_spec, opened_spec, allowed_changes)
 
 # Play file
