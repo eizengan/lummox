@@ -16,7 +16,7 @@ class Lummox::Event::ControllerDeviceEvent < Lummox::Event
   end
 
   def controller
-    Lummox::Controller.from_instance_id(joystick_instance_id)
+    @controller ||= Lummox::Controller.from_instance_id(joystick_instance_id)
   end
 
   def inspect

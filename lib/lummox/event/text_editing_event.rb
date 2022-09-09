@@ -6,7 +6,7 @@ class Lummox::Event::TextEditingEvent < Lummox::Event
   def_delegators :@sdl_event, :window_id, :text, :start, :length
 
   def window
-    Lummox::Window.from_id(window_id)
+    @window ||= Lummox::Window.from_id(window_id)
   end
 
   def inspect

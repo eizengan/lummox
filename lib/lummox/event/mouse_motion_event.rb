@@ -7,7 +7,7 @@ class Lummox::Event::MouseMotionEvent < Lummox::Event
   def_delegators :@sdl_event, :window_id, :state
 
   def window
-    Lummox::Window.from_id(window_id)
+    @window ||= Lummox::Window.from_id(window_id)
   end
 
   def touch?
@@ -15,7 +15,7 @@ class Lummox::Event::MouseMotionEvent < Lummox::Event
   end
 
   def relative?
-    Lummox::Mouse.relative?
+    @relative ||= Lummox::Mouse.relative?
   end
 
   def x

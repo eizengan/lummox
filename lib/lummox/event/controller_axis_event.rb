@@ -7,7 +7,7 @@ class Lummox::Event::ControllerAxisEvent < Lummox::Event
   def_delegators :@sdl_event, :axis, :value
 
   def controller
-    Lummox::Controller.from_instance_id(joystick_instance_id)
+    @controller ||= Lummox::Controller.from_instance_id(joystick_instance_id)
   end
 
   def inspect

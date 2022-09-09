@@ -6,7 +6,7 @@ class Lummox::Event::KeyboardEvent < Lummox::Event
   def_delegators :@sdl_event, :window_id, :state, :repeat, :keysym
 
   def window
-    Lummox::Window.from_id(window_id)
+    @window ||= Lummox::Window.from_id(window_id)
   end
 
   def pressed?

@@ -7,7 +7,7 @@ class Lummox::Event::MouseButtonEvent < Lummox::Event
   def_delegators :@sdl_event, :window_id, :button, :state, :clicks, :x, :y
 
   def window
-    Lummox::Window.from_id(window_id)
+    @window ||= Lummox::Window.from_id(window_id)
   end
 
   def touch?

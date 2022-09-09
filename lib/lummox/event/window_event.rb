@@ -8,7 +8,7 @@ class Lummox::Event::WindowEvent < Lummox::Event
   def_delegator :@sdl_event, :window_id
 
   def window
-    Lummox::Window.from_id(window_id)
+    @window ||= Lummox::Window.from_id(window_id)
   end
 
   # TRICKY: Create helper methods to check for a particular event id, e.g.:
