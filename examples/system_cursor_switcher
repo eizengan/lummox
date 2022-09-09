@@ -23,10 +23,10 @@ Lummox::EventDispatcher.add_event_listener(:mouse_button_down) do |event|
 
   if Lummox::Mouse::Cursor.enabled?
     puts "Disabling cursor"
-    Lummox::Mouse::Cursor.disable
+    Lummox::Mouse::Cursor.enabled = false
   else
     puts "Enabling cursor"
-    Lummox::Mouse::Cursor.enable
+    Lummox::Mouse::Cursor.enabled = true
   end
 end
 

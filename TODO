@@ -1,7 +1,6 @@
 - test @ access vs attr_reader, standardize
 - relative mouse click
 - event member caching
-- standardize around either enable/disable/enabled? and enabled=/enabled?
 - explore scancode/keycode/name when scancode/keycode are not in-sync
   - safe to add KeyboardEvent#name?
   - safe to add Keyboard#pressed?(name)?

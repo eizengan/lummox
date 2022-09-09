@@ -15,7 +15,7 @@ class Lummox::Mouse
   include Singleton
   extend SingleForwardable
 
-  def_delegators :instance, :focused_window, :relative?, :enable_relative, :disable_relative, :warp_to, :position
+  def_delegators :instance, :focused_window, :relative?, :relative=, :warp_to, :position
 
   def initialize
     @x_pointer = Lummox::SDL::IntPtr.new
@@ -31,12 +31,9 @@ class Lummox::Mouse
     Lummox::SDL.get_relative_mouse_mode == :true
   end
 
-  def enable_relative
-    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_relative_mouse_mode(:true) }
-  end
-
-  def disable_relative
-    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_relative_mouse_mode(:false) }
+  def relative=(enabled)
+    sdl_arg = enabled ? :true : :false
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_relative_mouse_mode(sdl_arg) }
   end
 
   def warp_to(x, y, in_window: nil)

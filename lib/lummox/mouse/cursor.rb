@@ -23,12 +23,9 @@ class Lummox::Mouse::Cursor
       Lummox::SDL.show_cursor(:query) == :enable
     end
 
-    def enable
-      Lummox::SDL.show_cursor(:enable)
-    end
-
-    def disable
-      Lummox::SDL.show_cursor(:disable)
+    def enabled=(enabled)
+      sdl_arg = enabled ? :enable : :disable
+      Lummox::SDL.show_cursor(sdl_arg)
     end
   end
 

@@ -45,15 +45,14 @@ class Lummox::Window
     Lummox::SDLError.raise_if(:zero?) { Lummox::SDL.get_window_id(@pointer) }
   end
 
-  def enable_fullscreen(desktop: true)
-    flags = desktop ? Lummox::SDL::WINDOW_FULLSCREEN_DESKTOP : Lummox::SDL::WINDOW_FULLSCREEN
-    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_fullscreen(@pointer, flags) }
-    @fullscreen = true
-  end
-
-  def disable_fullscreen
-    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_fullscreen(@pointer, 0) }
-    @fullscreen = false
+  def fullscreen=(option)
+    if option
+      enable_fullscreen(desktop: option == :desktop)
+      @fullscreen = true
+    else
+      disable_fullscreen
+      @fullscreen = false
+    end
   end
 
   def fullscreen?
@@ -213,6 +212,15 @@ class Lummox::Window
   end
 
   private
+
+  def enable_fullscreen(desktop:)
+    flags = desktop ? Lummox::SDL::WINDOW_FULLSCREEN_DESKTOP : Lummox::SDL::WINDOW_FULLSCREEN
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_fullscreen(@pointer, flags) }
+  end
+
+  def disable_fullscreen
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_fullscreen(@pointer, 0) }
+  end
 
   def create_managed_pointer(title, position, size, flags)
     pointer = Lummox::SDLError.raise_if(:null?) { Lummox::SDL.create_window(title, *position, *size, flags) }
