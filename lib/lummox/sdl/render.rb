@@ -13,15 +13,18 @@
 # - SDL_CreateTextureFromSurface - blitting, not rendering
 # - SDL_TextureModulate - internal use
 module Lummox::SDL::Render
-  # Renderer flags
-  RENDERER_SOFTWARE       = 0x00000001
-  RENDERER_ACCELERATED    = 0x00000002
-  RENDERER_PRESENT_VSYNC  = 0x00000004
-  RENDERER_TARGET_TEXTURE = 0x00000008
-  # Renderer flip
-  FLIP_NONE       = 0x00000000
-  FLIP_HORIZONTAL = 0x00000001
-  FLIP_VERTICAL   = 0x00000002
+  RENDERER_FLAGS = {
+    RENDERER_SOFTWARE: 0x00000001,
+    RENDERER_ACCELERATED: 0x00000002,
+    RENDERER_PRESENT_VSYNC: 0x00000004,
+    RENDERER_TARGET_TEXTURE: 0x00000008
+  }.freeze
+
+  RENDERER_FLIP = {
+    FLIP_NONE: 0x00000000,
+    FLIP_HORIZONTAL: 0x00000001,
+    FLIP_VERTICAL: 0x00000002
+  }.freeze
 
   # rubocop:disable Layout/LineLength, Metrics/AbcSize, Metrics/BlockLength, Metrics/MethodLength
 
