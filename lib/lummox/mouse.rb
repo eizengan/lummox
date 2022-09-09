@@ -7,9 +7,6 @@ require "singleton"
 # TODO:
 # - get_global_mouse_state, %i[int_pointer int_pointer], :uint32
 # - get_mouse_state, %i[int_pointer int_pointer], :uint32
-#
-# - get_relative_mouse_mode, [], :bool
-# - set_relative_mouse_mode, [:bool], :int # negative if error
 # - get_relative_mouse_state, %i[int_pointer int_pointer], :uint32
 # NEXT UP:
 # - capture_mouse, [:bool], :int # negative if error
@@ -28,6 +25,18 @@ class Lummox::Mouse
   def focused_window
     window_pointer = Lummox::SDL.get_mouse_focus
     Lummox::Window.find_instance(window_pointer.address)
+  end
+
+  def relative?
+    Lummox::SDL.get_relative_mouse_mode == :true
+  end
+
+  def enable_relative
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_relative_mouse_mode(:true) }
+  end
+
+  def disable_relative
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_relative_mouse_mode(:false) }
   end
 
   def warp_to(x, y, in_window: nil)
