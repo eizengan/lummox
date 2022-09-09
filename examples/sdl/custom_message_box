@@ -34,7 +34,7 @@ color_scheme = Lummox::SDL::MessageBoxColorScheme.new(color_buffer)
 title = FFI::MemoryPointer.from_string("a custom message")
 message = FFI::MemoryPointer.from_string("but not a very good one")
 data = Lummox::SDL::MessageBoxData.new(
-  flags: Lummox::SDL::MESSAGE_BOX_BUTTONS_RIGHT_TO_LEFT,
+  flags: Lummox::SDL::MESSAGE_BOX_FLAGS[:MESSAGE_BOX_BUTTONS_RIGHT_TO_LEFT],
   window: nil,
   title: title,
   message: message,
