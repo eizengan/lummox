@@ -3,7 +3,7 @@
 class Lummox::Event::KeyboardEvent < Lummox::Event
   SDL_EVENT_FIELD = :keyboard_event
 
-  def_delegators :@sdl_event, :window_id, :state, :repeat, :keysym
+  def_delegators :sdl_event, :window_id, :state, :repeat, :keysym
 
   def window
     @window ||= Lummox::Window.from_id(window_id)

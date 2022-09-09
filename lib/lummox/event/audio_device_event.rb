@@ -3,7 +3,7 @@
 class Lummox::Event::AudioDeviceEvent < Lummox::Event
   SDL_EVENT_FIELD = :audio_device_event
 
-  def_delegator :@sdl_event, :which, :index
+  def_delegator :sdl_event, :which, :index
 
   def device_type
     case sdl_event[:is_capture]

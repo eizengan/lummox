@@ -25,7 +25,7 @@ class Lummox::Controller
     ensure_game_controller!(joystick_index)
 
     @pointer = create_managed_pointer(joystick_index)
-    self.class.register_instance(@pointer.address, self)
+    self.class.register_instance(pointer.address, self)
   end
 
   def self.from_instance_id(joystick_instance_id)
@@ -34,17 +34,17 @@ class Lummox::Controller
   end
 
   def close!
-    self.class.deregister_instance(@pointer.address)
-    Lummox::SDL.game_controller_close(@pointer)
+    self.class.deregister_instance(pointer.address)
+    Lummox::SDL.game_controller_close(pointer)
     @pointer = FFI::Pointer::NULL
   end
 
   def name
-    Lummox::SDL.game_controller_name(@pointer)
+    Lummox::SDL.game_controller_name(pointer)
   end
 
   def attached?
-    Lummox::SDL.game_controller_get_attached(@pointer) == :true
+    Lummox::SDL.game_controller_get_attached(pointer) == :true
   end
 
   def position(axis)
@@ -74,11 +74,11 @@ class Lummox::Controller
 
   def button_pressed?(button)
     # TRICKY: This might be an error, but it's oppressively hard to check
-    Lummox::SDL.game_controller_get_button(@pointer, button) == :pressed
+    Lummox::SDL.game_controller_get_button(pointer, button) == :pressed
   end
 
   def axis_position(axis)
     # TRICKY: This might be an error, but it's oppressively hard to check
-    Lummox::SDL.game_controller_get_axis(@pointer, axis)
+    Lummox::SDL.game_controller_get_axis(pointer, axis)
   end
 end

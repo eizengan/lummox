@@ -1,5 +1,4 @@
 - ControllerDeviceEvent#controller, joystick_index vs joystick_instance_id - working?
-- test @ access vs attr_reader, standardize
 - explore scancode/keycode/name when scancode/keycode are not in-sync
   - safe to add KeyboardEvent#name?
   - safe to add Keyboard#pressed?(name)?

@@ -3,8 +3,8 @@
 class Lummox::Event::MouseMotionEvent < Lummox::Event
   SDL_EVENT_FIELD = :mouse_motion_event
 
-  def_delegator :@sdl_event, :which, :mouse_id
-  def_delegators :@sdl_event, :window_id, :state
+  def_delegator :sdl_event, :which, :mouse_id
+  def_delegators :sdl_event, :window_id, :state
 
   def window
     @window ||= Lummox::Window.from_id(window_id)
@@ -20,17 +20,17 @@ class Lummox::Event::MouseMotionEvent < Lummox::Event
 
   def x
     if relative?
-      @sdl_event.x_rel
+      sdl_event.x_rel
     else
-      @sdl_event.x
+      sdl_event.x
     end
   end
 
   def y
     if relative?
-      @sdl_event.y_rel
+      sdl_event.y_rel
     else
-      @sdl_event.y
+      sdl_event.y
     end
   end
 

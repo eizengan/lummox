@@ -3,8 +3,8 @@
 class Lummox::Event::ControllerButtonEvent < Lummox::Event
   SDL_EVENT_FIELD = :controller_button_event
 
-  def_delegator :@sdl_event, :which, :joystick_instance_id
-  def_delegators :@sdl_event, :button, :state
+  def_delegator :sdl_event, :which, :joystick_instance_id
+  def_delegators :sdl_event, :button, :state
 
   def controller
     @controller ||= Lummox::Controller.from_instance_id(joystick_instance_id)

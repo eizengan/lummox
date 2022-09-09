@@ -3,8 +3,8 @@
 class Lummox::Event::MouseWheelEvent < Lummox::Event
   SDL_EVENT_FIELD = :mouse_wheel_event
 
-  def_delegator :@sdl_event, :which, :mouse_id
-  def_delegators :@sdl_event, :window_id, :x, :direction, :precise_x
+  def_delegator :sdl_event, :which, :mouse_id
+  def_delegators :sdl_event, :window_id, :x, :direction, :precise_x
 
   def window
     @window ||= Lummox::Window.from_id(window_id)
@@ -15,11 +15,11 @@ class Lummox::Event::MouseWheelEvent < Lummox::Event
   end
 
   def y
-    -@sdl_event.y
+    -sdl_event.y
   end
 
   def precise_y
-    -@sdl_event.precise_y
+    -sdl_event.precise_y
   end
 
   def inspect

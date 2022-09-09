@@ -3,8 +3,8 @@
 class Lummox::Event::MouseButtonEvent < Lummox::Event
   SDL_EVENT_FIELD = :mouse_button_event
 
-  def_delegator :@sdl_event, :which, :mouse_id
-  def_delegators :@sdl_event, :window_id, :button, :state, :clicks, :x, :y
+  def_delegator :sdl_event, :which, :mouse_id
+  def_delegators :sdl_event, :window_id, :button, :state, :clicks, :x, :y
 
   def window
     @window ||= Lummox::Window.from_id(window_id)

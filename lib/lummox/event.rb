@@ -46,7 +46,7 @@ class Lummox::Event
 
   attr_reader :sdl_event
 
-  def_delegators :@sdl_event, :type, :timestamp
+  def_delegators :sdl_event, :type, :timestamp
 
   def inspect
     "#<#{self.class} type=#{type} timestamp=#{timestamp}>"
