@@ -12,7 +12,7 @@ window = Lummox::SDL.create_window(
   name,
   Lummox::SDL::WINDOW_POS_CENTERED, Lummox::SDL::WINDOW_POS_CENTERED,
   480, 360,
-  Lummox::SDL::WINDOW_OPENGL
+  Lummox::SDL::WINDOW_FLAGS[:WINDOW_OPENGL]
 )
 
 window_id = Lummox::SDL.get_window_id(window)

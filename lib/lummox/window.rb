@@ -21,7 +21,7 @@ class Lummox::Window
     @fullscreen = false
     @bordered = true
     @resizable = false
-    flags = Lummox::SDL::WINDOW_OPENGL
+    flags = Lummox::SDL::WINDOW_FLAGS[:WINDOW_OPENGL]
     @pointer = create_managed_pointer(title, position, size, flags)
     self.class.register_instance(pointer.address, self)
   end
@@ -214,8 +214,9 @@ class Lummox::Window
   private
 
   def enable_fullscreen(desktop:)
-    flags = desktop ? Lummox::SDL::WINDOW_FULLSCREEN_DESKTOP : Lummox::SDL::WINDOW_FULLSCREEN
-    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_fullscreen(pointer, flags) }
+    flag_name = desktop ? :WINDOW_FULLSCREEN_DESKTOP : :WINDOW_FULLSCREEN
+    flag = Lummox::SDL::WINDOW_FLAGS[flag_name]
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_fullscreen(pointer, flag) }
   end
 
   def disable_fullscreen
