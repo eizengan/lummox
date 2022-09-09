@@ -1,10 +1,19 @@
+- use helper for flags-type enums
+  - window flags
+  - message box flags
+  - message box button flags
+  - init flags
+  - audio spec format flags
+  - renderer flags
+  - renderer flip
+  - keymod?
+  - joystick hat?
 - ControllerDeviceEvent#controller, joystick_index vs joystick_instance_id - working?
 - explore scancode/keycode/name when scancode/keycode are not in-sync
   - safe to add KeyboardEvent#name?
   - safe to add Keyboard#pressed?(name)?
 - display modes by index - what happens after disconnect, reconnect?
   - also mice
-- better method of creating, using flags-type enums
 - figure out mouse state button macros https://wiki.libsdl.org/SDL_GetMouseState#remarks
 - testing
   - fix existing tests
