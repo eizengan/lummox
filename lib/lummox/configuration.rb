@@ -4,17 +4,7 @@ require "singleton"
 require "forwardable"
 
 class Lummox::Configuration
-  SDL_FLAGS_FOR_SUBSYSTEMS = {
-    audio: Lummox::SDL::INIT_AUDIO,
-    controller: Lummox::SDL::INIT_GAME_CONTROLLER,
-    events: Lummox::SDL::INIT_EVENTS,
-    # haptic: Lummox::SDL::INIT_HAPTIC,
-    joystick: Lummox::SDL::INIT_JOYSTICK,
-    # sensor: Lummox::SDL::INIT_SENSOR,
-    timer: Lummox::SDL::INIT_TIMER,
-    video: Lummox::SDL::INIT_VIDEO
-  }.freeze
-  SUBSYSTEMS = SDL_FLAGS_FOR_SUBSYSTEMS.keys.freeze
+  InitFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::INIT_FLAGS, prefix: :INIT_)
 
   include Singleton
   extend SingleForwardable
@@ -24,7 +14,7 @@ class Lummox::Configuration
   # configuration methods
 
   def init_subsystems
-    @init_subsystems ||= SUBSYSTEMS
+    @init_subsystems ||= InitFlags.flags
   end
 
   def init_subsystems=(*subsystems)
@@ -34,6 +24,6 @@ class Lummox::Configuration
   # initialization helpers
 
   def sdl_init_flags
-    SDL_FLAGS_FOR_SUBSYSTEMS.values_at(*init_subsystems).inject(:|)
+    InitFlags.new(*init_subsystems).value
   end
 end

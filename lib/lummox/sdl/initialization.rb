@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 module Lummox::SDL::Initialization
-  INIT_TIMER           = 0x00000001
-  INIT_AUDIO           = 0x00000010
-  INIT_VIDEO           = 0x00000020
-  INIT_JOYSTICK        = 0x00000200
-  INIT_HAPTIC          = 0x00001000
-  INIT_GAME_CONTROLLER = 0x00002000
-  INIT_EVENTS          = 0x00004000
-  INIT_SENSOR          = 0x00008000
+  INIT_FLAGS = {
+    INIT_TIMER: 0x00000001,
+    INIT_AUDIO: 0x00000010,
+    INIT_VIDEO: 0x00000020,
+    INIT_JOYSTICK: 0x00000200,
+    # INIT_HAPTIC: 0x00001000,
+    INIT_GAME_CONTROLLER: 0x00002000,
+    INIT_EVENTS: 0x00004000
+    # INIT_SENSOR: 0x00008000
+  }.freeze
 
   def self.included(base)
     base.class_eval do

@@ -1,29 +1,38 @@
 # frozen_string_literal: true
 
 class Lummox::Helpers::FlagSet
-  @flag_map = {}
+  @prefixed_flag_map = {}
   @prefix = ""
 
   class << self
-    attr_reader :flag_map, :prefix
+    attr_reader :prefixed_flag_map, :prefix, :flags
 
-    def for(flag_map, prefix: "")
+    def for(prefixed_flag_map, prefix: "")
       Class.new(self) do
-        @flag_map = flag_map
+        @prefixed_flag_map = prefixed_flag_map
         @prefix = prefix
       end
     end
 
     def value_of(flag)
       prefixed_flag = :"#{prefix}#{flag.upcase}"
-      flag_map[prefixed_flag]
+      prefixed_flag_map[prefixed_flag]
+    end
+
+    def remove_prefix(prefixed_flag)
+      prefixed_flag[prefix.size..].downcase.to_sym
+    end
+
+    def flags
+      @flags ||= prefixed_flag_map.keys.map { |prefixed_flag| remove_prefix(prefixed_flag) }
     end
   end
 
   attr_reader :value
 
-  def initialize(*flags, value: 0)
+  def initialize(*flags, value: 0 , all: false)
     @value = value
+    flags = self.class.flags if all
     flags.each { |flag| add(flag) }
   end
 
@@ -44,10 +53,10 @@ class Lummox::Helpers::FlagSet
 
   def to_a
     prefix_size = self.class.prefix.size
-    self.class.flag_map
+    self.class.prefixed_flag_map
         .select { |_k, v| value_include?(v) }
         .keys
-        .map { |flag| flag[prefix_size..].downcase.to_sym }
+        .map { |prefixed_flag| self.class.remove_prefix(prefixed_flag) }
   end
 
   private

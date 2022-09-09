@@ -2,7 +2,6 @@
   - window flags
   - message box flags
   - message box button flags
-  - init flags
   - audio spec format flags
   - renderer flags
   - renderer flip
