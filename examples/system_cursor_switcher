@@ -6,8 +6,6 @@ require "lummox"
 
 Lummox.init!
 
-window = Lummox::Window.new("Click to hide/show cursor, space to switch cursor", size: [480, 360])
-
 cursor_types = Lummox::Mouse::Cursor::SDL_CURSOR_TYPES.map { |t| t[14..-1].to_sym }.cycle
 
 Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
@@ -31,6 +29,8 @@ Lummox::EventDispatcher.add_event_listener(:mouse_button_down) do |event|
 end
 
 Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("Click to hide/show cursor, space to switch cursor", size: [480, 360])
 Lummox::EventDispatcher.dispatch_events until window.closed?
 
 Lummox.quit!

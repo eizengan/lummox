@@ -6,15 +6,14 @@ require "lummox"
 
 Lummox.init!
 
-window = Lummox::Window.new("A Test Window", size: [480, 360])
-puts "Window created with ID #{window.id}"
-
-Lummox::EventDispatcher.add_event_listener(:mouse_wheel) { |event| puts "#{event.direction} x#{event.x}" if event.x < -2 }
-Lummox::EventDispatcher.add_event_listener(:mouse_wheel) { |event| puts "#{event.direction} x+#{event.x}" if event.x > 2 }
-Lummox::EventDispatcher.add_event_listener(:mouse_wheel) { |event| puts "#{event.direction} y#{event.y}" if event.y < -2 }
-Lummox::EventDispatcher.add_event_listener(:mouse_wheel) { |event| puts "#{event.direction} y+#{event.y}" if event.y > 2 }
+Lummox::EventDispatcher.add_event_listener(:mouse_wheel) { |event| puts "#{event.direction} x#{event.x}" }
+Lummox::EventDispatcher.add_event_listener(:mouse_wheel) { |event| puts "#{event.direction} x+#{event.x}" }
+Lummox::EventDispatcher.add_event_listener(:mouse_wheel) { |event| puts "#{event.direction} y#{event.y}" }
+Lummox::EventDispatcher.add_event_listener(:mouse_wheel) { |event| puts "#{event.direction} y+#{event.y}" }
 
 Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("A Test Window", size: [480, 360])
 Lummox::EventDispatcher.dispatch_events until window.closed?
 
 Lummox.quit!

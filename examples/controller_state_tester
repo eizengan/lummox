@@ -7,9 +7,6 @@ require "pry-byebug"
 
 Lummox.init!
 
-window = Lummox::Window.new("Press start to break, test controller state", size: [480, 360])
-puts "Window created with ID #{window.id}"
-
 Lummox::EventDispatcher.add_event_listener(:controller_device_added) { |event| Lummox::Controller.new(event.joystick_index) }
 Lummox::EventDispatcher.add_event_listener(:controller_device_removed) { |event| event.controller.close! }
 
@@ -22,6 +19,8 @@ Lummox::EventDispatcher.add_event_listener(:controller_button_down) do |event|
 end
 
 Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("Press start to break, test controller state", size: [480, 360])
 Lummox::EventDispatcher.dispatch_events until window.closed?
 
 Lummox.quit!

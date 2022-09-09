@@ -6,12 +6,11 @@ require "lummox"
 
 Lummox.init!
 
-window = Lummox::Window.new("A Test Window", size: [480, 360])
-puts "Window created with ID #{window.id}"
-
 Lummox::EventDispatcher.add_event_listener(:mouse_motion) { |event| puts event.inspect }
 
 Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("A Test Window", size: [480, 360])
 Lummox::EventDispatcher.dispatch_events until window.closed?
 
 Lummox.quit!

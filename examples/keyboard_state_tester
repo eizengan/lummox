@@ -7,9 +7,6 @@ require "pry-byebug"
 
 Lummox.init!
 
-window = Lummox::Window.new("Press spacebar to break, test keyboard state", size: [480, 360])
-puts "Window created with ID #{window.id}"
-
 Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
   next unless event.keycode == :keycode_space
 
@@ -18,6 +15,8 @@ Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
 end
 
 Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("Press spacebar to break, test keyboard state", size: [480, 360])
 Lummox::EventDispatcher.dispatch_events until window.closed?
 
 Lummox.quit!

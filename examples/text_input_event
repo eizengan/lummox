@@ -6,9 +6,6 @@ require "lummox"
 
 Lummox.init!
 
-window = Lummox::Window.new("Text editing event tests", size: [480, 360])
-puts "Window created with ID #{window.id}"
-
 Lummox::Keyboard.text_input_enabled = true
 puts "Dispatching text input events" if Lummox::Keyboard.text_input_enabled?
 
@@ -16,6 +13,8 @@ Lummox::EventDispatcher.add_event_listener(:text_editing) { |e| puts e.inspect }
 Lummox::EventDispatcher.add_event_listener(:text_input) { |e| puts e.inspect }
 
 Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("Text editing event tests", size: [480, 360])
 Lummox::EventDispatcher.dispatch_events until window.closed?
 
 Lummox.quit!
