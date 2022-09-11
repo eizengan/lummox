@@ -10,7 +10,6 @@
   - renderer flip
   - keymod?
   - joystick hat?
-- ControllerDeviceEvent#controller, joystick_index vs joystick_instance_id - working?
 - explore scancode/keycode/name when scancode/keycode are not in-sync
   - safe to add KeyboardEvent#name?
   - safe to add Keyboard#pressed?(name)?

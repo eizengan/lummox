@@ -4,18 +4,20 @@ class Lummox::Event::ControllerDeviceEvent < Lummox::Event
   SDL_EVENT_FIELD = :controller_device_event
 
   def joystick_index
-    raise Lummox::SDLError, "No joystick_index for type '#{type}'" unless type == :controller_device_added
+    return sdl_event[:which] if type == :controller_device_added
 
-    sdl_event[:which]
+    raise Lummox::SDLError, "No joystick_index for type '#{type}'"
   end
 
   def joystick_instance_id
-    raise Lummox::SDLError, "No joystick_instance_id for type '#{type}'" if type == :controller_device_added
+    return sdl_event[:which] unless type == :controller_device_added
 
-    sdl_event[:which]
+    raise Lummox::SDLError, "No joystick_instance_id for type 'controller_device_added'"
   end
 
   def controller
+    return nil if type == :controller_device_added
+
     @controller ||= Lummox::Controller.from_instance_id(joystick_instance_id)
   end
 
