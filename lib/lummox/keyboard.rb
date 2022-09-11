@@ -16,6 +16,12 @@ class Lummox::Keyboard
   def_delegators :instance, :pressed?
 
   class << self
+    # TRICKY: We want to be able to assume (keycode, scancode, name) tuples, but this is not how SDL works with layouts
+    # like DVORAK where scan and keycodes differ; for example:
+    # :scancode_d ->  :keycode_e, "d"
+    #  :keycode_e -> :scancode_d, "e"
+    # We choose to standaradize around name being what would be printed by they keypress, i.e. name is 1-to-1 with
+    # keycode and vice-versa
     def keycode_for(scancode_or_name)
       if scancode_or_name.is_a? Symbol
         Lummox::SDL.get_key_from_scancode(scancode_or_name)
@@ -25,19 +31,13 @@ class Lummox::Keyboard
     end
 
     def scancode_for(keycode_or_name)
-      if keycode_or_name.is_a? Symbol
-        Lummox::SDL.get_scancode_from_key(keycode_or_name)
-      else
-        Lummox::SDL.get_scancode_from_name(keycode_or_name)
-      end
+      keycode = keycode_or_name.is_a?(String) ? keycode_for(keycode_or_name) : keycode_or_name
+      Lummox::SDL.get_scancode_from_key(keycode)
     end
 
     def name_for(scancode_or_keycode)
-      if scancode_or_keycode.match?(/scancode_.*/)
-        Lummox::SDL.get_scancode_name(scancode_or_keycode)
-      else
-        Lummox::SDL.get_key_name(scancode_or_keycode)
-      end
+      keycode = scancode_or_keycode.match?(/scancode_.*/) ? keycode_for(scancode_or_keycode) : scancode_or_keycode
+      Lummox::SDL.get_key_name(keycode)
     end
 
     def focused_window
@@ -70,20 +70,20 @@ class Lummox::Keyboard
     @keyboard_state = Lummox::SDL.get_keyboard_state(nil)
   end
 
-  def pressed?(scancode_or_keycode)
-    index = keyboard_state_index_for(scancode_or_keycode)
+  def pressed?(identifier)
+    index = keyboard_state_index_for(identifier)
     return !@keyboard_state.get(:uint8, index).zero? unless index.nil?
 
-    raise Lummox::SDLError, "Unknown keycode or scancode '#{scancode_or_keycode}'"
+    raise Lummox::SDLError, "Unknown key identifier '#{identifier}'"
   end
 
   private
 
-  def keyboard_state_index_for(scancode_or_keycode)
-    scancode = if scancode_or_keycode.match?(/scancode_.*/)
-                 scancode_or_keycode
+  def keyboard_state_index_for(identifier)
+    scancode = if identifier.match?(/scancode_.*/)
+                 identifier
                else
-                 self.class.scancode_for(scancode_or_keycode)
+                 self.class.scancode_for(identifier)
                end
 
     Lummox::SDL::Scancode[scancode]

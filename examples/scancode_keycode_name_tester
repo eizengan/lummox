@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
+  scancode_name = Lummox::Keyboard.name_for(event.scancode)
+  keycode_name = Lummox::Keyboard.name_for(event.keycode)
+
+  puts <<~TRANSLATIONS
+    \n#{event.scancode}
+    -----------------
+    to keycode: #{Lummox::Keyboard.keycode_for(event.scancode)}
+    to name: "#{scancode_name}"
+    to name to keycode: #{Lummox::Keyboard.keycode_for(scancode_name)}
+    to name to scancode: #{Lummox::Keyboard.scancode_for(scancode_name)}
+
+    #{event.keycode}
+    -----------------
+    to scancode: #{Lummox::Keyboard.scancode_for(event.keycode)}
+    to name: "#{keycode_name}"
+    to name to keycode: #{Lummox::Keyboard.keycode_for(keycode_name)}
+    to name to scancode: #{Lummox::Keyboard.scancode_for(keycode_name)}
+  TRANSLATIONS
+end
+
+Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("A Test Window", size: [480, 360])
+Lummox::EventDispatcher.dispatch_events until window.closed?
+
+Lummox.quit!
+
+puts "all done!"

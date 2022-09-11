@@ -9,9 +9,17 @@
   - additional underscores for readability
   - keycode symbols because they're bad
 
+# On keyboard button representation
+- keycode and scancode are both helpful
+  - scancode for positional controls (WASD for movement)
+  - keycode for "named" controls (I to open inventory)
+- names are not helpful because they are not stable when scancode != keycode (e.g. DVORAK)
+  - name -> scancode
+  - name -> keycode -> scancode
+- normalizing (scancode, keycode, name) pairing will make name more helpful
+- we choose to normalize pairing as (scancode, keycode, name(keycode))
 
 #  Windows install
-
 - install chocolately
 - install ruby via chocolatey
   - `choco install ruby --version=[VERSION] --side-by-side`

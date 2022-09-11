@@ -1,7 +1,4 @@
 - additional window flag methods
-- explore scancode/keycode/name when scancode/keycode are not in-sync
-  - safe to add KeyboardEvent#name?
-  - safe to add Keyboard#pressed?(name)?
 - display modes by index - what happens after disconnect, reconnect?
   - also mice
 - figure out mouse state button macros https://wiki.libsdl.org/SDL_GetMouseState#remarks

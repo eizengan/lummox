@@ -21,6 +21,10 @@ class Lummox::Event::KeyboardEvent < Lummox::Event
     keysym[:scancode]
   end
 
+  def name
+    @name ||= Lummox::Keyboard.name_for(keycode)
+  end
+
   def inspect
     "#<#{self.class} type=#{type} keycode=#{keycode} scancode=#{scancode}>"
   end
