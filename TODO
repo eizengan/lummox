@@ -1,5 +1,8 @@
+- window resize, border, fullscreen revamp
+  - allowed to change when fullscreen?
+  - return whether changed instead of raising error?
+  - other flag methods?
 - use helper for flags-type enums
-  - window flags
   - message box flags
   - message box button flags
   - audio spec format flags

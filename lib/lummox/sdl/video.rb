@@ -6,7 +6,6 @@
 # - SDL_SetWindowGammaRamp
 # - SDL_GetGrabbedWindow
 # - SDL_SetWindowIcon
-# - SDL_GetWindowFlags
 # - SDL_GetWindowPixelFormat
 # - SDL_SetWindowHitTest
 # - SDL_HitTestResult
@@ -96,12 +95,13 @@ module Lummox::SDL::Video
       attach_sdl_function :get_current_video_driver, [], :string
       attach_sdl_function :get_video_driver, [:int], :string
       # Windows
-      #   Creation, identification, ownership
+      #   Creation, identification, ownership, flags
       attach_sdl_function :create_window, %i[string int int int int uint32], :window_pointer # nil if error, free with destroy_window
       attach_sdl_function :destroy_window, [:window_pointer], :void
       attach_sdl_function :set_window_modal_for, %i[window_pointer window_pointer], :int # negative if error
       attach_sdl_function :get_window_from_id, [:window_id], :window_pointer, sdl_method_name: :SDL_GetWindowFromID # nil if error
       attach_sdl_function :get_window_id, [:window_pointer], :window_id, sdl_method_name: :SDL_GetWindowID # 0 if error
+      attach_sdl_function :get_window_flags, [:window_pointer], :uint32
       #   Display, display mode
       attach_sdl_function :get_window_display_index, [:window_pointer], :int
       attach_sdl_function :get_window_display_mode, [:window_pointer, DisplayMode.by_ref], :int # negative if error

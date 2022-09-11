@@ -9,20 +9,17 @@ require "ffi"
 # rubocop:disable Metrics/ClassLength
 
 class Lummox::Window
+  WindowFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::WINDOW_FLAGS, prefix: :WINDOW_) # rubocop:disable Style/MutableConstant
+
   include Lummox::Helpers::InstanceRegistry
 
   attr_reader :pointer, :title
 
-  # TODO: opts to set up flags, ability to ingest raw flags
-  def initialize(title, size:, position: nil)
+  def initialize(title, size:, position: nil, flags: [:opengl])
     position = translate_position(position)
 
     @title = title
-    @fullscreen = false
-    @bordered = true
-    @resizable = false
-    flags = Lummox::SDL::WINDOW_FLAGS[:WINDOW_OPENGL]
-    @pointer = create_managed_pointer(title, position, size, flags)
+    @pointer = create_managed_pointer(title, position, size, WindowFlags.new(*flags).value)
     self.class.register_instance(pointer.address, self)
   end
 
@@ -48,15 +45,13 @@ class Lummox::Window
   def fullscreen=(option)
     if option
       enable_fullscreen(desktop: option == :desktop)
-      @fullscreen = true
     else
       disable_fullscreen
-      @fullscreen = false
     end
   end
 
   def fullscreen?
-    @fullscreen
+    window_flags_include?(:fullscreen)
   end
 
   def display_mode
@@ -71,26 +66,24 @@ class Lummox::Window
     Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_display_mode(pointer, display_mode) }
   end
 
-  def bordered=(bordered)
+  def borderless=(borderless)
     raise Lummox::SDLError, "Fullscreen windows cannot change bordered state" if fullscreen?
 
-    Lummox::SDL.set_window_bordered(pointer, bordered.to_s.to_sym)
-    @bordered = bordered
+    Lummox::SDL.set_window_bordered(pointer, :"#{!borderless}")
   end
 
-  def bordered?
-    @bordered
+  def borderless?
+    window_flags_include?(:borderless)
   end
 
   def resizable=(resizable)
     raise Lummox::SDLError, "Fullscreen windows cannot change resizability state" if fullscreen?
 
-    Lummox::SDL.set_window_resizable(pointer, resizable.to_s.to_sym)
-    @resizable = resizable
+    Lummox::SDL.set_window_resizable(pointer, :"#{resizeable}")
   end
 
   def resizable?
-    @resizable
+    window_flags_include?(:resizable)
   end
 
   def title=(new_title)
@@ -213,10 +206,15 @@ class Lummox::Window
 
   private
 
+  def window_flags_include?(flag)
+    flags_value = Lummox::SDL.get_window_flags(pointer)
+    WindowFlags.new(value: flags_value).include?(flag)
+  end
+
   def enable_fullscreen(desktop:)
-    flag_name = desktop ? :WINDOW_FULLSCREEN_DESKTOP : :WINDOW_FULLSCREEN
-    flag = Lummox::SDL::WINDOW_FLAGS[flag_name]
-    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_fullscreen(pointer, flag) }
+    flag_name = desktop ? :fullscreen_desktop : :fullscreen
+    flag_value = WindowFlags.new(flag_name).value
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_window_fullscreen(pointer, flag_value) }
   end
 
   def disable_fullscreen
