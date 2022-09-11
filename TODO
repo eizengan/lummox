@@ -1,7 +1,7 @@
 - additional window flag methods
+ - play with show/hidden
 - display modes by index - what happens after disconnect, reconnect?
   - also mice
-- figure out mouse state button macros https://wiki.libsdl.org/SDL_GetMouseState#remarks
 - testing
   - fix existing tests
   - strategize tests for FFI wrapper

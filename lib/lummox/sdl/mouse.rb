@@ -4,6 +4,14 @@
 # - SDL_CreateColorCursor
 # - SDL_CreateCursor
 module Lummox::SDL::Mouse
+  BUTTON = {
+    BUTTON_LEFT: 0x01,
+    BUTTON_MIDDLE: 0x2,
+    BUTTON_RIGHT: 0x04,
+    BUTTON_X1: 0x08, # rubocop:disable Naming/VariableNumber
+    BUTTON_X2: 0x10 # rubocop:disable Naming/VariableNumber
+  }.freeze
+
   # TODO: Move this to SDL::Touch upon implementing
   TOUCH_MOUSE_ID = 0xffffffff
 

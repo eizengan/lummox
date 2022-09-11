@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+require "pry-byebug"
+
+Lummox.init!
+
+Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
+  next unless event.keycode == :keycode_space
+
+  puts "Test buttons with Lummox::Mouse.pressed?(...)"
+  binding.pry
+end
+
+Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("Press spacebar to break, test mouse state", size: [480, 360])
+Lummox::EventDispatcher.dispatch_events until window.closed?
+
+Lummox.quit!
+
+puts "all done!"

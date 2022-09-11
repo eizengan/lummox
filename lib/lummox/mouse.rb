@@ -12,10 +12,12 @@ require "singleton"
 # - capture_mouse, [:bool], :int # negative if error
 # IGNORE:
 class Lummox::Mouse
+  ButtonFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::BUTTON, prefix: :BUTTON_) # rubocop:disable Style/MutableConstant
+
   include Singleton
   extend SingleForwardable
 
-  def_delegators :instance, :focused_window, :relative?, :relative=, :warp_to, :position
+  def_delegators :instance, :focused_window, :relative?, :relative=, :warp_to, :position, :pressed?
 
   def initialize
     @x_pointer = Lummox::SDL::IntPtr.new
@@ -54,5 +56,10 @@ class Lummox::Mouse
     end
 
     [@x_pointer.value, @y_pointer.value]
+  end
+
+  def pressed?(button)
+    sdl_button_flags = Lummox::SDL.get_mouse_state(@x_pointer, @y_pointer)
+    ButtonFlags.new(value: sdl_button_flags).include?(button)
   end
 end
