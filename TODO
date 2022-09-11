@@ -1,7 +1,4 @@
-- window resize, border, fullscreen revamp
-  - allowed to change when fullscreen?
-  - return whether changed instead of raising error?
-  - other flag methods?
+- additional window flag methods
 - use helper for flags-type enums
   - message box flags
   - message box button flags

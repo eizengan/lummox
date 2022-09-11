@@ -1,0 +1,35 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
+  next unless %i[keycode_r keycode_b keycode_f].include? event.keycode
+
+  puts <<~STATE_MESSAGE
+    \n#{event.keycode} was pressed
+    -------------------------------
+    before change:
+    fullscreen: #{event.window.fullscreen?}
+    borderless: #{event.window.borderless?}
+    resizable: #{event.window.resizable?}
+    -------------------------------
+    after change:
+  STATE_MESSAGE
+
+  puts "fullscreen: #{event.window.fullscreen = !event.window.fullscreen?}" if event.keycode == :keycode_f
+  puts "borderless: #{event.window.borderless = !event.window.borderless?}" if event.keycode == :keycode_b
+  puts "resizable: #{event.window.resizable = !event.window.resizable?}" if event.keycode == :keycode_r
+end
+
+Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+window = Lummox::Window.new("A Test Window", size: [480, 360])
+Lummox::EventDispatcher.dispatch_events until window.closed?
+
+Lummox.quit!
+
+puts "all done!"

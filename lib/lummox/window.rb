@@ -48,6 +48,7 @@ class Lummox::Window
     else
       disable_fullscreen
     end
+    fullscreen?
   end
 
   def fullscreen?
@@ -67,9 +68,8 @@ class Lummox::Window
   end
 
   def borderless=(borderless)
-    raise Lummox::SDLError, "Fullscreen windows cannot change bordered state" if fullscreen?
-
     Lummox::SDL.set_window_bordered(pointer, :"#{!borderless}")
+    borderless?
   end
 
   def borderless?
@@ -77,9 +77,8 @@ class Lummox::Window
   end
 
   def resizable=(resizable)
-    raise Lummox::SDLError, "Fullscreen windows cannot change resizability state" if fullscreen?
-
-    Lummox::SDL.set_window_resizable(pointer, :"#{resizeable}")
+    Lummox::SDL.set_window_resizable(pointer, :"#{resizable}")
+    resizable?
   end
 
   def resizable?
