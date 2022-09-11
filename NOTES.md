@@ -7,7 +7,7 @@
   - SDL_ prefixes removed
   - case based on ruby-side norms to avoid surprise
   - additional underscores for readability
-  - keycode, keymod symbols because they're bad
+  - keycode symbols because they're bad
 
 
 #  Windows install
