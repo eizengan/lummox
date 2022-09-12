@@ -9,25 +9,31 @@ Lummox.init!
 Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
   next unless %i[keycode_r keycode_b keycode_f].include? event.keycode
 
+  display_settings = event.window.display_settings
+
   puts <<~STATE_MESSAGE
     \n#{event.keycode} was pressed
     -------------------------------
     before change:
-    fullscreen: #{event.window.fullscreen?}
-    borderless: #{event.window.borderless?}
-    resizable: #{event.window.resizable?}
+    fullscreen: #{display_settings.fullscreen?}
+    borderless: #{display_settings.borderless?}
+    resizable: #{display_settings.resizable?}
     -------------------------------
     after change:
   STATE_MESSAGE
 
-  puts "fullscreen: #{event.window.fullscreen = !event.window.fullscreen?}" if event.keycode == :keycode_f
-  puts "borderless: #{event.window.borderless = !event.window.borderless?}" if event.keycode == :keycode_b
-  puts "resizable: #{event.window.resizable = !event.window.resizable?}" if event.keycode == :keycode_r
+  puts "fullscreen: #{display_settings.fullscreen = !display_settings.fullscreen?}" if event.keycode == :keycode_f
+  puts "borderless: #{display_settings.borderless = !display_settings.borderless?}" if event.keycode == :keycode_b
+  puts "resizable: #{display_settings.resizable = !display_settings.resizable?}" if event.keycode == :keycode_r
 end
 
 Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
 
 window = Lummox::Window.new("A Test Window", size: [480, 360])
+window.display_settings.tap do |display_settings|
+  display_settings.minimum_size = [240, 180]
+  display_settings.maximum_size = [960, 720]
+end
 Lummox::EventDispatcher.dispatch_events until window.closed?
 
 Lummox.quit!
