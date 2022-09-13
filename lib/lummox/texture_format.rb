@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Lummox::PixelFormat
+class Lummox::TextureFormat
   def initialize(flag_value)
     @flag_value = flag_value
   end

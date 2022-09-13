@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+Lummox::Renderer::Driver.all_instances.each do |driver|
+  puts <<~DRIVER_INFO
+
+    #{driver.name.upcase}
+    ---------------------
+    type: #{driver.type}
+    vsync: #{driver.vsync?}
+    render-to-texture: #{driver.render_to_texture?}
+    texture formats:
+  DRIVER_INFO
+  driver.texture_formats.each { |f| puts "- #{f.inspect}" }
+end
