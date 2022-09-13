@@ -9,7 +9,7 @@ require "ffi"
 class Lummox::Window
   WindowFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::WINDOW_FLAGS, prefix: :WINDOW_) # rubocop:disable Style/MutableConstant
 
-  include Lummox::Helpers::InstanceRegistry
+  extend Lummox::Helpers::InstanceRegistry
 
   attr_reader :pointer, :title, :display_settings
 

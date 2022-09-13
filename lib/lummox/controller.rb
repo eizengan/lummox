@@ -17,7 +17,7 @@ class Lummox::Controller
   AXES = Set.new(Lummox::SDL::GameControllerAxis.symbols).freeze
   BUTTONS = Set.new(Lummox::SDL::GameControllerButton.symbols).freeze
 
-  include Lummox::Helpers::InstanceRegistry
+  extend Lummox::Helpers::InstanceRegistry
 
   attr_reader :pointer
 
