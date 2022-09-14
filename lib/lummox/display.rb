@@ -39,27 +39,27 @@ class Lummox::Display
   def display_modes
     size = Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.get_num_display_modes(display_index) }
     Array.new(size) do |mode_index|
-      display_mode = Lummox::DisplayMode.new
+      sdl_display_mode = Lummox::SDL::DisplayMode.new
       Lummox::SDLError.raise_if(:negative?) do
-        Lummox::SDL.get_display_mode(display_index, mode_index, display_mode.sdl_display_mode)
+        Lummox::SDL.get_display_mode(display_index, mode_index, sdl_display_mode)
       end
-      display_mode
+      Mode.new(sdl_display_mode)
     end
   end
 
   def current_display_mode
-    display_mode = Lummox::DisplayMode.new
+    sdl_display_mode = Lummox::SDL::DisplayMode.new
     Lummox::SDLError.raise_if(:negative?) do
-      Lummox::SDL.get_current_display_mode(display_index, display_mode.sdl_display_mode)
+      Lummox::SDL.get_current_display_mode(display_index, sdl_display_mode)
     end
-    display_mode
+    Mode.new(sdl_display_mode)
   end
 
   def desktop_display_mode
-    display_mode = Lummox::DisplayMode.new
+    sdl_display_mode = Lummox::SDL::DisplayMode.new
     Lummox::SDLError.raise_if(:negative?) do
-      Lummox::SDL.get_desktop_display_mode(display_index, display_mode.sdl_display_mode)
+      Lummox::SDL.get_desktop_display_mode(display_index, sdl_display_mode)
     end
-    display_mode
+    Mode.new(sdl_display_mode)
   end
 end

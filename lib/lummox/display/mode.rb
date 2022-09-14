@@ -2,7 +2,7 @@
 
 require "forwardable"
 
-class Lummox::DisplayMode
+class Lummox::Display::Mode
   extend Forwardable
 
   attr_reader :sdl_display_mode
@@ -13,12 +13,11 @@ class Lummox::DisplayMode
   def_delegator :sdl_display_mode, :h, :height
   def_delegator :sdl_display_mode, :h=, :height=
 
-  def initialize(sdl_display_mode = nil)
-    sdl_display_mode ||= Lummox::SDL::DisplayMode.new
+  def initialize(sdl_display_mode)
     @sdl_display_mode = sdl_display_mode
   end
 
   def inspect
-    "#<Lummox::DisplayMode #{width}x#{height} @ #{refresh_rate}Hz>"
+    "#<#{self.class} #{width}x#{height} @ #{refresh_rate}Hz>"
   end
 end

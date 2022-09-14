@@ -32,11 +32,11 @@ class Lummox::Window::DisplaySettings
   end
 
   def display_mode
-    display_mode = Lummox::DisplayMode.new
+    sdl_display_mode = Lummox::SDL::DisplayMode.new
     Lummox::SDLError.raise_if(:negative?) do
-      Lummox::SDL.get_window_display_mode(window.pointer, display_mode.sdl_display_mode)
+      Lummox::SDL.get_window_display_mode(window.pointer, sdl_display_mode)
     end
-    display_mode
+    Lummox::Display::Mode.new(sdl_display_mode)
   end
 
   def borderless=(borderless)
