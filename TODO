@@ -1,3 +1,8 @@
+- manipulate sdl_error traces for raise_current_error, raise_if, raise_unless
+- refactor window -> renderer connection/disconnection
+- created renderer flags config
+  - symbol array autosearch
+  - proc-based selection from Driver.all_instances
 - additional window flag methods
  - play with show/hidden
 - display modes by index - what happens after disconnect, reconnect?

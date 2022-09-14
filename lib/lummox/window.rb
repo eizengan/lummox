@@ -30,6 +30,8 @@ class Lummox::Window
   def close!
     self.class.deregister_instance(pointer.address)
     Lummox::SDL.destroy_window(pointer)
+    @renderer&.close!
+    @renderer = nil
     @pointer = FFI::Pointer::NULL
   end
 
@@ -111,6 +113,10 @@ class Lummox::Window
     opacity_pointer.value
   end
 
+  def renderer
+    @renderer ||= find_or_create_renderer
+  end
+
   private
 
   def create_managed_pointer(title, position, size, flags)
@@ -125,6 +131,17 @@ class Lummox::Window
       [Lummox::SDL::WINDOW_POS_CENTERED, Lummox::SDL::WINDOW_POS_CENTERED]
     else
       position_arg
+    end
+  end
+
+  def find_or_create_renderer
+    return nil if pointer.null?
+
+    renderer_pointer = Lummox::SDL.get_renderer(pointer)
+    if renderer_pointer.null?
+      Lummox::Renderer.new(self)
+    else
+      Lummox::Renderer.find_instance(renderer_pointer.address)
     end
   end
 end
