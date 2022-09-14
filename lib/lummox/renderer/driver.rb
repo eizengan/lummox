@@ -54,7 +54,7 @@ class Lummox::Renderer::Driver
 
   def texture_formats
     size = sdl_renderer_info.num_texture_formats
-    @texture_formats ||= Array.new(size) { |i| Lummox::TextureFormat.new(sdl_renderer_info.texture_formats[i]) }
+    @texture_formats ||= Array.new(size) { |i| Lummox::Texture::Format.new(sdl_renderer_info.texture_formats[i]) }
   end
 
   def inspect
