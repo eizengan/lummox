@@ -6,7 +6,7 @@ require "ffi"
 # IGNORE:
 # - set_window_modal_for - raises "That operation is not supported" MacOS; try Windows/Linux?
 
-class Lummox::Window
+class Lummox::Window # rubocop:disable Metrics/ClassLength
   WindowFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::WINDOW_FLAGS, prefix: :WINDOW_) # rubocop:disable Style/MutableConstant
 
   extend Lummox::Helpers::InstanceRegistry

@@ -65,14 +65,14 @@ class Lummox::TextureFormat
 
   def alpha?
     @alpha ||= case type_group
-    when :packed, :array
-      order.match?(/a/)
-    else
-      false
-    end
+               when :packed, :array
+                 order.include?("a")
+               else
+                 false
+               end
   end
 
-  def inspect
+  def inspect # rubocop:disable Metrics/AbcSize
     if special_format?
       "#<#{self.class} type=#{type} Bpp=#{bytes_per_pixel}>"
     elsif layout.nil?

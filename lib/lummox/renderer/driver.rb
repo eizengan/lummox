@@ -7,13 +7,15 @@ class Lummox::Renderer::Driver
 
   def self.all_instances
     num_drivers = Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.get_num_render_drivers }
-    Array.new(num_drivers) { Lummox::SDL::RendererInfo.new }
-         .each_with_index do |info, i|
-           Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.get_render_driver_info(i, info) }
-         end.map { |i| new(i) }
+    sdl_render_infos = Array.new(num_drivers) { Lummox::SDL::RendererInfo.new }
+    sdl_render_infos.each_with_index do |info, i|
+      Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.get_render_driver_info(i, info) }
+    end
+    sdl_render_infos.map { |i| new(i) }
   end
 
   attr_reader :sdl_renderer_info
+
   def_delegators :sdl_renderer_info, :name, :max_texture_width, :max_texture_height
 
   def initialize(sdl_renderer_info)

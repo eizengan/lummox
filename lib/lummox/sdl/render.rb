@@ -39,7 +39,7 @@ module Lummox::SDL::Render
       attach_sdl_function :get_num_render_drivers, [], :int # negative if error
       attach_sdl_function :get_render_driver_info, [:int, RendererInfo.by_ref], :int # negative if error
       attach_sdl_function :get_renderer_info, [:renderer_pointer, RendererInfo.by_ref], :int # negative if error
-      attach_sdl_function :get_renderer_output_size, [:renderer_pointer, :int_pointer, :int_pointer], :int # negative if error
+      attach_sdl_function :get_renderer_output_size, %i[renderer_pointer int_pointer int_pointer], :int # negative if error
       #   Targeting
       attach_sdl_function :render_target_supported, [:renderer_pointer], :bool
       attach_sdl_function :get_render_target, [:renderer_pointer], :texture_pointer
