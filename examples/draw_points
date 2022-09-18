@@ -1,0 +1,62 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+window = Lummox::Window.new("Space to change color, Return to change drawing type", size: [480, 360])
+window.renderer.color = [255, 255, 255, 255]
+
+# set up points
+num_points = 50
+x_margin = (window.display_settings.size[0].to_f - num_points) / (num_points + 1)
+points = Array.new(num_points) do |index|
+  x = x_margin + (1 + x_margin) * index
+  Lummox::Point.new(x, 0)
+end
+
+# set up drawing type switching
+drawing_types = %i[points_float lines_float].cycle
+points.drawing_type = drawing_types.next
+Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
+  next unless event.keycode == :keycode_return
+
+  points.drawing_type = drawing_types.next
+end
+
+# set up color switching
+Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
+  next unless event.keycode == :keycode_space
+
+   random_color = Array.new(3) { Random.rand(0..2) * 127 }.push(255)
+   window.renderer.color = random_color
+end
+
+# set up window close
+Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+
+# main loop
+init_time = Time.now
+phase_multiplier = (2 * Math::PI) / num_points
+amplitude = 0.5 * (window.display_settings.size[1] - 1)
+until window.closed?
+  # update
+  offset = Time.now - init_time
+  points.each_with_index do |point, index|
+    point.y = amplitude * (1 + Math.sin(phase_multiplier * index + offset))
+  end
+
+  # draw
+  window.clear
+  window.draw(points)
+  window.present
+
+  # consume events
+  Lummox::EventDispatcher.dispatch_events
+end
+
+Lummox.quit!
+
+puts "all done!"

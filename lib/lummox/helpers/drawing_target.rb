@@ -6,4 +6,8 @@ module Lummox::Helpers::DrawingTarget
       Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.render_clear(renderer.pointer) }
     end
   end
+
+  def draw(drawable)
+    drawable.draw(renderer)
+  end
 end
