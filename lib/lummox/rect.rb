@@ -29,12 +29,12 @@ class Lummox::Rect
     [width, height]
   end
 
-  def sdl_rect
-    Lummox::SDL::Rect.new(x: x, y: y, w: width, h: height)
+  def sdl_rect(pointer = nil)
+    Lummox::SDL::Rect.new(pointer, x: x, y: y, w: width, h: height)
   end
 
-  def sdl_frect
-    Lummox::SDL::FRect.new(x: x, y: y, w: width, h: height)
+  def sdl_frect(pointer = nil)
+    Lummox::SDL::FRect.new(pointer, x: x, y: y, w: width, h: height)
   end
 
   def inspect
