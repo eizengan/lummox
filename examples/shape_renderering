@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+class Renderer
+  def pointer
+    :renderer_pointer
+  end
+end
+
+renderer = Renderer.new
+
+point = Lummox::Point.new(2.5, 10.3)
+point.draw(renderer)
+point.drawing_type = :point_float
+point.draw(renderer)
+
+rect = Lummox::Rect.new(0.5, 0.75, 10.4, 10.2)
+rect.draw(renderer)
+rect.drawing_type = :fill_rect
+rect.draw(renderer)
+rect.drawing_type = :rect_float
+rect.draw(renderer)
+rect.drawing_type = :fill_rect_float
+rect.draw(renderer)
+
+Lummox.quit!

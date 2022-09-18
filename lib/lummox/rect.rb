@@ -1,6 +1,13 @@
 # frozen_string_literal: true
 
 class Lummox::Rect
+  extend Lummox::Helpers::Drawable
+  self.default_drawing_type = :rect
+  register_drawing_method :rect, :render_draw_rect, &:itself
+  register_drawing_method :rect_float, :render_draw_rect_f, &:itself
+  register_drawing_method :fill_rect, :render_fill_rect, &:itself
+  register_drawing_method :fill_rect_float, :render_fill_rect_f, &:itself
+
   attr_accessor :x, :y, :width, :height
 
   # rubocop:disable Metrics/MethodLength, Metrics/ParameterLists
