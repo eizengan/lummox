@@ -37,7 +37,27 @@ class Lummox::Renderer
     size_pointers.map(&:value)
   end
 
+  def color=(color)
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.set_render_draw_color(pointer, *color) }
+  end
+
+  def color
+    Lummox::SDLError.raise_if(:negative?) { Lummox::SDL.get_render_draw_color(pointer, *color_pointers) }
+    color_pointers.map(&:value)
+  end
+
+  def with_color(temporary_color, &action)
+    color_to_restore = color
+    self.color = temporary_color
+    action.call
+    self.color = color_to_restore
+  end
+
   private
+
+  def color_pointers
+    @color_pointers ||= Array.new(4) { Lummox::SDL::Uint8Ptr.new }
+  end
 
   def create_managed_pointer(window)
     flags = RendererFlags.new(:accelerated, :present_vsync, :target_texture)

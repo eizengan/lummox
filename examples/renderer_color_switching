@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+window = Lummox::Window.new("A Test Window", size: [480, 360])
+
+puts "default color: #{window.renderer.color}"
+
+window.renderer.color = [0, 0, 255, 255]
+puts "changed color: #{window.renderer.color}"
+
+window.renderer.color = [0, 0, 0, 255]
+puts "before color: #{window.renderer.color}"
+window.renderer.with_color([255, 255, 255, 255]) { puts "temp color: #{window.renderer.color}" }
+puts "after color: #{window.renderer.color}"
+
+Lummox.quit!
+
+puts "all done!"
