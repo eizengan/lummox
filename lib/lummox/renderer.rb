@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+# - render_copy
+# - render_copy_f
+# - render_copy_ex
+# - render_copy_ex_f
 class Lummox::Renderer
   RendererFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::RENDERER_FLAGS, prefix: :RENDERER_) # rubocop:disable Style/MutableConstant
 

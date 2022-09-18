@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative "lummox/zeitwerk"
+Dir[ "#{__dir__}/lummox/core_extensions/**/*.rb"].sort.each { |f| require f }
 
 module Lummox
   def configuration

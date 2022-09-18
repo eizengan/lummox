@@ -1,3 +1,4 @@
+- disable core extensions in config
 - manipulate sdl_error traces for raise_current_error, raise_if, raise_unless
 - refactor window -> renderer connection/disconnection
 - created renderer flags config

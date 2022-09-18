@@ -18,6 +18,7 @@ Zeitwerk::Loader.new.tap do |loader|
     )
   end
   loader.do_not_eager_load(__FILE__)
+  loader.do_not_eager_load("#{__dir__}/core_extensions")
   loader.push_dir(File.realpath(module_dir))
   loader.setup
 end
