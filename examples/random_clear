@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "bundler/setup"
+require "lummox"
+
+Lummox.init!
+
+window = Lummox::Window.new("Press spacebar to clear with a random color", size: [480, 360])
+window.renderer # init here to avoid lag on first render call
+
+Lummox::EventDispatcher.add_event_listener(:key_down) do |event|
+  next unless event.keycode == :keycode_space
+
+  color = Array.new(3) { Random.rand(0..2) * 127 }.push(255)
+  window.clear(color)
+  window.present
+end
+
+Lummox::EventDispatcher.add_event_listener(:window_event) { |event| event.window.close! if event.close? }
+Lummox::EventDispatcher.dispatch_events until window.closed?
+
+Lummox.quit!
+
+puts "all done!"

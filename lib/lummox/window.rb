@@ -10,6 +10,7 @@ class Lummox::Window # rubocop:disable Metrics/ClassLength
   WindowFlags = Lummox::Helpers::FlagSet.for(Lummox::SDL::WINDOW_FLAGS, prefix: :WINDOW_) # rubocop:disable Style/MutableConstant
 
   extend Lummox::Helpers::InstanceRegistry
+  include Lummox::Helpers::DrawingTarget
 
   attr_reader :pointer, :title, :display_settings
 
@@ -115,6 +116,10 @@ class Lummox::Window # rubocop:disable Metrics/ClassLength
 
   def renderer
     @renderer ||= find_or_create_renderer
+  end
+
+  def present
+    Lummox::SDL.render_present(renderer.pointer)
   end
 
   private
